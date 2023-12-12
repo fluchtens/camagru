@@ -13,6 +13,8 @@ services:
       - 3306:3306
     volumes:
       - db:/var/lib/mysql
+    networks:
+      - camagru
     restart: always
 
   phpmyadmin:
@@ -25,18 +27,28 @@ services:
       PMA_HOST: ${PMA_HOST}
     ports:
       - 8081:80
+    networks:
+      - camagru
     restart: always
 
   app:
     container_name: camagru-app
-    image: php:7.4-apache
+    image: camagru-app
+    build:
+      dockerfile: Dockerfile
     depends_on:
       - db
     ports:
       - 8080:80
     volumes:
       - ./app:/var/www/html
+    networks:
+      - camagru
     restart: always
+
+networks:
+  camagru:
+    name: camagru
 
 volumes:
   db:
