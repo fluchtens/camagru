@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  db:
+    container_name: camagru-db
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+    restart: always
+
+  phpmyadmin:
+    container_name: camagru-phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_ARBITRARY: ${PMA_ARBITRARY}
+      PMA_HOST: ${PMA_HOST}
+    ports:
+      - "8081:80"
+    restart: always
+
+volumes:
+  db:
