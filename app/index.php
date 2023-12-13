@@ -1,21 +1,22 @@
 <?php
+// header("refresh: 0");
 
-$servername = "db";
-$username = "fluchten";
-$password = "19";
-$dbname = "camagru";
+require 'database.php';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Error: " . $conn->connect_error);
+$conn = connectToDatabase();
+
+$sql = "SELECT * FROM users";
+$result = $conn->query($sql);
+if ($result) {
+  $users = array();
+  while ($row = $result->fetch_assoc()) {
+    $users[] = $row;
+  }
+} else {
+  echo "Error: " . $conn->error;
 }
 
-echo "Connected to the database successfully";
-
 $conn->close();
-
-header("refresh: 3"); 
-
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +25,35 @@ header("refresh: 3");
   <title>camagru</title>
 </head>
 <body>
-  <?php echo '<p>Hello World</p>'; ?>
+  <h1>Users</h1>
+  <table id="myTable">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>username</th>
+        <th>password</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+      echo "<script>";
+      echo "var jsonData = " . json_encode($users) . ";";
+      echo "</script>";
+      ?>
+    </tbody>
+  </table>
+  <script>
+    const myTable = document.getElementById('myTable');
+    const tbody = myTable.getElementsByTagName('tbody')[0];
+    jsonData.forEach((data) => {
+      const row = tbody.insertRow();
+      const cell1 = row.insertCell(0);
+      const cell2 = row.insertCell(1);
+      const cell3 = row.insertCell(2);
+      cell1.innerHTML = data.id;
+      cell2.innerHTML = data.username;
+      cell3.innerHTML = data.password;
+    });
+  </script>
 </body>
 </html>
