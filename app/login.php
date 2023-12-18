@@ -14,8 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "INSERT INTO user (username, password) VALUES ('$username', '$hashed_password')";
     
         if ($conn->query($sql) === TRUE) {
+            echo "User registered successfully";
             header("Location: login.php");
-            exit();
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
