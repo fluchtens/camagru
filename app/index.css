@@ -1,0 +1,53 @@
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #f5f5f5;
+}
+
+header {
+  padding: 1.5rem 1rem 1.5rem 1rem;
+  border-bottom: 1px solid #555555;
+}
+
+header .container {
+  max-width: 1024px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+header .main-link {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: black;
+}
+
+header .login-btn {
+  padding: 0.5rem 0.625rem;
+  border-radius: 0.375rem;
+  background: #0095f6;
+  text-decoration: none;
+}
+
+header .login-btn button {
+  all: unset;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: white;
+  cursor: pointer;
+}
+
+main {
+  padding: 1.5rem 1rem 1.5rem 1rem;
+}
+
+main .container {
+  max-width: 1024px;
+  margin: auto;
+}
