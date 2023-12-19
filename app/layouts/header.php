@@ -1,6 +1,8 @@
 <header>
     <div class="container">
-        <a class="main-link" href="/">camagru</a>
+        <a class="main-link" href="/">
+            <img src="assets/camagru.png" alt="camagru.png">
+        </a>
         <div class="links-container">
             <a class="login-btn" href="auth/login.php">
                 <button>Log In</button>
