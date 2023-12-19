@@ -1,6 +1,12 @@
 <?php
 require '../database.php';
 
+session_start();
+if (isset($_SESSION['id'])) {
+    header("Location: ../index.php");
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = connectToDatabase();   
     $username = htmlspecialchars($_POST['username']);

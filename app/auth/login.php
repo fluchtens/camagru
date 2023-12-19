@@ -2,6 +2,11 @@
 require '../database.php';
 
 session_start();
+if (isset($_SESSION['id'])) {
+    header("Location: ../index.php");
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = connectToDatabase();   
     $username = htmlspecialchars($_POST['username']);
@@ -15,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
+
             if (password_verify($password, $row['password'])) {
                 $_SESSION['id'] = $row['id'];
                 header("Location: ../index.php");
