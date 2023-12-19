@@ -48,3 +48,17 @@ button {
 button:hover {
   background-color: #45a049;
 }
+
+p {
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 300;
+  color: #555555;
+}
+
+a {
+  font-weight: 500;
+  text-decoration: none;
+  color: #555555;
+}

@@ -44,6 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" name="username" placeholder="Enter your username" required>
             <input type="password" name="password" placeholder="Enter your password" required>
             <button type="submit">Submit</button>
+            <p>Don't have an account yet? <a href="register.php">Sign up</a></p>
         </form>
     </main>
 </body>
