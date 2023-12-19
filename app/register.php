@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1>Register a new account</h1>
         <form method="POST" action="">
             <input type="text" name="username" autocomplete="off" placeholder="Enter your username" required>
-            <input type="text" name="password" autocomplete="off" placeholder="Enter your password" required>
+            <input type="password" name="password" autocomplete="off" placeholder="Enter your password" required>
             <button type="submit">Submit</button>
         </form>
     </main>
