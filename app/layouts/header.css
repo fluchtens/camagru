@@ -1,0 +1,60 @@
+header {
+  padding: 0.75rem 1rem 0.75rem 1rem;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+header .container {
+  max-width: 1024px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .main-link {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: black;
+}
+
+header .links-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+header .links-container a {
+  border-radius: 0.5rem;
+  text-decoration: none;
+}
+
+header .links-container .login-btn {
+  padding: 0.4rem 1rem;
+  background: #0095f6;
+  color: white;
+}
+
+header .links-container .login-btn:hover {
+  background: #1976f2;
+}
+
+header .links-container .register-btn {
+  padding: 0.4rem 0;
+  color: #0096f6;
+}
+
+header .links-container .register-btn:hover {
+  color: #01376a;
+}
+
+header .links-container button {
+  all: unset;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  transition: background 0.3s, color 0.3s;
+  cursor: pointer;
+}

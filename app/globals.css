@@ -1,0 +1,18 @@
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  display: flex;
+  font-family: "system-ui", sans-serif;
+  background-color: #ffffff;
+}
+
+main {
+  padding: 1rem;
+}
+
+main .container {
+  max-width: 1024px;
+  margin: auto;
+}
