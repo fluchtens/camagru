@@ -2,12 +2,14 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
+  flex-direction: column;
+  display: flex;
   font-family: "Arial", sans-serif;
   background-color: #f5f5f5;
 }
 
 header {
-  padding: 1.5rem 1rem 1.5rem 1rem;
+  padding: 1rem;
   border-bottom: 1px solid #555555;
 }
 
@@ -16,6 +18,7 @@ header .container {
   margin: auto;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 header .main-link {
@@ -44,7 +47,7 @@ header .login-btn button {
 }
 
 main {
-  padding: 1.5rem 1rem 1.5rem 1rem;
+  padding: 1rem;
 }
 
 main .container {
