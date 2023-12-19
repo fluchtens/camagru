@@ -5,7 +5,6 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = connectToDatabase();   
-
     $username = htmlspecialchars($_POST['username']);
     $password = htmlspecialchars($_POST['password']);
 
@@ -14,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $sql = "SELECT * FROM user WHERE username = '$username'";
         $result = $conn->query($sql);
-        
+
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             if (password_verify($password, $row['password'])) {
@@ -28,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Incorrect username or password";
         }
     }
-
     $conn->close();
 }
 ?>
@@ -44,8 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <main>
         <h1>Login to your account</h1>
         <form method="POST" action="">
-            <input type="text" name="username" autocomplete="off" placeholder="Enter your username" required>
-            <input type="password" name="password" autocomplete="off" placeholder="Enter your password" required>
+            <input type="text" name="username" placeholder="Enter your username" required>
+            <input type="password" name="password" placeholder="Enter your password" required>
             <button type="submit">Submit</button>
         </form>
     </main>

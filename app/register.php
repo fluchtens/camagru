@@ -3,7 +3,6 @@ require 'database.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = connectToDatabase();   
-
     $username = htmlspecialchars($_POST['username']);
     $password = htmlspecialchars($_POST['password']);
 
@@ -20,7 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
     }
-
     $conn->close();
 }
 ?>
@@ -36,8 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <main>
         <h1>Register a new account</h1>
         <form method="POST" action="">
-            <input type="text" name="username" autocomplete="off" placeholder="Enter your username" required>
-            <input type="password" name="password" autocomplete="off" placeholder="Enter your password" required>
+            <input type="text" name="username" placeholder="Enter your username" required>
+            <input type="password" name="password" placeholder="Enter your password" required>
             <button type="submit">Submit</button>
         </form>
     </main>
