@@ -1,6 +1,7 @@
 <?php
-require 'database.php';
+require '../database.php';
 
+session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = connectToDatabase();   
     $username = htmlspecialchars($_POST['username']);
@@ -9,14 +10,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($username) || empty($password)) {
         echo "Username and password cannot be empty";
     } else {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO user (username, password) VALUES ('$username', '$hashed_password')";
-    
-        if ($conn->query($sql) === TRUE) {
-            header("Location: login.php");
-            exit();
+        $sql = "SELECT * FROM user WHERE username = '$username'";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            if (password_verify($password, $row['password'])) {
+                $_SESSION['id'] = $row['id'];
+                header("Location: ../index.php");
+                exit();
+            } else {
+                echo "Incorrect username or password";
+            }
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "Incorrect username or password";
         }
     }
     $conn->close();
@@ -28,11 +35,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <head>
         <meta charset="UTF-8" />
         <title>camagru</title>
-        <link rel="stylesheet" type="text/css" href="register.css">
+        <link rel="stylesheet" type="text/css" href="auth.css">
     </head>
 <body>
     <main>
-        <h1>Register a new account</h1>
+        <h1>Login to your account</h1>
         <form method="POST" action="">
             <input type="text" name="username" placeholder="Enter your username" required>
             <input type="password" name="password" placeholder="Enter your password" required>
