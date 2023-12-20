@@ -19,9 +19,10 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>camagru</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="stylesheet" type="text/css" href="globals.css">
         <link rel="stylesheet" type="text/css" href="layouts/header.css">
+        <title>camagru</title>
     </head>
 <body>
     <?php require 'layouts/header.php'; ?>
