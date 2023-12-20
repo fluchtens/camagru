@@ -1,17 +1,40 @@
 body {
-  height: 100vh;
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-family: "system-ui", sans-serif;
   background: #ffffff;
 }
 
 main {
-  max-width: 300px;
-  padding: 2.5rem;
+  height: 100vh;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.err-msg {
+  width: 300px;
+  padding: 1rem;
+  background: #ffebe8;
+  border: 1px solid #ffc1bf;
+}
+
+.err-msg p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.container {
+  width: 300px;
+  padding: 2.5rem 1rem 2.5rem 1rem;
   flex-direction: column;
   display: flex;
   align-items: center;
@@ -19,25 +42,25 @@ main {
   border: 1px solid #dbdbdb;
 }
 
-img {
+.container img {
   width: 11rem;
   height: 3.125rem;
 }
 
-form {
+.container form {
   width: 16rem;
   flex-direction: column;
   display: flex;
   gap: 1rem;
 }
 
-form .input-container {
+.container form .input-container {
   flex-direction: column;
   display: flex;
   gap: 0.5rem;
 }
 
-form .input-container input {
+.container form .input-container input {
   padding: 0.5rem;
   border: 1px solid #dbdbdb;
   border-radius: 0.25rem;
@@ -47,7 +70,7 @@ form .input-container input {
   font-weight: 400;
 }
 
-form button {
+.container form button {
   padding: 0.5rem;
   border: none;
   border-radius: 0.5rem;
@@ -60,21 +83,27 @@ form button {
   cursor: pointer;
 }
 
-form button:hover {
+.container form button:hover {
   background: #1976f2;
 }
 
-p {
-  margin: 0;
+.redir-msg {
+  width: 300px;
+  padding: 1.5rem 1rem 1.5rem 1rem;
+  border: 1px solid #dbdbdb;
   text-align: center;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  font-weight: 400;
-  color: #555555;
 }
 
-a {
-  font-weight: 500;
+.redir-msg p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+}
+
+.redir-msg a {
+  margin: 0;
+  font-weight: 600;
   text-decoration: none;
-  color: #555555;
+  color: #0096f6;
 }

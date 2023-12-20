@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = htmlspecialchars($_POST['password']);
 
     if (empty($username) || empty($password)) {
-        echo "Username and password cannot be empty";
+        $error = "Username and password cannot be empty";
     } else {
         $sql = "SELECT * FROM user WHERE username = '$username'";
         $result = $conn->query($sql);
@@ -26,10 +26,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: /");
                 exit();
             } else {
-                echo "Incorrect username or password";
+                $error = "Incorrect username or password";
             }
         } else {
-            echo "Incorrect username or password";
+            $error = "Incorrect username or password";
         }
     }
     $conn->close();
@@ -45,15 +45,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </head>
 <body>
     <main>
-        <img src="../assets/camagru.png" alt="camagru.png">
-        <form method="POST" action="">
-            <div class="input-container">
-                <input type="text" name="username" placeholder="Username" autocomplete="off" required>
-                <input type="password" name="password" placeholder="Password" autocomplete="off" required>
-            </div>
-            <button type="submit">Submit</button>
-        </form>
-        <p>Don't have an account yet? <a href="register.php">Sign up</a></p>
+        <?php if ($error) echo '<div class="err-msg"><p>', $error, '</p></div>'; ?>
+        <div class="container">
+            <img src="../assets/camagru.png" alt="camagru.png">
+            <form method="POST" action="">
+                <div class="input-container">
+                    <input type="text" name="username" placeholder="Username" autocomplete="off" >
+                    <input type="password" name="password" placeholder="Password" autocomplete="off" >
+                </div>
+                <button type="submit">Sign up</button>
+            </form>
+        </div>
+        <div class="redir-msg">
+            <p>Don't have an account? <a href="register.php">Sign up</a></p>
+        </div>
     </main>
 </body>
 </html>

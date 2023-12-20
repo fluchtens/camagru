@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = htmlspecialchars($_POST['password']);
 
     if (empty($username) || empty($password)) {
-        echo "Username and password cannot be empty";
+        $error = "Username and password cannot be empty.";
     } else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $sql = "INSERT INTO user (username, password) VALUES ('$username', '$hashed_password')";
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: login.php");
             exit();
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            $error = $conn->error;
         }
     }
     $conn->close();
@@ -38,15 +38,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </head>
 <body>
     <main>
-        <img src="../assets/camagru.png" alt="camagru.png">
-        <form method="POST" action="">
-            <div class="input-container">
-                <input type="text" name="username" placeholder="Username" autocomplete="off" required>
-                <input type="password" name="password" placeholder="Password" autocomplete="off" required>
-            </div>
-            <button type="submit">Sign up</button>
-        </form>
-        <p>Have an account? <a href="login.php">Sign in</a></p>
+        <?php if ($error) echo '<div class="err-msg"><p>', $error, '</p></div>'; ?>
+        <div class="container">
+            <img src="../assets/camagru.png" alt="camagru.png">
+            <form method="POST" action="">
+                <div class="input-container">
+                    <input type="text" name="username" placeholder="Username" autocomplete="off" >
+                    <input type="password" name="password" placeholder="Password" autocomplete="off" >
+                </div>
+                <button type="submit">Sign up</button>
+            </form>
+        </div>
+        <div class="redir-msg">
+            <p>Have an account? <a href="login.php">Log in</a></p>
+        </div>
     </main>
 </body>
 </html>
