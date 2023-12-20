@@ -27,7 +27,11 @@
     <?php require 'layouts/header.php'; ?>
     <main>
         <div class="container">
-            <h1>Hi, <?php echo $username; ?>!</h1>
+            <?php if (isset($_SESSION['id'])): ?>
+                <h1>Hi, <?php echo $username; ?>!</h1>
+            <?php else: ?>
+                <p>You are not logged in.</p>
+            <?php endif; ?>
         </div>
     </main>
 </body>
