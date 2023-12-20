@@ -38,13 +38,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </head>
 <body>
     <main>
-        <h1>Register a new account</h1>
+        <img src="../assets/camagru.png" alt="camagru.png">
         <form method="POST" action="">
-            <input type="text" name="username" placeholder="Enter your username" required>
-            <input type="password" name="password" placeholder="Enter your password" required>
-            <button type="submit">Submit</button>
-            <p>Have an account? <a href="login.php">Sign in</a></p>
+            <div class="input-container">
+                <input type="text" name="username" placeholder="Username" autocomplete="off" required>
+                <input type="password" name="password" placeholder="Password" autocomplete="off" required>
+            </div>
+            <button type="submit">Sign up</button>
         </form>
+        <p>Have an account? <a href="login.php">Sign in</a></p>
     </main>
 </body>
 </html>

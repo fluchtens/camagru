@@ -45,13 +45,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </head>
 <body>
     <main>
-        <h1>Login to your account</h1>
+        <img src="../assets/camagru.png" alt="camagru.png">
         <form method="POST" action="">
-            <input type="text" name="username" placeholder="Enter your username" required>
-            <input type="password" name="password" placeholder="Enter your password" required>
+            <div class="input-container">
+                <input type="text" name="username" placeholder="Username" autocomplete="off" required>
+                <input type="password" name="password" placeholder="Password" autocomplete="off" required>
+            </div>
             <button type="submit">Submit</button>
-            <p>Don't have an account yet? <a href="register.php">Sign up</a></p>
         </form>
+        <p>Don't have an account yet? <a href="register.php">Sign up</a></p>
     </main>
 </body>
 </html>
