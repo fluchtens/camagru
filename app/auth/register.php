@@ -41,7 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <main>
         <?php if ($error) echo '<div class="err-msg"><p>', $error, '</p></div>'; ?>
         <div class="container">
-            <img src="../assets/camagru.png" alt="camagru.png">
+            <a class="main-link" href="/">
+                <img src="../assets/camagru.png" alt="camagru.png">
+            </a>
             <form method="POST" action="">
                 <div class="input-container">
                     <input type="text" name="username" placeholder="Username" autocomplete="off" >
