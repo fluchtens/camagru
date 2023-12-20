@@ -1,5 +1,6 @@
 <?php
 require '../database.php';
+require '../user/user.service.php';
 
 session_start();
 if (isset($_SESSION['id'])) {
@@ -15,14 +16,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($username) || empty($password)) {
         $error = "Username and password cannot be empty.";
     } else {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO user (username, password) VALUES ('$username', '$hashed_password')";
-    
-        if ($conn->query($sql) === TRUE) {
-            header("Location: login.php");
-            exit();
+        if (getUserByUsername($conn, $username)) {
+            $error = "This username is already taken.";
+            return;
         } else {
-            $error = $conn->error;
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            $sql = "INSERT INTO user (username, password) VALUES ('$username', '$hashed_password')";
+        
+            if ($conn->query($sql) === TRUE) {
+                header("Location: login.php");
+                exit();
+            } else {
+                $error = $conn->error;
+            }
         }
     }
     $conn->close();
