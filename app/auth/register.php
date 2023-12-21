@@ -8,29 +8,42 @@ if (isset($_SESSION['id'])) {
     exit();
 }
 
+function registerUser($username, $password) {
+    try {
+        if (empty($username) || empty($password)) {
+            return ['code' => 401, 'message' => "Username and password cannot be empty."];
+        }
+
+        $db = connectToDatabase();  
+
+        if (getUserByUsername($db, $username)) {
+            return ['code' => 409, 'message' => "This username is already taken."];
+        }
+
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $query = "INSERT INTO user (username, password) VALUES (:username, :hashed_password)";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':hashed_password', $hashed_password);
+        $stmt->execute();
+
+        return ['code' => 200, 'message' => "User succesfully created."];
+    } catch (Exception $e) {
+        return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];
+    }
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $conn = connectToDatabase();   
     $username = htmlspecialchars($_POST['username']);
     $password = htmlspecialchars($_POST['password']);
 
-    if (empty($username) || empty($password)) {
-        $error = "Username and password cannot be empty.";
-    } else {
-        if (getUserByUsername($conn, $username)) {
-            $error = "This username is already taken.";
-        } else {
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $sql = "INSERT INTO user (username, password) VALUES ('$username', '$hashed_password')";
-        
-            if ($conn->query($sql) === TRUE) {
-                header("Location: login.php");
-                exit();
-            } else {
-                $error = $conn->error;
-            }
-        }
+    $response = registerUser($username, $password);
+    http_response_code($response['code']);
+    if ($response['code'] == 200) {
+        header("Location: login.php");
+        exit();
     }
-    $conn->close();
+    $error = $response['message'];
 }
 ?>
 

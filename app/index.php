@@ -3,14 +3,17 @@
 
     session_start();
     if (isset($_SESSION['id'])) {
-        $conn = connectToDatabase();
+        $db = connectToDatabase();
         $id = $_SESSION['id'];
-        $sql = "SELECT * FROM user WHERE id = $id";
-        $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $username = htmlspecialchars($row['username']);
+        $query = "SELECT * FROM user WHERE id = :id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            $username = htmlspecialchars($user['username']);
         }
     }
 ?>
