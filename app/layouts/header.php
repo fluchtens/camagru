@@ -12,7 +12,7 @@
                     <button>Sign Up</button>
                 </a>
             <?php else: ?>
-                <a href="logout.php">
+                <a href="auth/logout.php">
                     <button>Log out</button>
                 </a>
             <?php endif; ?>
