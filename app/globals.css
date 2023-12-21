@@ -16,3 +16,7 @@ main .container {
   max-width: 1024px;
   margin: auto;
 }
+
+input {
+  font-family: "system-ui", sans-serif;
+}
