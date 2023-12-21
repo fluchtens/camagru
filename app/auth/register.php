@@ -1,5 +1,5 @@
 <?php
-require '../database.php';
+require '../database/database.php';
 require '../user/user.service.php';
 
 session_start();
@@ -18,7 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         if (getUserByUsername($conn, $username)) {
             $error = "This username is already taken.";
-            return;
         } else {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $sql = "INSERT INTO user (username, password) VALUES ('$username', '$hashed_password')";
