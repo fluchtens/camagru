@@ -27,16 +27,21 @@
         <link rel="stylesheet" type="text/css" href="styles/header.css">
         <title>camagru</title>
     </head>
-<body>
-    <?php require 'layouts/header.php'; ?>
-    <main>
-        <div class="container">
-            <?php if (isset($_SESSION['id'])): ?>
-                <h1>Hi, <?php echo $username; ?>!</h1>
-            <?php else: ?>
-                <p>You are not logged in.</p>
-            <?php endif; ?>
-        </div>
-    </main>
-</body>
+    <body>
+        <?php require 'layouts/header.php'; ?>
+        <main>
+            <div class="main-container">
+                <?php if (isset($_SESSION['id'])): ?>
+                    <!-- <h1>Hi, <?php echo $username; ?>!</h1> -->
+                    <div class="take-picture">
+                        <video id="captureCamera" autoplay></video>
+                        <button id="captureBtn">Take Photo</button>
+                    </div>
+                <?php else: ?>
+                    <p>You are not logged in.</p>
+                <?php endif; ?>
+            </div>
+        </main>
+        <script src="camera.js"></script>
+    </body>
 </html>

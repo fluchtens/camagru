@@ -8,15 +8,44 @@ body {
   background-color: #ffffff;
 }
 
+input {
+  font-family: "system-ui", sans-serif;
+}
+
 main {
   padding: 1rem;
 }
 
-main .container {
+.main-container {
   max-width: 1024px;
   margin: auto;
+  flex-direction: column;
+  display: flex;
 }
 
-input {
-  font-family: "system-ui", sans-serif;
+.main-container .take-picture {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.main-container .take-picture video {
+  max-width: 512px;
+  width: 100%;
+  height: auto;
+}
+
+.main-container .take-picture button {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  transition: background 0.3s, color 0.3s;
+  background: #0095f6;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
 }
