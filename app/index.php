@@ -23,8 +23,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <link rel="stylesheet" type="text/css" href="globals.css">
-        <link rel="stylesheet" type="text/css" href="layouts/header.css">
+        <link rel="stylesheet" type="text/css" href="styles/globals.css">
+        <link rel="stylesheet" type="text/css" href="styles/header.css">
         <title>camagru</title>
     </head>
 <body>
