@@ -36,12 +36,12 @@
                     <div class="take-picture">
                         <video id="captureCamera" autoplay></video>
                         <button id="captureBtn">Take Photo</button>
+                        <script src="posts/capture.js"></script>
                     </div>
                 <?php else: ?>
                     <p>You are not logged in.</p>
                 <?php endif; ?>
             </div>
         </main>
-        <script src="camera.js"></script>
     </body>
 </html>

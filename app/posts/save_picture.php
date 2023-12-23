@@ -1,25 +1,36 @@
 <?php
+require '../database/database.php';
 
-// Récupérer les données de l'image depuis la requête POST
+session_start();
 $data = json_decode(file_get_contents("php://input"));
+if ($data && isset($data->image) && isset($_SESSION['id'])) {
+    try {
+        $userId = $_SESSION['id'];
+        $caption = 'No caption';
 
-if ($data && isset($data->image)) {
-    // Supprimer le préfixe de l'en-tête de données de l'image (par exemple, "data:image/png;base64,")
-    $imageData = str_replace('data:image/png;base64,', '', $data->image);
+        $uploadsDir = 'uploads/';
+        if (!is_dir($uploadsDir)) {
+            mkdir($uploadsDir, 0777, true);
+        }
 
-    // Décoder la chaîne base64 en binaire
-    $decodedImageData = base64_decode($imageData);
-
-    // Chemin où sauvegarder l'image sur le serveur
-    $filePath = 'uploads/' . uniqid() . '.png';
-
-    // Sauvegarder l'image sur le serveur
-    file_put_contents($filePath, $decodedImageData);
-
-    // Répondre avec le chemin de l'image sauvegardée
-    echo $filePath;  // Peut-être vous avez un problème ici si vous renvoyez un objet
-} else {
-    // Répondre avec une erreur si les données ne sont pas valides
-    echo json_encode(['success' => false, 'message' => 'Invalid image data']);
+        $imageData = str_replace('data:image/png;base64,', '', $data->image);
+        $decodedImageData = base64_decode($imageData);
+        $filePath = $uploadsDir . $userId . '_' . uniqid() . '.png';
+    
+        file_put_contents($filePath, $decodedImageData);
+    
+    
+        $db = connectToDatabase();
+        $query = "INSERT INTO post (user_id, caption, path) VALUES (:user_id, :caption, :path)";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':user_id', $userId);
+        $stmt->bindParam(':caption', $caption);
+        $stmt->bindParam(':path', $filePath);
+        $stmt->execute();
+    
+        echo $filePath;
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => "Failed to save image." . $e->getMessage()]);
+    }
 }
 ?>

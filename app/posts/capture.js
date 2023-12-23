@@ -2,8 +2,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const video = document.getElementById("captureCamera");
   const button = document.getElementById("captureBtn");
 
+  const constraints = {
+    audio: false,
+    video: true,
+  };
+
   navigator.mediaDevices
-    .getUserMedia({ video: true })
+    .getUserMedia(constraints)
     .then((stream) => {
       video.srcObject = stream;
     })
@@ -32,7 +37,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data = await response.text();
       console.log("Image saved on server:", data);
     } catch (error) {
       console.error("Error capturing or saving image:", error);
