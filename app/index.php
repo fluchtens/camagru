@@ -25,6 +25,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="stylesheet" type="text/css" href="styles/globals.css">
         <link rel="stylesheet" type="text/css" href="styles/header.css">
+        <link rel="stylesheet" type="text/css" href="styles/feed.css">
         <title>camagru</title>
     </head>
     <body>
@@ -32,12 +33,13 @@
         <main>
             <div class="main-container">
                 <?php if (isset($_SESSION['id'])): ?>
-                    <!-- <h1>Hi, <?php echo $username; ?>!</h1> -->
-                    <div class="take-picture">
+                    <h1>Hi, <?php echo $username; ?>!</h1>
+                    <!-- <div class="take-picture">
                         <video id="captureCamera" autoplay></video>
                         <button id="captureBtn">Take Photo</button>
                         <script src="posts/capture.js"></script>
-                    </div>
+                    </div> -->
+                    <?php require 'posts/feed.php'?>
                 <?php else: ?>
                     <p>You are not logged in.</p>
                 <?php endif; ?>

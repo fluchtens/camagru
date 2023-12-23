@@ -1,0 +1,53 @@
+.feed {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.feed .post {
+  flex-direction: column;
+  display: flex;
+  gap: 1rem;
+}
+
+.feed .post .user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.feed .post .user img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.feed .post .user .text {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.feed .post .user .text .username {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+}
+
+.feed .post .user .text .time-diff {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  color: #737373;
+}
+
+.feed .post img {
+  width: 468px;
+  height: 585px;
+  object-fit: cover;
+}

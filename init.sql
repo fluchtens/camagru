@@ -9,5 +9,6 @@ CREATE TABLE IF NOT EXISTS post (
   user_id INT,
   caption TEXT,
   path VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES user(id)
 );
