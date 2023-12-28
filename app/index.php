@@ -11,10 +11,6 @@
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($user) {
-            $username = htmlspecialchars($user['username']);
-        }
     }
 ?>
 
@@ -33,12 +29,11 @@
         <main>
             <div class="main-container">
                 <?php if (isset($_SESSION['id'])): ?>
-                    <h1>Hi, <?php echo $username; ?>!</h1>
-                    <!-- <div class="take-picture">
+                    <div class="take-picture">
                         <video id="captureCamera" autoplay></video>
                         <button id="captureBtn">Take Photo</button>
                         <script src="posts/capture.js"></script>
-                    </div> -->
+                    </div>
                     <?php require 'posts/feed.php'?>
                 <?php else: ?>
                     <p>You are not logged in.</p>
