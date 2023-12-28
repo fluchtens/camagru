@@ -1,7 +1,7 @@
 <header>
     <div class="container">
         <a class="main-link" href="/">
-            <img src="assets/camagru.png" alt="camagru.png">
+            <img src="../assets/camagru.png" alt="camagru.png">
         </a>
         <div class="links-container">
             <?php if (!isset($_SESSION['id'])): ?>

@@ -1,0 +1,43 @@
+.main-container .top {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.main-container .top img {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.main-container .top .top-right {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.main-container .top .top-right h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 400;
+}
+
+.main-container .top .top-right button {
+  padding: 0.5rem 1rem;
+  align-self: flex-start;
+  border: none;
+  border-radius: 0.375rem;
+  background: #efefef;
+  transition: 0.3s background ease;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.main-container .top .top-right button:hover {
+  background: #dbdbdb;
+}
