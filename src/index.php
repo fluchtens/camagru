@@ -6,10 +6,12 @@ switch ($path) {
         $content = "./views/home.php";
         break;
     case "/register":
-        $content = "./views/register.php";
+        $content = "views/register.php";
+        $css = "styles/auth.css";
         break;
     case "/login":
-        $content = "./views/login.php";
+        $content = "views/login.php";
+        $css = "styles/auth.css";
         break;
     case "/logout":
         $content = "./views/logout.php";
@@ -39,7 +41,11 @@ switch ($path) {
         <title>camagru</title>
     </head>
     <body>
-        <?php require "./views/partials/header.php"; ?>
+        <?php
+            if ($path !== "/register" && $path !== "/login") {
+                require "./views/partials/header.php";
+            }
+        ?>
         <main>
             <?php require $content; ?>
         </main>

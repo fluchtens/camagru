@@ -7,33 +7,23 @@ if (isset($_SESSION['id'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <link rel="stylesheet" type="text/css" href="../styles/globals.css">
-        <link rel="stylesheet" type="text/css" href="../styles/auth.css">
-        <title>camagru</title>
-    </head>
-<body>
-    <main>
-        <?php if ($error) echo '<div class="err-msg"><p>', $error, '</p></div>'; ?>
-        <div class="container">
-            <a class="main-link" href="/">
-                <img src="../assets/camagru.png" alt="camagru.png">
-            </a>
-            <form method="POST" action="">
-                <div class="input-container">
-                    <input type="text" name="username" placeholder="Username" autocomplete="off" >
-                    <input type="password" name="password" placeholder="Password" autocomplete="off" >
-                </div>
-                <button type="submit">Sign up</button>
-            </form>
+<?php if ($error): ?>
+    <div class="auth-err-msg">
+        <p><?php echo $error; ?></p>
+    </div>
+<?php endif; ?>
+<div class="auth-form">
+    <a class="main-link" href="/">
+        <img src="assets/camagru.png" alt="camagru.png">
+    </a>
+    <form method="POST" action="">
+        <div class="input-container">
+            <input type="text" name="username" placeholder="Username" autocomplete="off" >
+            <input type="password" name="password" placeholder="Password" autocomplete="off" >
         </div>
-        <div class="redir-msg">
-            <p>Don't have an account? <a href="/register">Sign up</a></p>
-        </div>
-    </main>
-</body>
-</html>
+        <button type="submit">Sign up</button>
+    </form>
+</div>
+<div class="auth-redir-msg">
+    <p>Don't have an account? <a href="/register">Sign up</a></p>
+</div>
