@@ -29,13 +29,13 @@ if (isset($_SESSION['id'])) {
     <?php foreach ($posts as $post): ?>
         <div class="post">
             <div class="user">
-                <img src="assets/noavatar.png" alt="noavatar.png">
+                <img src="./assets/noavatar.png" alt="noavatar.png">
                 <div class="text">
                     <span class="username"><?php echo $post['username']; ?></span>
                     <span class="time-diff">• <?php echo formatElapsedTime($post['time_diff']); ?></span>
                 </div>
             </div>
-            <img src="<?php echo 'posts/' . $post['path']; ?>" alt="picture.png">
+            <img src="<?php echo $post['path']; ?>" alt="picture.png">
         </div>
     <?php endforeach; ?>
 </div>

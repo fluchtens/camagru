@@ -1,5 +1,5 @@
 <?php
-require '../database/database.php';
+require "../core/database.php";
 
 session_start();
 $data = json_decode(file_get_contents("php://input"));
@@ -8,7 +8,7 @@ if ($data && isset($data->image) && isset($_SESSION['id'])) {
         $userId = $_SESSION['id'];
         $caption = 'No caption';
 
-        $uploadsDir = 'uploads/';
+        $uploadsDir = "../uploads/";
         if (!is_dir($uploadsDir)) {
             mkdir($uploadsDir, 0777, true);
         }
@@ -18,7 +18,6 @@ if ($data && isset($data->image) && isset($_SESSION['id'])) {
         $filePath = $uploadsDir . $userId . '_' . uniqid() . '.png';
     
         file_put_contents($filePath, $decodedImageData);
-    
     
         $db = connectToDatabase();
         $query = "INSERT INTO post (user_id, caption, path) VALUES (:user_id, :caption, :path)";

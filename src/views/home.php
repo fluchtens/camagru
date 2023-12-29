@@ -1,5 +1,5 @@
 <?php
-    require 'database/database.php';
+    require "./core/database.php";
 
     session_start();
     if (isset($_SESSION['id'])) {
@@ -25,16 +25,16 @@
         <title>camagru</title>
     </head>
     <body>
-        <?php require 'layouts/header.php'; ?>
+        <?php require "./views/partials/header.php"; ?>
         <main>
             <div class="main-container">
                 <?php if (isset($_SESSION['id'])): ?>
                     <div class="take-picture">
                         <video id="captureCamera" autoplay></video>
                         <button id="captureBtn">Take Photo</button>
-                        <script src="posts/capture.js"></script>
+                        <script src="scripts/capture.js"></script>
                     </div>
-                    <?php require 'posts/feed.php'?>
+                    <?php require "./views/partials/feed.php"?>
                 <?php else: ?>
                     <p>You are not logged in.</p>
                 <?php endif; ?>
