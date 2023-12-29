@@ -1,0 +1,24 @@
+.error-container {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-container h1 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+}
+
+.error-container p {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+}
+
+.error-container a {
+  all: unset;
+  color: #01376a;
+  cursor: pointer;
+}

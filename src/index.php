@@ -1,25 +1,47 @@
 <?php
 session_start();
-
 $path = $_SERVER["REQUEST_URI"];
 switch ($path) {
     case "/":
-        require "./views/home.php";
+        $content = "./views/home.php";
         break;
     case "/register":
-        require "./views/register.php";
+        $content = "./views/register.php";
         break;
     case "/login":
-        require "./views/login.php";
+        $content = "./views/login.php";
         break;
     case "/logout":
-        require "./views/logout.php";
+        $content = "./views/logout.php";
         break;
     case "/profile":
-        require "./views/profile.php";
+        $content = "./views/profile.php";
         break;
     default:
-        require "./views/404.php";
+        $content = "views/404.php";
+        $css = "styles/404.css";
         break;
 }
 ?>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" type="text/css" href="styles/globals.css">
+        <link rel="stylesheet" type="text/css" href="styles/header.css">
+        <?php
+        if ($css) {
+            echo '<link rel="stylesheet" type="text/css" href="' . $css . '">';
+        }
+        ?>
+        <title>camagru</title>
+    </head>
+    <body>
+        <?php require "./views/partials/header.php"; ?>
+        <main>
+            <?php require $content; ?>
+        </main>
+    </body>
+</html>
