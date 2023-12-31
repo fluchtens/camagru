@@ -2,8 +2,8 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  flex-direction: column;
   display: flex;
+  justify-content: space-between;
   font-family: "system-ui", sans-serif;
   background-color: #ffffff;
 }
@@ -13,6 +13,7 @@ input {
 }
 
 main {
+  flex: 1;
   padding: 1rem;
 }
 
@@ -49,4 +50,10 @@ main {
   font-weight: 600;
   color: #ffffff;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  main {
+    padding: 0;
+  }
 }

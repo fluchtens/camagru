@@ -1,10 +1,12 @@
 <?php
 ob_start();
 session_start();
+
 $path = $_SERVER["REQUEST_URI"];
 switch ($path) {
     case "/":
         $content = "./views/home.php";
+        $css = "styles/feed.css";
         break;
     case "/register":
         $content = "views/register.php";

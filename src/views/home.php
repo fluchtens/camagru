@@ -1,16 +1,19 @@
 <?php
-    require "./core/database.php";
+require "./core/database.php";
 
-    if (isset($_SESSION['id'])) {
-        $db = connectToDatabase();
-        $id = $_SESSION['id'];
+if (!isset($_SESSION['id'])) {
+    header("Location: /login");
+    exit();
+}
 
-        $query = "SELECT * FROM user WHERE id = :id";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+$db = connectToDatabase();
+$id = $_SESSION['id'];
+
+$query = "SELECT * FROM user WHERE id = :id";
+$stmt = $db->prepare($query);
+$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+$stmt->execute();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 
