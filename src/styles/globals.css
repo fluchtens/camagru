@@ -33,9 +33,9 @@ main {
 }
 
 .main-container .take-picture video {
-  max-width: 512px;
-  width: 100%;
-  height: auto;
+  width: 468px;
+  height: 585px;
+  object-fit: cover;
   transform: scaleX(-1);
 }
 

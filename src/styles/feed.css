@@ -47,12 +47,7 @@
 }
 
 .feed .post img {
-  /* width: 468px;
-  height: 585px; */
-
-  max-width: 468px;
-  width: 100%;
-  height: auto;
-
+  width: 468px;
+  height: 585px;
   object-fit: cover;
 }
