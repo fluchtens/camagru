@@ -2,7 +2,6 @@
 require "./core/database.php";
 require "./models/user.model.php";
 
-session_start();
 function loginUser($username, $password) {
     try {
         if (empty($username) || empty($password)) {

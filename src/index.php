@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 $path = $_SERVER["REQUEST_URI"];
 switch ($path) {
@@ -51,3 +52,7 @@ switch ($path) {
         </main>
     </body>
 </html>
+
+<?php
+ob_end_flush();
+?>
