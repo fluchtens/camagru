@@ -22,6 +22,10 @@ switch ($path) {
     case "/profile":
         $content = "./views/profile.php";
         break;
+    case "/post":
+        $content = "views/post.php";
+        $css = "styles/post.css";
+        break;
     default:
         $content = "views/404.php";
         $css = "styles/404.css";

@@ -19,11 +19,11 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <div class="main-container">
     <?php if (isset($_SESSION['id'])): ?>
-        <div class="take-picture">
+        <!-- <div class="take-picture">
             <video id="captureCamera" autoplay></video>
             <button id="captureBtn">Take Photo</button>
             <script src="scripts/capture.js"></script>
-        </div>
+        </div> -->
         <?php require "./views/partials/feed.php"?>
     <?php else: ?>
         <p>You are not logged in.</p>

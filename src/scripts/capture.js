@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
       const data = await response.text();
       console.log("Image saved on server:", data);
+      window.location.href = "/";
     } catch (error) {
       console.error("Error capturing or saving image:", error);
     }
