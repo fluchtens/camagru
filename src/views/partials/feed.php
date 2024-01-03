@@ -41,7 +41,7 @@ if (isset($_SESSION['id'])) {
             <div class="user">
                 <img src="./assets/noavatar.png" alt="noavatar.png">
                 <div class="text">
-                    <span class="username"><?php echo $post['username']; ?></span>
+                    <a class="username" href=<?php echo "/" . $post['username']?>><?php echo $post['username']; ?></a>
                     <span class="time-diff">• <?php echo formatElapsedTime($post['time_diff']); ?></span>
                 </div>
             </div>
