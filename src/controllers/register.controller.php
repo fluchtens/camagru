@@ -1,6 +1,6 @@
 <?php
 require "./core/database.php";
-require "./models/user.model.php";
+// require "./models/user.model.php";
 
 function checkUsername($username) {
     if (strlen($username) < 3 || strlen($username) > 16) {

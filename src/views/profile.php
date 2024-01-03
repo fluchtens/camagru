@@ -1,6 +1,6 @@
 <?php
-require "./core/database.php";
-require "./models/user.model.php";
+// require "./core/database.php";
+// require "./models/user.model.php";
 require "./models/post.model.php";
 
 if (!isset($_SESSION['id'])) {
