@@ -8,10 +8,11 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 
+$uri = $_SERVER["REQUEST_URI"];
+$uriArray = explode('/', rtrim($uri, '/'));
 $db = connectToDatabase();
-$id = $_SESSION['id'];
-$user = getUserById($db, $id);
-$posts = getUserPosts($db, $id);
+$user = getUserByUsername($db, $uriArray[1]);
+$posts = getUserPosts($db, $user['id']);
 ?>
 
 <div class="profile">
@@ -23,9 +24,12 @@ $posts = getUserPosts($db, $id);
         </div>
     </div>
     <div class="posts">
-        <!-- <h1>No Posts Yet</h1> -->
-        <?php foreach ($posts as $post): ?>
-            <img src="<?php echo $post['path']; ?>" alt="picture.png">
-        <?php endforeach; ?>
+        <?php if (!$posts): ?>
+            <h1>No Posts Yet</h1>
+        <?php else: ?>
+            <?php foreach ($posts as $post): ?>
+                <img src="<?php echo $post['path']; ?>" alt="picture.png">
+            <?php endforeach; ?>
+        <?php endif; ?>
     </div>
 </div>
