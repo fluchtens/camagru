@@ -5,7 +5,7 @@ session_start();
 $path = $_SERVER["REQUEST_URI"];
 switch ($path) {
     case "/":
-        $content = "./views/home.php";
+        $content = "views/home.php";
         $css = "styles/feed.css";
         break;
     case "/register":
@@ -17,10 +17,11 @@ switch ($path) {
         $css = "styles/auth.css";
         break;
     case "/logout":
-        $content = "./views/logout.php";
+        $content = "views/logout.php";
         break;
     case "/profile":
-        $content = "./views/profile.php";
+        $content = "views/profile.php";
+        $css = "styles/profile.css";
         break;
     case "/post":
         $content = "views/post.php";

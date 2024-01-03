@@ -1,23 +1,33 @@
 <?php
-function formatElapsedTime($timeDiff) {
-    $timeComponents = explode(':', $timeDiff);
-    $hours = $timeComponents[0];
-    $minutes = $timeComponents[1];
-
-    if ($hours > 0) {
-        return $hours . 'h';
-    } elseif ($minutes > 0) {
-        return $minutes . 'min';
-    } else {
-        return 'Now';
-    }
-}
-
 if (isset($_SESSION['id'])) {
+    function formatElapsedTime($timeDiff) {
+        $timeComponents = explode(':', $timeDiff);
+        $hours = $timeComponents[0];
+        $minutes = $timeComponents[1];
+        $seconds = $timeComponents[2];    
+        $weeks = floor($hours / 24 / 7);
+        $days = floor($hours / 24) % 7;
+    
+        if ($weeks > 0) {
+            return $weeks . 'w';
+        } elseif ($days > 0) {
+            return $days . 'd';
+        } elseif ($hours > 0) {
+            return $hours . 'h';
+        } elseif ($minutes > 0) {
+            return $minutes . 'min';
+        } elseif ($seconds > 0) {
+            return $seconds . 's';
+        } else {
+            return 'Now';
+        }
+    }
+    
+
     $query = "SELECT post.*, user.username, TIMEDIFF(NOW(), post.created_at) AS time_diff
               FROM post
               JOIN user ON post.user_id = user.id
-              ORDER BY post.created_at DESC;
+              ORDER BY post.created_at DESC
              ";
     $stmt = $db->prepare($query);
     $stmt->execute();
