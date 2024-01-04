@@ -1,47 +1,35 @@
 <?php
-require "./core/database.php";
+// require "./core/database.php";
+// require "./models/user.model.php";
+require "./models/post.model.php";
 
 if (!isset($_SESSION['id'])) {
     header("Location: /");
     exit();
 }
 
+$uri = $_SERVER["REQUEST_URI"];
+$uriArray = explode('/', rtrim($uri, '/'));
 $db = connectToDatabase();
-$id = $_SESSION['id'];
-
-$query = "SELECT * FROM user WHERE id = :id";
-$stmt = $db->prepare($query);
-$stmt->bindParam(':id', $id, PDO::PARAM_INT);
-$stmt->execute();
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$user = getUserByUsername($db, $uriArray[1]);
+$posts = getUserPosts($db, $user['id']);
 ?>
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <link rel="stylesheet" type="text/css" href="styles/globals.css">
-        <link rel="stylesheet" type="text/css" href="styles/header.css">
-        <link rel="stylesheet" type="text/css" href="styles/profile.css">
-        <title>camagru</title>
-    </head>
-    <body>
-        <?php require "./views/partials/header.php"; ?>
-        <main>
-            <div class="main-container">
-                <?php if (isset($_SESSION['id'])): ?>
-                    <div class="top">
-                        <img src="./assets/noavatar.png" alt="avatar.png">
-                        <div class="top-right">
-                            <h1><?php echo $user['username']; ?></h1>
-                            <button>Edit profile</button>
-                        </div>
-                    </div>
-                <?php else: ?>
-                    <p>You are not logged in.</p>
-                <?php endif; ?>
-            </div>
-        </main>
-    </body>
-</html>
+<div class="profile">
+    <div class="top">
+        <img src="./assets/noavatar.png" alt="avatar.png">
+        <div class="top-right">
+            <h1><?php echo $user['username']; ?></h1>
+            <button>Edit profile</button>
+        </div>
+    </div>
+    <div class="posts">
+        <?php if (!$posts): ?>
+            <h1>No Posts Yet</h1>
+        <?php else: ?>
+            <?php foreach ($posts as $post): ?>
+                <img src="<?php echo $post['path']; ?>" alt="picture.png">
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+</div>

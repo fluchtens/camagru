@@ -1,31 +1,41 @@
-.main-container .top {
+.profile {
+  max-width: 1024px;
+  margin: auto;
+  flex-direction: column;
   display: flex;
-  justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
-.main-container .top img {
+.profile .top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.profile .top img {
   width: 10rem;
   height: 10rem;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.main-container .top .top-right {
+.profile .top-right {
   flex-direction: column;
   display: flex;
   justify-content: center;
   gap: 0.5rem;
 }
 
-.main-container .top .top-right h1 {
+.profile .top-right h1 {
   margin: 0;
   font-size: 1.25rem;
   line-height: 1.75rem;
   font-weight: 400;
 }
 
-.main-container .top .top-right button {
+.profile .top-right button {
   padding: 0.5rem 1rem;
   align-self: flex-start;
   border: none;
@@ -38,6 +48,25 @@
   cursor: pointer;
 }
 
-.main-container .top .top-right button:hover {
+.profile .top-right button:hover {
   background: #dbdbdb;
+}
+
+.profile .posts {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+.profile .posts h1 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 800;
+}
+
+.profile .posts img {
+  width: 19rem;
+  height: 19rem;
+  object-fit: cover;
 }

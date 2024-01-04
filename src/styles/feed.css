@@ -33,10 +33,12 @@
 }
 
 .feed .post .user .text .username {
+  all: unset;
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .feed .post .user .text .time-diff {
