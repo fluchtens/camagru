@@ -6,6 +6,12 @@
   gap: 1rem;
 }
 
+.feed h1 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 800;
+}
+
 .feed .post {
   flex-direction: column;
   display: flex;

@@ -23,29 +23,25 @@ if (isset($_SESSION['id'])) {
         }
     }
     
-
-    $query = "SELECT post.*, user.username, TIMEDIFF(NOW(), post.created_at) AS time_diff
-              FROM post
-              JOIN user ON post.user_id = user.id
-              ORDER BY post.created_at DESC
-             ";
-    $stmt = $db->prepare($query);
-    $stmt->execute();
-    $posts = $stmt->fetchAll();
+    $posts = getAllPosts($db);
 }
 ?>
 
 <div class="feed">
-    <?php foreach ($posts as $post): ?>
-        <div class="post">
-            <div class="user">
-                <img src="./assets/noavatar.png" alt="noavatar.png">
-                <div class="text">
-                    <a class="username" href=<?php echo "/" . $post['username']?>><?php echo $post['username']; ?></a>
-                    <span class="time-diff">• <?php echo formatElapsedTime($post['time_diff']); ?></span>
+    <?php if (!$posts): ?>
+        <h1>No Posts Yet</h1>
+    <?php else: ?>
+        <?php foreach ($posts as $post): ?>
+            <div class="post">
+                <div class="user">
+                    <img src="./assets/noavatar.png" alt="noavatar.png">
+                    <div class="text">
+                        <a class="username" href=<?php echo "/" . $post['username']?>><?php echo $post['username']; ?></a>
+                        <span class="time-diff">• <?php echo formatElapsedTime($post['time_diff']); ?></span>
+                    </div>
                 </div>
+                <img src="<?php echo $post['path']; ?>" alt="picture.png">
             </div>
-            <img src="<?php echo $post['path']; ?>" alt="picture.png">
-        </div>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+    <? endif; ?>
 </div>
