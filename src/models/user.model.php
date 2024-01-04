@@ -25,4 +25,12 @@ function addUser($db, $username, $password) {
     $stmt->bindParam(':hashed_password', $hashed_password);
     $stmt->execute();
 }
+
+function updateUsername($db, $id, $newUsername) {
+    $query = "UPDATE user SET username = :newUsername WHERE id = :id";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':newUsername', $newUsername);
+    $stmt->bindParam(':id', $id);
+    return $stmt->execute();
+}
 ?>

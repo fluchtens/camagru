@@ -10,10 +10,12 @@ $posts = getUserPosts($db, $user['id']);
 
 <div class="profile">
     <div class="top">
-        <img src="./assets/noavatar.png" alt="avatar.png">
+        <img src="assets/noavatar.png" alt="avatar.png">
         <div class="top-right">
             <h1><?php echo $user['username']; ?></h1>
-            <button>Edit profile</button>
+            <a href="/settings">
+                <button>Edit profile</button>
+            </a>
         </div>
     </div>
     <div class="posts">

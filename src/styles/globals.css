@@ -14,7 +14,7 @@ input {
 
 main {
   flex: 1;
-  padding: 1rem;
+  padding: 2rem;
 }
 
 .main-container {
@@ -52,10 +52,4 @@ main {
   font-weight: 600;
   color: #ffffff;
   cursor: pointer;
-}
-
-@media (max-width: 768px) {
-  main {
-    padding: 0;
-  }
 }

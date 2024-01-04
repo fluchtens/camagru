@@ -6,6 +6,7 @@ require "./models/post.model.php";
 ob_start();
 session_start();
 
+$id = $_SESSION['id'];
 $db = connectToDatabase();
 $uri = $_SERVER["REQUEST_URI"];
 $uriArray = explode('/', rtrim($uri, '/'));
@@ -32,6 +33,10 @@ switch ($uri) {
     case "/post":
         $content = "views/post.php";
         $css = "styles/post.css";
+        break;
+    case "/settings":
+        $content = "views/settings.php";
+        $css = "styles/settings.css";
         break;
     default:
         if (count($uriArray) > 2) {
