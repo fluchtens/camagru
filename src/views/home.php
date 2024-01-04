@@ -1,6 +1,4 @@
 <?php
-// require "./core/database.php";
-
 if (!isset($_SESSION['id'])) {
     header("Location: /login");
     exit();

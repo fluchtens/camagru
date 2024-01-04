@@ -1,7 +1,4 @@
 <?php
-// require "./core/database.php";
-// require "./models/user.model.php";
-
 function loginUser($username, $password) {
     try {
         if (empty($username) || empty($password)) {

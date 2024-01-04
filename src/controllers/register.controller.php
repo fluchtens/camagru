@@ -1,7 +1,4 @@
 <?php
-require "./core/database.php";
-// require "./models/user.model.php";
-
 function checkUsername($username) {
     if (strlen($username) < 3 || strlen($username) > 16) {
         return ['success' => false, 'message' => "Username must be between 3 and 16 characters long."];
