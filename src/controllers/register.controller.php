@@ -7,15 +7,15 @@ function registerUser($username, $password) {
             return ['code' => 401, 'message' => "Username and password cannot be empty."];
         }
 
-        $usernameCheck = checkUsername($username);
-        if (!$usernameCheck['success']) {
-            return ['code' => 400, 'message' => $usernameCheck['message']];
-        }
+        // $usernameCheck = checkUsername($username);
+        // if (!$usernameCheck['success']) {
+        //     return ['code' => 400, 'message' => $usernameCheck['message']];
+        // }
 
-        $passwordCheck = checkPassword($password);
-        if (!$passwordCheck['success']) {
-            return ['code' => 400, 'message' => $passwordCheck['message']];
-        }
+        // $passwordCheck = checkPassword($password);
+        // if (!$passwordCheck['success']) {
+        //     return ['code' => 400, 'message' => $passwordCheck['message']];
+        // }
 
         $db = connectToDatabase();  
 
