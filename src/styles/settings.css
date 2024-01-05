@@ -13,6 +13,21 @@
   font-weight: 700;
 }
 
+.settings .err-msg {
+  padding: 1rem;
+  background: #ffebe8;
+  border: 1px solid #ffc1bf;
+}
+
+.settings .err-msg p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .settings .options {
   flex-direction: column;
   display: flex;

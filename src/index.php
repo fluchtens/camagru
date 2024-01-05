@@ -74,7 +74,7 @@ switch ($uri) {
     <body>
         <?php
             if ($uri !== "/register" && $uri !== "/login") {
-                require "./views/partials/header.php";
+                // require "./views/partials/header.php";
             }
         ?>
         <main>
