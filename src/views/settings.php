@@ -3,18 +3,14 @@ if (!isset($_SESSION['id'])) {
     header("Location: /");
     exit();
 }
-
-require "./controllers/updateProfile.controller.php";
 ?>
 
 <div class="settings">
     <h1>Edit profile</h1>
-    <?php if ($error): ?>
-        <div class="err-msg">
-            <p><?php echo $error; ?></p>
+        <div class="err-msg" id="errMsg">
+            <p id="errMsgText"></p>
         </div>
-    <?php endif; ?>
-    <form class="options" method="POST" action="" enctype="multipart/form-data">
+    <form class="options" id="settingsForm">
         <div class="data">
             <label for="newUsername">Username</label>
             <input type="text" name="newUsername" value=<?php echo $user['username']; ?> placeholder="Username" autocomplete="off">
@@ -24,6 +20,7 @@ require "./controllers/updateProfile.controller.php";
             <input type="file" name="avatarToUpload">
         </div>
         <button type="submit">Submit</button>
-    </form> 
+    </form>
+    <script src="scripts/updateProfile.js"></script>
 </div>
 
