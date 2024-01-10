@@ -24,8 +24,7 @@ async function updateAvatar(formData) {
       body: formData,
     });
 
-    const data = await response.text();
-    console.log(data);
+    const data = await response.json();
     if (!response.ok) {
       return { success: false, message: data.message };
     }
@@ -52,11 +51,10 @@ document
     }
 
     const avatarRes = await updateAvatar(formData);
-    // if (!avatarRes.success) {
-    //   document.getElementById("errMsg").style.display = "block";
-    //   document.getElementById("errMsgText").textContent = avatarRes.message;
-    // } else {
-    //   document.getElementById("errMsg").style.display = "none";
-    // }
-    console.log(avatarRes.message);
+    if (!avatarRes.success) {
+      document.getElementById("errMsg").style.display = "block";
+      document.getElementById("errMsgText").textContent = avatarRes.message;
+    } else {
+      document.getElementById("errMsg").style.display = "none";
+    }
   });

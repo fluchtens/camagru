@@ -33,4 +33,12 @@ function updateUsername($db, $id, $newUsername) {
     $stmt->bindParam(':id', $id);
     return $stmt->execute();
 }
+
+function updateAvatar($db, $id, $avatar) {
+    $query = "UPDATE user SET avatar = :avatar WHERE id = :id";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':avatar', $avatar);
+    $stmt->bindParam(':id', $id);
+    return $stmt->execute();
+}
 ?>

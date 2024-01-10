@@ -3,35 +3,56 @@ session_start();
 
 require "../core/database.php";
 require "../models/user.model.php";
-require "../core/utils.php";
+
+function checkFile($file, $type) {
+    if (file_exists($file)) {
+        return ['code' => 409, 'message' => "This file already exists."];
+    }
+    elseif ($_FILES["avatarToUpload"]["size"] > 500000) {
+        return ['code' => 413, 'message' => "Your file is too large."];
+    }
+    elseif ($type != "png" && $type != "jpg" && $type != "jpeg" && $type != "gif" ) {
+        return ['code' => 400, 'message' => "Only PNG, JPG, JPEG & GIF files are allowed."];
+    }
+    return ['code' => 200];
+}
+
+function uploadFile($file) {
+    if (!move_uploaded_file($_FILES["avatarToUpload"]["tmp_name"], $file)) {
+        return ['code' => 400, 'message' => "Sorry, there was an error uploading your file."];
+    }
+    return ['code' => 200];
+}
 
 function submitData($username) {
     try {
+        if (!isset($_SESSION['id'])) {
+            return ['code' => 401, 'message' => "You are not logged in."];    
+        }
+
+        $id = $_SESSION['id'];
+        $db = connectToDatabase();
+
         $dir = "../uploads/avatar/";
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);
         }
-
-        $file = $dir . basename($_FILES["avatarToUpload"]["name"]);
-        $type = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        $type = strtolower(pathinfo($_FILES["avatarToUpload"]["name"], PATHINFO_EXTENSION));
+        $fileName = uniqid($id . '_', true) . '.' . $type;
+        $file = $dir . $fileName;
     
-        if (file_exists($file)) {
-            return ['code' => 409, 'message' => "This file already exists."];
+        $fileCheck = checkFile($file, $type);
+        if ($fileCheck['code'] !== 200) {
+            return ['code' => $fileCheck['code'], 'message' => $fileCheck['message']];
         }
 
-        if ($_FILES["avatarToUpload"]["size"] > 500000) {
-            return ['code' => 413, 'message' => "Your file is too large."];
+        $fileUpload = uploadFile($file);
+        if ($fileUpload['code'] !== 200) {
+            return ['code' => $fileUpload['code'], 'message' => $fileUpload['message']];
         }
 
-        if ($type != "png" && $type != "jpg" && $type != "jpeg" && $type != "gif" ) {
-            return ['code' => 400, 'message' => "Only PNG, JPG, JPEG & GIF files are allowed."];
-        }
-
-        if (move_uploaded_file($_FILES["avatarToUpload"]["tmp_name"], $file)) {
-            return ['code' => 200, 'message' => "The file has been uploaded."];
-        } else {
-            return ['code' => 400, 'message' => "Sorry, there was an error uploading your file."];
-        }
+        updateAvatar($db, $id, $fileName);
+        return ['code' => 200, 'message' => "The file has been uploaded."];
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];
     }
