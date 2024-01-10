@@ -19,9 +19,9 @@ async function updateUsername(formData) {
 
 document
   .getElementById("settingsForm")
-  .addEventListener("submit", async function (e) {
+  .addEventListener("submit", async (e) => {
     e.preventDefault();
-    const formData = new FormData(this);
+    const formData = new FormData(e.target);
 
     const usernameRes = await updateUsername(formData);
     if (!usernameRes.success) {
