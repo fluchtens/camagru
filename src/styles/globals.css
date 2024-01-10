@@ -53,3 +53,12 @@ main {
   color: #ffffff;
   cursor: pointer;
 }
+
+hr {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #dbdbdb;
+}

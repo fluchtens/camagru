@@ -3,7 +3,7 @@
   margin: auto;
   flex-direction: column;
   display: flex;
-  gap: 1rem;
+  gap: 3rem;
 }
 
 .profile .top {
@@ -11,7 +11,6 @@
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  border-bottom: 1px solid #dbdbdb;
 }
 
 .profile .top img {

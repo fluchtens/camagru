@@ -7,9 +7,9 @@ require "../core/utils.php";
 
 function submitData($username) {
     try {
-        $id = $_SESSION['id'];
+        $userId = $_SESSION['id'];
         $db = connectToDatabase();
-    
+
         $usernameCheck = checkUsername($username);
         if (!$usernameCheck['success']) {
             return ['code' => 400, 'message' => $usernameCheck['message']];
@@ -19,7 +19,7 @@ function submitData($username) {
             return ['code' => 409, 'message' => "This username is already taken."];
         }
     
-        updateUsername($db, $id, $username);
+        updateUsername($db, $userId, $username);
         return ['code' => 200, 'message' => "Username succesfully updated."];
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];

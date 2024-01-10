@@ -50,11 +50,14 @@ document
       document.getElementById("errMsg").style.display = "none";
     }
 
-    const avatarRes = await updateAvatar(formData);
-    if (!avatarRes.success) {
-      document.getElementById("errMsg").style.display = "block";
-      document.getElementById("errMsgText").textContent = avatarRes.message;
-    } else {
-      document.getElementById("errMsg").style.display = "none";
+    const avatarFile = formData.get("avatarToUpload");
+    if (avatarFile && avatarFile.size > 0) {
+      const avatarRes = await updateAvatar(formData);
+      if (!avatarRes.success) {
+        document.getElementById("errMsg").style.display = "block";
+        document.getElementById("errMsgText").textContent = avatarRes.message;
+      } else {
+        document.getElementById("errMsg").style.display = "none";
+      }
     }
   });

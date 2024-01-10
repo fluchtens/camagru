@@ -5,12 +5,19 @@ if (!isset($_SESSION['id'])) {
 }
 
 $user = getUserByUsername($db, $uriArray[1]);
+if ($user['avatar']) {
+    $avatar = "uploads/avatar/" . $user['avatar'];
+}
 $posts = getUserPosts($db, $user['id']);
 ?>
 
 <div class="profile">
     <div class="top">
-        <img src="assets/noavatar.png" alt="avatar.png">
+        <?php if ($avatar): ?>
+            <img src="<?php echo $avatar ?>" alt="avatar">
+        <?php else: ?>
+            <img src="assets/noavatar.png" alt="avatar">
+        <?php endif; ?>
         <div class="top-right">
             <h1><?php echo $user['username']; ?></h1>
             <a href="/settings">
@@ -18,6 +25,7 @@ $posts = getUserPosts($db, $user['id']);
             </a>
         </div>
     </div>
+    <hr>
     <div class="posts">
         <?php if (!$posts): ?>
             <h1>No Posts Yet</h1>
