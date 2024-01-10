@@ -1,8 +1,9 @@
 <?php
-$id = $_SESSION['id'];
-$db = connectToDatabase();
-$user = getUserById($db, $id);
-$profilePath = "/" . $user['username'];
+if (isset($_SESSION['id'])) {
+    $user = getUserById($db, $id);
+    $avatar = $user['avatar'] ? "uploads/avatar/" . $user['avatar'] : null;
+    $profilePath = "/" . $user['username'];
+}
 ?>
 
 <header>
@@ -28,7 +29,11 @@ $profilePath = "/" . $user['username'];
                <p>Create</p>
             </a>
             <a class="link-btn" href=<?php echo $profilePath ?>>
-                <img src="assets/noavatar.png" alt="avatar.png">
+                <?php if ($avatar): ?>
+                    <img src="<?php echo $avatar ?>" alt="avatar">
+                <?php else: ?>
+                    <img src="assets/noavatar.png" alt="avatar">
+                <?php endif; ?>
                 <p>Profile</p>
             </a>
             <!-- <a class="link-btn" href="/logout">

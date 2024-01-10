@@ -14,7 +14,7 @@ function getUserPosts($db, $id) {
 }
 
 function getAllPosts($db) {
-    $query = "SELECT post.*, user.username, TIMEDIFF(NOW(), post.created_at) AS time_diff
+    $query = "SELECT post.*, user.username, user.avatar, TIMEDIFF(NOW(), post.created_at) AS time_diff
               FROM post
               JOIN user ON post.user_id = user.id
               ORDER BY post.created_at DESC
