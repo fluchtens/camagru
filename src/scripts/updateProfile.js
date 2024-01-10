@@ -17,6 +17,26 @@ async function updateUsername(formData) {
   }
 }
 
+async function updateAvatar(formData) {
+  try {
+    const response = await fetch("controllers/updateAvatar.controller.php", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.text();
+    console.log(data);
+    if (!response.ok) {
+      return { success: false, message: data.message };
+    }
+
+    return { success: true, message: data.message };
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return { success: false, message: error.message };
+  }
+}
+
 document
   .getElementById("settingsForm")
   .addEventListener("submit", async (e) => {
@@ -30,4 +50,13 @@ document
     } else {
       document.getElementById("errMsg").style.display = "none";
     }
+
+    const avatarRes = await updateAvatar(formData);
+    // if (!avatarRes.success) {
+    //   document.getElementById("errMsg").style.display = "block";
+    //   document.getElementById("errMsgText").textContent = avatarRes.message;
+    // } else {
+    //   document.getElementById("errMsg").style.display = "none";
+    // }
+    console.log(avatarRes.message);
   });
