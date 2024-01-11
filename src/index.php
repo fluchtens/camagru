@@ -6,8 +6,8 @@ require "./models/post.model.php";
 ob_start();
 session_start();
 
-$id = $_SESSION['id'];
 $db = connectToDatabase();
+$userId = $_SESSION['id'];
 $uri = $_SERVER["REQUEST_URI"];
 $uriArray = explode('/', rtrim($uri, '/'));
 $requestScheme = $_SERVER['REQUEST_SCHEME'];
@@ -44,7 +44,6 @@ switch ($uri) {
             $css = $appPath . "styles/404.css";
             break;
         }
-
         $user = getUserByUsername($db, $uriArray[1]);
         if (!$user) {
             $content = "views/404.php";
@@ -73,7 +72,7 @@ switch ($uri) {
     </head>
     <body>
         <?php
-            if ($uri !== "/register" && $uri !== "/login") {
+            if ($userId && $uri !== "/register" && $uri !== "/login") {
                 require "./views/partials/header.php";
             }
         ?>

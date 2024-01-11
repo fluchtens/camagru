@@ -13,7 +13,7 @@ if (!isset($_SESSION['id'])) {
     <form class="options" id="settingsForm">
         <div class="data">
             <label for="newUsername">Username</label>
-            <input type="text" name="newUsername" value=<?php echo $user['username']; ?> placeholder="Username" autocomplete="off">
+            <input type="text" name="newUsername" value="<?php echo $user['username']; ?>" placeholder="Username" autocomplete="off">
         </div>
         <div class="data">
             <label for="avatarToUpload">Avatar</label>

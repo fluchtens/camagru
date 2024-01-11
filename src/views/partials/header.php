@@ -1,6 +1,7 @@
 <?php
 if (isset($_SESSION['id'])) {
-    $user = getUserById($db, $id);
+    $userId = $_SESSION['id'];
+    $user = getUserById($db, $userId);
     $avatar = $user['avatar'] ? "uploads/avatar/" . $user['avatar'] : null;
     $profilePath = "/" . $user['username'];
 }
