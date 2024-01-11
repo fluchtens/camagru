@@ -36,9 +36,9 @@ if (isset($_SESSION['id'])) {
                 <?php endif; ?>
                 <p>Profile</p>
             </a>
-            <!-- <a class="link-btn" href="/logout">
+            <a class="link-btn" href="/logout">
                 <p>Log out</p>
-            </a> -->
+            </a>
         </div>
     </div>
 </header>

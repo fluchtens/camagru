@@ -5,9 +5,9 @@ if (!isset($_SESSION['id'])) {
 }
 
 $user = getUserByUsername($db, $uriArray[1]);
-if ($user['avatar']) {
-    $avatar = "uploads/avatar/" . $user['avatar'];
-}
+$avatar = $user['avatar'] ? "uploads/avatar/" . $user['avatar'] : null;
+$userId = $_SESSION['id'];
+$me = $user['id'] === $userId ? true : false;
 $posts = getUserPosts($db, $user['id']);
 ?>
 
@@ -20,9 +20,11 @@ $posts = getUserPosts($db, $user['id']);
         <?php endif; ?>
         <div class="top-right">
             <h1><?php echo $user['username']; ?></h1>
-            <a href="/settings">
-                <button>Edit profile</button>
-            </a>
+            <?php if ($me): ?>
+                <a href="/settings">
+                    <button>Edit profile</button>
+                </a>
+            <?php endif; ?>
         </div>
     </div>
     <hr>
