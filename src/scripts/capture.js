@@ -1,4 +1,24 @@
-document.addEventListener("DOMContentLoaded", (event) => {
+async function sendPicture(imageDataURL) {
+  try {
+    const response = await fetch("controllers/createPost.controller.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ image: imageDataURL }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      return { success: false, message: data.message };
+    }
+
+    return { success: true, message: data.message };
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return { success: false, message: error.message };
+  }
+}
+
+document.addEventListener("DOMContentLoaded", (e) => {
   const video = document.getElementById("captureCamera");
   const button = document.getElementById("captureBtn");
 
@@ -22,26 +42,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
     canvas.height = video.videoHeight;
     canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    try {
-      const imageDataURL = canvas.toDataURL("image/png");
+    const imageDataURL = canvas.toDataURL("image/png");
 
-      const response = await fetch("controllers/createPost.controller.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ image: imageDataURL }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data = await response.text();
-      console.log("Image saved on server:", data);
+    const res = await sendPicture(imageDataURL);
+    if (!res.success) {
+      console.error(res.message);
+    } else {
       window.location.href = "/";
-    } catch (error) {
-      console.error("Error capturing or saving image:", error);
     }
   });
 });

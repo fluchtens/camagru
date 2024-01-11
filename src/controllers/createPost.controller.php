@@ -1,10 +1,15 @@
 <?php
+session_start();
+
 require "../core/database.php";
 
-session_start();
-$data = json_decode(file_get_contents("php://input"));
-if ($data && isset($data->image) && isset($_SESSION['id'])) {
+function submitData() {
     try {
+        if (!isset($_SESSION['id'])) {
+            return ['code' => 401, 'message' => "You are not logged in."];    
+        }
+
+        $db = connectToDatabase();
         $userId = $_SESSION['id'];
         $caption = 'No caption';
 
@@ -13,23 +18,30 @@ if ($data && isset($data->image) && isset($_SESSION['id'])) {
             mkdir($uploadsDir, 0777, true);
         }
 
+        $data = json_decode(file_get_contents("php://input"));
         $imageData = str_replace('data:image/png;base64,', '', $data->image);
         $decodedImageData = base64_decode($imageData);
         $filePath = $uploadsDir . $userId . '_' . uniqid() . '.png';
-    
         file_put_contents($filePath, $decodedImageData);
-    
-        $db = connectToDatabase();
+
         $query = "INSERT INTO post (user_id, caption, path) VALUES (:user_id, :caption, :path)";
         $stmt = $db->prepare($query);
         $stmt->bindParam(':user_id', $userId);
         $stmt->bindParam(':caption', $caption);
         $stmt->bindParam(':path', $filePath);
         $stmt->execute();
-    
-        echo $filePath;
+        
+        return ['code' => 200, 'message' => "The post was successfully published." . $imageDataURL . "caca"];
     } catch (Exception $e) {
-        echo json_encode(['success' => false, 'message' => "Failed to save image." . $e->getMessage()]);
+        return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];
     }
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $response = submitData();
+    http_response_code($response['code']);
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit();
 }
 ?>
