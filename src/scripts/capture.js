@@ -25,16 +25,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
     try {
       const imageDataURL = canvas.toDataURL("image/png");
 
-      const response = await fetch(
-        "http://localhost:8080/controllers/createPost.controller.php",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ image: imageDataURL }),
-        }
-      );
+      const response = await fetch("controllers/createPost.controller.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ image: imageDataURL }),
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);

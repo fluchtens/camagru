@@ -17,7 +17,7 @@ if (!isset($_SESSION['id'])) {
         </div>
         <div class="data">
             <label for="avatarToUpload">Avatar</label>
-            <input type="file" name="avatarToUpload">
+            <input type="file" name="avatarToUpload" accept=".jpg, .jpeg, .png, .gif">
         </div>
         <button type="submit">Submit</button>
     </form>
