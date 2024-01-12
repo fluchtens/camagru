@@ -33,7 +33,7 @@ $posts = getUserPosts($db, $user['id']);
             <h1>No Posts Yet</h1>
         <?php else: ?>
             <?php foreach ($posts as $post): ?>
-                <img src="<?php echo $post['path']; ?>" alt="picture.png">
+                <img src="<?php echo "uploads/posts/" . $post['file']; ?>" alt="picture.png">
             <?php endforeach; ?>
         <?php endif; ?>
     </div>
