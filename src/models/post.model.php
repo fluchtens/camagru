@@ -1,4 +1,13 @@
 <?php
+function createPost($db, $userId, $caption, $file) {
+    $query = "INSERT INTO post (user_id, caption, file) VALUES (:user_id, :caption, :file)";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':user_id', $userId);
+    $stmt->bindParam(':caption', $caption);
+    $stmt->bindParam(':file', $file);
+    $stmt->execute();
+}
+
 function getUserPosts($db, $id) {
     $query = "SELECT *, TIMEDIFF(NOW(), post.created_at) AS time_diff
               FROM post

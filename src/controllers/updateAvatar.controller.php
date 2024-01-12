@@ -30,28 +30,28 @@ function submitData($username) {
             return ['code' => 401, 'message' => "You are not logged in."];    
         }
 
-        $id = $_SESSION['id'];
+        $userId = $_SESSION['id'];
         $db = connectToDatabase();
 
-        $dir = "../uploads/avatar/";
+        $dir = "../uploads/avatars/";
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);
         }
         $type = strtolower(pathinfo($_FILES["avatarToUpload"]["name"], PATHINFO_EXTENSION));
-        $fileName = uniqid($id . '_', true) . '.' . $type;
-        $file = $dir . $fileName;
+        $fileName = uniqid($userId . '_', true) . '.' . $type;
+        $filePath = $dir . $fileName;
     
-        $fileCheck = checkFile($file, $type);
+        $fileCheck = checkFile($filePath, $type);
         if ($fileCheck['code'] !== 200) {
             return ['code' => $fileCheck['code'], 'message' => $fileCheck['message']];
         }
 
-        $fileUpload = uploadFile($file);
+        $fileUpload = uploadFile($filePath);
         if ($fileUpload['code'] !== 200) {
             return ['code' => $fileUpload['code'], 'message' => $fileUpload['message']];
         }
 
-        updateAvatar($db, $id, $fileName);
+        updateAvatar($db, $userId, $fileName);
         return ['code' => 200, 'message' => "The file has been uploaded."];
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];

@@ -34,7 +34,7 @@ if (isset($_SESSION['id'])) {
         <?php foreach ($posts as $post): ?>
             <div class="post">
                 <div class="user">
-                    <?php $avatar = $post['avatar'] ? "uploads/avatar/" . $post['avatar'] : null; ?>
+                    <?php $avatar = $post['avatar'] ? "uploads/avatars/" . $post['avatar'] : null; ?>
                     <?php if ($avatar): ?>
                         <img src="<?php echo $avatar ?>" alt="avatar">
                     <?php else: ?>
@@ -45,7 +45,7 @@ if (isset($_SESSION['id'])) {
                         <span class="time-diff">• <?php echo formatElapsedTime($post['time_diff']); ?></span>
                     </div>
                 </div>
-                <img src="<?php echo $post['path']; ?>" alt="picture">
+                <img src="<?php echo "uploads/posts/" . $post['file']; ?>" alt="picture">
             </div>
         <?php endforeach; ?>
     <? endif; ?>

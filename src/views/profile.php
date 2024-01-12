@@ -5,7 +5,7 @@ if (!isset($_SESSION['id'])) {
 }
 
 $user = getUserByUsername($db, $uriArray[1]);
-$avatar = $user['avatar'] ? "uploads/avatar/" . $user['avatar'] : null;
+$avatar = $user['avatar'] ? "uploads/avatars/" . $user['avatar'] : null;
 $userId = $_SESSION['id'];
 $me = $user['id'] === $userId ? true : false;
 $posts = getUserPosts($db, $user['id']);

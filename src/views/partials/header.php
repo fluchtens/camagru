@@ -2,7 +2,7 @@
 if (isset($_SESSION['id'])) {
     $userId = $_SESSION['id'];
     $user = getUserById($db, $userId);
-    $avatar = $user['avatar'] ? "uploads/avatar/" . $user['avatar'] : null;
+    $avatar = $user['avatar'] ? "uploads/avatars/" . $user['avatar'] : null;
     $profilePath = "/" . $user['username'];
 }
 ?>

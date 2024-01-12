@@ -2,6 +2,7 @@
 session_start();
 
 require "../core/database.php";
+require "../models/post.model.php";
 
 function submitData() {
     try {
@@ -13,7 +14,7 @@ function submitData() {
         $userId = $_SESSION['id'];
         $caption = 'No caption';
 
-        $uploadsDir = "../uploads/";
+        $uploadsDir = "../uploads/posts/";
         if (!is_dir($uploadsDir)) {
             mkdir($uploadsDir, 0777, true);
         }
@@ -21,17 +22,13 @@ function submitData() {
         $data = json_decode(file_get_contents("php://input"));
         $imageData = str_replace('data:image/png;base64,', '', $data->image);
         $decodedImageData = base64_decode($imageData);
-        $filePath = $uploadsDir . $userId . '_' . uniqid() . '.png';
-        file_put_contents($filePath, $decodedImageData);
+        $fileName = uniqid($userId . '_', true) . '.png';
+        $filePath = $uploadsDir . $fileName;
 
-        $query = "INSERT INTO post (user_id, caption, path) VALUES (:user_id, :caption, :path)";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(':user_id', $userId);
-        $stmt->bindParam(':caption', $caption);
-        $stmt->bindParam(':path', $filePath);
-        $stmt->execute();
-        
-        return ['code' => 200, 'message' => "The post was successfully published." . $imageDataURL . "caca"];
+        file_put_contents($filePath, $decodedImageData);
+        createPost($db, $userId, $caption, $fileName);
+
+        return ['code' => 200, 'message' => "The post was successfully published."];
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];
     }
