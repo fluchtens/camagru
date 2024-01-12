@@ -22,13 +22,17 @@ function submitData() {
         $data = json_decode(file_get_contents("php://input"));
         $imageData = str_replace('data:image/png;base64,', '', $data->image);
         $decodedImageData = base64_decode($imageData);
+        if (strlen($decodedImageData) === 0) {
+            return ['code' => 400, 'message' => "The image is empty."];
+        }
+
         $fileName = uniqid($userId . '_', true) . '.png';
         $filePath = $uploadsDir . $fileName;
 
         file_put_contents($filePath, $decodedImageData);
         createPost($db, $userId, $caption, $fileName);
 
-        return ['code' => 200, 'message' => "The post was successfully published."];
+        return ['code' => 200, 'message' => "The post was successfully published." . $filePath];
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];
     }
