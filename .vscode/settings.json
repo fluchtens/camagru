@@ -1,3 +1,8 @@
 {
-  "editor.tabSize": 4
+  "[php]": {
+      "editor.tabSize": 4
+  },
+  "[javascript]": {
+      "editor.tabSize": 2
+  },
 }

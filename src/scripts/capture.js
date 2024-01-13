@@ -19,30 +19,69 @@ async function sendPicture(imageDataURL) {
 }
 
 document.addEventListener("DOMContentLoaded", (e) => {
-  const video = document.getElementById("captureCamera");
-  const button = document.getElementById("captureBtn");
+  const captureVideo = document.getElementById("captureVideo");
+  const takePhotoBtn = document.getElementById("takePhotoBtn");
+  const canvasPreview = document.getElementById("photoPreview");
+  const cancelBtn = document.getElementById("cancelBtn");
+  const submitBtn = document.getElementById("submitBtn");
+
+  const displayTakeContainer = () => {
+    captureVideo.style.display = "block";
+    takePhotoBtn.style.display = "inline-block";
+  };
+
+  const hideTakeContainer = () => {
+    captureVideo.style.display = "none";
+    takePhotoBtn.style.display = "none";
+  };
+
+  const displayPreviewContainer = () => {
+    canvasPreview.style.display = "block";
+    submitBtn.style.display = "inline-block";
+    cancelBtn.style.display = "inline-block";
+  };
+
+  const hidePreviewContainer = () => {
+    canvasPreview.style.display = "none";
+    submitBtn.style.display = "none";
+    cancelBtn.style.display = "none";
+  };
 
   const constraints = {
     audio: false,
-    video: true,
+    video: {
+      width: { min: 468, max: 468 },
+      height: { min: 585, max: 585 },
+    },
   };
 
   navigator.mediaDevices
     .getUserMedia(constraints)
     .then((stream) => {
-      video.srcObject = stream;
+      captureVideo.srcObject = stream;
     })
     .catch((error) => {
       console.error("Error accessing webcam:", error);
     });
 
-  button.addEventListener("click", async () => {
-    const canvas = document.createElement("canvas");
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
+  takePhotoBtn.addEventListener("click", () => {
+    canvasPreview.width = captureVideo.videoWidth;
+    canvasPreview.height = captureVideo.videoHeight;
+    canvasPreview
+      .getContext("2d")
+      .drawImage(captureVideo, 0, 0, canvasPreview.width, canvasPreview.height);
 
-    const imageDataURL = canvas.toDataURL("image/png");
+    hideTakeContainer();
+    displayPreviewContainer();
+  });
+
+  cancelBtn.addEventListener("click", () => {
+    displayTakeContainer();
+    hidePreviewContainer();
+  });
+
+  submitBtn.addEventListener("click", async () => {
+    const imageDataURL = canvasPreview.toDataURL("image/png");
 
     const res = await sendPicture(imageDataURL);
     if (!res.success) {
