@@ -4,6 +4,25 @@ session_start();
 require "../core/database.php";
 require "../models/post.model.php";
 
+function applyFilter($imagePath) {
+    $baseImage = imagecreatefrompng($imagePath);
+    $baseWidth = imagesx($baseImage);
+    $baseHeight = imagesy($baseImage);
+
+    $filterImage = imagecreatefrompng("../assets/filters/fire.png");
+    $filterWidth = imagesx($filterImage);
+    $filterHeight = imagesy($filterImage);
+
+    $positionX = ($baseWidth - $filterWidth) / 2;
+    $positionY = ($baseHeight - $filterHeight) / 2;
+
+    imagecopy($baseImage, $filterImage, $positionX, $positionY, 0, 0, $filterWidth, $filterHeight);
+    imagepng($baseImage, $imagePath);
+
+    imagedestroy($baseImage);
+    imagedestroy($filterImage);
+}
+
 function submitData() {
     try {
         if (!isset($_SESSION['id'])) {
@@ -29,9 +48,11 @@ function submitData() {
         $fileName = uniqid($userId . '_', true) . '.png';
         $filePath = $uploadsDir . $fileName;
 
+        
         file_put_contents($filePath, $decodedImageData);
-        createPost($db, $userId, $caption, $fileName);
+        applyFilter($filePath);
 
+        createPost($db, $userId, $caption, $fileName);
         return ['code' => 200, 'message' => "The post was successfully published." . $filePath];
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];
