@@ -6,22 +6,15 @@ require "../models/post.model.php";
 require "../models/filter.model.php";
 
 function checkImage($image) {
+    $mime = explode('/', finfo_buffer(finfo_open(), $image, FILEINFO_MIME_TYPE))[1];
     if (strlen($image) === 0) {
         return ['code' => 400, 'message' => "The image is empty."];
     }
     elseif (strlen($image) > 5 * 1024 * 1024) {
         return ['code' => 413, 'message' => "Your file is too large."];
     }
-    $mime = finfo_buffer(finfo_open(), $image, FILEINFO_MIME_TYPE);
-    switch ($mime) {
-        case 'image/png':
-            break;
-        case 'image/jpeg':
-            break;
-        case 'image/gif':
-            break;
-        default:
-            return ['code' => 400, 'message' => "Invalid file type. Only PNG, JPG & JPEG files are allowed."];
+    elseif ($mime != "png") {
+        return ['code' => 400, 'message' => "Invalid file type. Only PNG files are allowed."];
     }
     return ['code' => 200];
 }
