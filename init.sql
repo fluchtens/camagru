@@ -14,3 +14,13 @@ CREATE TABLE IF NOT EXISTS post (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES user(id)
 );
+
+CREATE TABLE IF NOT EXISTS filter (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255),
+  file VARCHAR(255)
+);
+
+INSERT INTO filter (name, file) VALUES ('fire', 'fire.png');
+INSERT INTO filter (name, file) VALUES ('pikachu', 'pikachu.png');
+INSERT INTO filter (name, file) VALUES ('beard', 'beard.png');

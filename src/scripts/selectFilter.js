@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   filterBtns.forEach(function (button) {
     button.addEventListener("click", function () {
-      var selectedFilter = "assets/filters/" + this.getAttribute("data-path");
+      var selectedFilter = "assets/filters/" + this.getAttribute("data-file");
       captureFilter.src = selectedFilter;
       previewFilter.src = selectedFilter;
     });

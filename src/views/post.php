@@ -4,10 +4,10 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 
-$filters = getAllFilters();
+$filters = getAllFilters($db);
 ?>
 
-<div class="post">s
+<div class="post">
     <h1>Create new post</h1>
     <div class="take">
         <video id="captureVideo" autoplay></video>
@@ -15,9 +15,9 @@ $filters = getAllFilters();
         <canvas id="photoPreview"></canvas>
         <img class="previewFilter" id="previewFilter" src="assets/filters/fire.png" alt="filter">
         <div class="filters">
-            <?php foreach($filters as $filterName => $filterPath): ?>
-                <button class="filterBtn" data-name="<?= $filterName ?>" data-path="<?= $filterPath ?>">
-                    <img src="<?= "assets/filters/" . $filterPath ?>" alt="<?= $filterName ?>">
+            <?php foreach($filters as $filter): ?>
+                <button class="filterBtn" data-name="<?= $filter['name'] ?>" data-file="<?= $filter['file'] ?>">
+                    <img src="<?= "assets/filters/" . $filter['file'] ?>" alt="<?= $filterName ?>">
                 </button>
             <?php endforeach; ?>
         </div>

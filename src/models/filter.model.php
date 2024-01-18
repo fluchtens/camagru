@@ -1,10 +1,10 @@
 <?php
-function getAllFilters() {
-    $filters = array(
-        "fire" => "fire.png",
-        "pikachu" => "pikachu.png",
-    );
-    return ($filters);
+function getAllFilters($db) {
+    $query = "SELECT * FROM filter";
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+    $filters = $stmt->fetchAll();
+    return ($filters ? $filters : null);
 }
 
 function getFilterPath($filterName) {
