@@ -18,16 +18,6 @@ async function createPost(imageDataURL, filter) {
   }
 }
 
-async function submitData(canvasPreview, selectedFilter) {
-  const imageDataURL = canvasPreview.toDataURL("image/png");
-  const request = await createPost(imageDataURL, selectedFilter);
-  if (!request.success) {
-    console.error(request.message);
-  } else {
-    window.location.href = "/";
-  }
-}
-
 document.addEventListener("DOMContentLoaded", (e) => {
   const captureVideo = document.getElementById("captureVideo");
   const captureFilter = document.getElementById("captureFilter");
@@ -36,77 +26,96 @@ document.addEventListener("DOMContentLoaded", (e) => {
   const previewFilter = document.getElementById("previewFilter");
   const cancelBtn = document.getElementById("cancelBtn");
   const submitBtn = document.getElementById("submitBtn");
-  const filterButtons = document.querySelectorAll(".filterBtn");
+  const filterBtns = document.querySelectorAll(".filterBtn");
   let selectedFilter = "fire";
 
-  const displayTakeContainer = () => {
-    captureVideo.style.display = "block";
-    captureFilter.style.display = "block";
-    takePhotoBtn.style.display = "inline-block";
-  };
+  const startWebcam = async () => {
+    const constraints = {
+      audio: false,
+      video: {
+        width: { min: 468, max: 468 },
+        height: { min: 585, max: 585 },
+      },
+    };
 
-  const hideTakeContainer = () => {
-    captureVideo.style.display = "none";
-    captureFilter.style.display = "none";
-    takePhotoBtn.style.display = "none";
-  };
-
-  const displayPreviewContainer = () => {
-    canvasPreview.style.display = "block";
-    previewFilter.style.display = "block";
-    submitBtn.style.display = "inline-block";
-    cancelBtn.style.display = "inline-block";
-  };
-
-  const hidePreviewContainer = () => {
-    canvasPreview.style.display = "none";
-    previewFilter.style.display = "none";
-    submitBtn.style.display = "none";
-    cancelBtn.style.display = "none";
-  };
-
-  filterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      filterButtons.forEach((btn) => btn.classList.remove("selected"));
-      button.classList.add("selected");
-      selectedFilter = button.getAttribute("data-id");
-    });
-  });
-
-  const constraints = {
-    audio: false,
-    video: {
-      width: { min: 468, max: 468 },
-      height: { min: 585, max: 585 },
-    },
-  };
-
-  navigator.mediaDevices
-    .getUserMedia(constraints)
-    .then((stream) => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
       captureVideo.srcObject = stream;
-    })
-    .catch((error) => {
+    } catch (error) {
       console.error("Error accessing webcam:", error);
-    });
+    }
+  };
 
-  takePhotoBtn.addEventListener("click", () => {
+  const cancelPreview = () => {
+    const displayTakeContainer = () => {
+      captureVideo.style.display = "block";
+      captureFilter.style.display = "block";
+      takePhotoBtn.style.display = "inline-block";
+    };
+
+    const hidePreviewContainer = () => {
+      canvasPreview.style.display = "none";
+      previewFilter.style.display = "none";
+      submitBtn.style.display = "none";
+      cancelBtn.style.display = "none";
+    };
+
+    displayTakeContainer();
+    hidePreviewContainer();
+  };
+
+  const takePhoto = () => {
+    const hideTakeContainer = () => {
+      captureVideo.style.display = "none";
+      captureFilter.style.display = "none";
+      takePhotoBtn.style.display = "none";
+    };
+
+    const displayPreviewContainer = () => {
+      canvasPreview.style.display = "block";
+      previewFilter.style.display = "block";
+      submitBtn.style.display = "inline-block";
+      cancelBtn.style.display = "inline-block";
+    };
+
     canvasPreview.width = captureVideo.videoWidth;
     canvasPreview.height = captureVideo.videoHeight;
     canvasPreview
       .getContext("2d")
       .drawImage(captureVideo, 0, 0, canvasPreview.width, canvasPreview.height);
-
     hideTakeContainer();
     displayPreviewContainer();
+  };
+
+  const submitData = async () => {
+    const imageDataURL = canvasPreview.toDataURL("image/png");
+    const request = await createPost(imageDataURL, selectedFilter);
+    if (!request.success) {
+      console.error(request.message);
+    } else {
+      window.location.href = "/";
+    }
+  };
+
+  filterBtns.forEach((button) => {
+    button.addEventListener("click", () => {
+      filterBtns.forEach((btn) => btn.classList.remove("selected"));
+      button.classList.add("selected");
+      selectedFilter = button.getAttribute("data-id");
+    });
+  });
+
+  startWebcam();
+
+  takePhotoBtn.addEventListener("click", () => {
+    takePhoto();
   });
 
   cancelBtn.addEventListener("click", () => {
-    displayTakeContainer();
-    hidePreviewContainer();
+    cancelPreview();
   });
 
-  submitBtn.addEventListener("click", async () => {
+  submitBtn.addEventListener("click", () => {
     submitData(canvasPreview, selectedFilter);
   });
 });
