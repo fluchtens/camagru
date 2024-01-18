@@ -1,21 +1,23 @@
 main {
   margin: auto;
-  flex-direction: column;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  text-align: center;
 }
 
-.auth-err-msg {
+.auth {
+  flex-direction: column;
+  display: flex;
+  gap: 1rem;
+}
+
+.err-msg {
+  display: none;
   width: 300px;
   padding: 1rem;
   background: #ffebe8;
   border: 1px solid #ffc1bf;
+  text-align: center;
 }
 
-.auth-err-msg p {
+.err-msg p {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;

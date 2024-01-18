@@ -17,12 +17,17 @@ function getUserByUsername($db, $username) {
     return ($user ? $user : null);
 }
 
-function addUser($db, $username, $password) {
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-    $query = "INSERT INTO user (username, password) VALUES (:username, :hashed_password)";
+function createUser($db, $username, $email, $password) {
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $activationToken = bin2hex(random_bytes(16));
+    $query = "INSERT INTO user (username, email, password, activation_token) 
+              VALUES (:username, :email, :hashed_password, :activation_token)
+             ";
     $stmt = $db->prepare($query);
     $stmt->bindParam(':username', $username);
-    $stmt->bindParam(':hashed_password', $hashed_password);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':hashed_password', $hashedPassword);
+    $stmt->bindParam(':activation_token', $activationToken);
     $stmt->execute();
 }
 
