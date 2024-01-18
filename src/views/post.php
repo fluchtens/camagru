@@ -11,10 +11,10 @@ $filters = getAllFilters($db);
     <h1>Create new post</h1>
     <div class="take">
         <video id="captureVideo" autoplay></video>
-        <img class="captureFilter" id="captureFilter" alt="filter">
+        <img id="captureFilter" class="captureFilter" alt="filter">
         <canvas id="photoPreview"></canvas>
-        <img class="previewFilter" id="previewFilter" alt="filter">
-        <div class="filters">
+        <img id="previewFilter" class="previewFilter" alt="filter">
+        <div id="filters" class="filters">
             <?php foreach($filters as $filter): ?>
                 <button class="filterBtn" data-id="<?= $filter['id'] ?>" data-file="<?= $filter['file'] ?>">
                     <img src="<?= "assets/filters/" . $filter['file'] ?>" alt="<?= $filterName ?>">
@@ -22,11 +22,10 @@ $filters = getAllFilters($db);
             <?php endforeach; ?>
         </div>
         <div class="buttons">
-            <button class="takePhotoBtn" id="takePhotoBtn" disabled>Take Photo</button>
-            <button class="cancelBtn" id="cancelBtn">Cancel</button>
-            <button class="submitBtn" id="submitBtn">Submit</button>
+            <button id="takePhotoBtn" class="takePhotoBtn" disabled>Take Photo</button>
+            <button id="cancelBtn" class="cancelBtn">Cancel</button>
+            <button id="submitBtn" class="submitBtn">Submit</button>
         </div>
     </div>
     <script src="scripts/createPost.js"></script>
-    <script src="scripts/selectFilter.js"></script>
 </div>

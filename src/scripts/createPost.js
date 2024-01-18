@@ -24,9 +24,10 @@ document.addEventListener("DOMContentLoaded", (e) => {
   const takePhotoBtn = document.getElementById("takePhotoBtn");
   const canvasPreview = document.getElementById("photoPreview");
   const previewFilter = document.getElementById("previewFilter");
+  const filters = document.getElementById("filters");
+  const filterBtns = document.querySelectorAll(".filterBtn");
   const cancelBtn = document.getElementById("cancelBtn");
   const submitBtn = document.getElementById("submitBtn");
-  const filterBtns = document.querySelectorAll(".filterBtn");
   let selectedFilter = "fire";
 
   const startWebcam = async () => {
@@ -60,8 +61,13 @@ document.addEventListener("DOMContentLoaded", (e) => {
       cancelBtn.style.display = "none";
     };
 
+    const displayFilterContainer = () => {
+      filters.style.display = "block";
+    };
+
     displayTakeContainer();
     hidePreviewContainer();
+    displayFilterContainer();
   };
 
   const takePhoto = () => {
@@ -78,6 +84,10 @@ document.addEventListener("DOMContentLoaded", (e) => {
       cancelBtn.style.display = "inline-block";
     };
 
+    const hideFilterContainer = () => {
+      filters.style.display = "none";
+    };
+
     canvasPreview.width = captureVideo.videoWidth;
     canvasPreview.height = captureVideo.videoHeight;
     canvasPreview
@@ -85,6 +95,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
       .drawImage(captureVideo, 0, 0, canvasPreview.width, canvasPreview.height);
     hideTakeContainer();
     displayPreviewContainer();
+    hideFilterContainer();
   };
 
   const submitData = async () => {
@@ -99,6 +110,11 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
   filterBtns.forEach((button) => {
     button.addEventListener("click", () => {
+      const filterSrc = "assets/filters/" + button.getAttribute("data-file");
+      captureFilter.style.display = "block";
+      captureFilter.src = filterSrc;
+      previewFilter.src = filterSrc;
+      takePhotoBtn.disabled = false;
       filterBtns.forEach((btn) => btn.classList.remove("selected"));
       button.classList.add("selected");
       selectedFilter = button.getAttribute("data-id");
