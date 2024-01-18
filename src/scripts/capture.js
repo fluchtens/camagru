@@ -1,9 +1,9 @@
-async function sendPicture(imageDataURL) {
+async function createPost(imageDataURL, filter) {
   try {
     const response = await fetch("controllers/createPost.controller.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ image: imageDataURL }),
+      body: JSON.stringify({ image: imageDataURL, filter: filter }),
     });
 
     const data = await response.json();
@@ -20,32 +20,48 @@ async function sendPicture(imageDataURL) {
 
 document.addEventListener("DOMContentLoaded", (e) => {
   const captureVideo = document.getElementById("captureVideo");
+  const captureFilter = document.getElementById("captureFilter");
   const takePhotoBtn = document.getElementById("takePhotoBtn");
   const canvasPreview = document.getElementById("photoPreview");
+  const previewFilter = document.getElementById("previewFilter");
   const cancelBtn = document.getElementById("cancelBtn");
   const submitBtn = document.getElementById("submitBtn");
+  const filterButtons = document.querySelectorAll(".filterBtn");
+  let selectedFilter = "fire";
 
   const displayTakeContainer = () => {
     captureVideo.style.display = "block";
+    captureFilter.style.display = "block";
     takePhotoBtn.style.display = "inline-block";
   };
 
   const hideTakeContainer = () => {
     captureVideo.style.display = "none";
+    captureFilter.style.display = "none";
     takePhotoBtn.style.display = "none";
   };
 
   const displayPreviewContainer = () => {
     canvasPreview.style.display = "block";
+    previewFilter.style.display = "block";
     submitBtn.style.display = "inline-block";
     cancelBtn.style.display = "inline-block";
   };
 
   const hidePreviewContainer = () => {
     canvasPreview.style.display = "none";
+    previewFilter.style.display = "none";
     submitBtn.style.display = "none";
     cancelBtn.style.display = "none";
   };
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      filterButtons.forEach((btn) => btn.classList.remove("selected"));
+      button.classList.add("selected");
+      selectedFilter = button.getAttribute("data-name");
+    });
+  });
 
   const constraints = {
     audio: false,
@@ -83,7 +99,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
   submitBtn.addEventListener("click", async () => {
     const imageDataURL = canvasPreview.toDataURL("image/png");
 
-    const res = await sendPicture(imageDataURL);
+    const res = await createPost(imageDataURL, selectedFilter);
     if (!res.success) {
       console.error(res.message);
     } else {

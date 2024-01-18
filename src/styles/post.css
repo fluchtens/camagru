@@ -12,17 +12,6 @@
   margin: 0;
 }
 
-.post button {
-  padding: 0.5rem 0.75rem;
-  border: none;
-  border-radius: 0.5rem;
-  transition: background 0.3s, color 0.3s;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
 .post .take {
   flex-direction: column;
   display: flex;
@@ -39,7 +28,16 @@
   transform: scaleX(-1);
 }
 
-.post .take img {
+.post .take canvas {
+  display: none;
+  max-width: 468px;
+  width: 100%;
+  max-height: 585px;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post .take .captureFilter {
   position: absolute;
   max-width: 468px;
   width: 100%;
@@ -49,24 +47,9 @@
   transform: scaleX(-1);
 }
 
-.post .take button {
-  background: #0095f6;
-  color: #ffffff;
-}
-
-.post .take button:hover {
-  background: #1877f2;
-}
-
-.post .preview {
-  flex-direction: column;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.post .preview canvas {
+.post .take .previewFilter {
   display: none;
+  position: absolute;
   max-width: 468px;
   width: 100%;
   max-height: 585px;
@@ -74,7 +57,32 @@
   object-fit: cover;
 }
 
-.post .preview .buttons {
+.post .filters {
+  max-width: 468px;
+  width: 100%;
+  padding: 0.25rem;
+  display: flex;
+  border-radius: 0.5rem;
+  background: #efefef;
+}
+
+.post .filters button {
+  border: none;
+  border-radius: 0.5rem;
+  transition: background 0.3s, color 0.3s;
+  cursor: pointer;
+}
+
+.post .filters button:hover {
+  background: #dbdbdb;
+}
+
+.post .filters img {
+  max-width: 75px;
+  width: 100%;
+}
+
+.post .take .buttons {
   margin-left: auto;
   display: flex;
   justify-content: center;
@@ -82,21 +90,41 @@
   gap: 0.5rem;
 }
 
-.post .preview .cancelBtn {
+.post .take button {
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  transition: background 0.3s, color 0.3s;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.post .take .takePhotoBtn {
+  background: #0095f6;
+  color: #ffffff;
+}
+
+.post .take .takePhotoBtn:hover {
+  background: #1877f2;
+}
+
+.post .take .cancelBtn {
   display: none;
   background: #efefef;
 }
 
-.post .preview .cancelBtn:hover {
+.post .take .cancelBtn:hover {
   background: #dbdbdb;
 }
 
-.post .preview .submitBtn {
+.post .take .submitBtn {
   display: none;
   background: #0095f6;
   color: #ffffff;
 }
 
-.post .preview .submitBtn:hover {
+.post .take .submitBtn:hover {
   background: #1877f2;
 }

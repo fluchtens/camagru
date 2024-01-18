@@ -3,13 +3,14 @@ session_start();
 
 require "../core/database.php";
 require "../models/post.model.php";
+require "../models/filter.model.php";
 
-function applyFilter($imagePath) {
+function applyFilter($imagePath, $filterPath) {
     $baseImage = imagecreatefrompng($imagePath);
     $baseWidth = imagesx($baseImage);
     $baseHeight = imagesy($baseImage);
 
-    $filterImage = imagecreatefrompng("../assets/filters/fire.png");
+    $filterImage = imagecreatefrompng("../assets/filters/" . $filterPath);
     $filterWidth = imagesx($filterImage);
     $filterHeight = imagesy($filterImage);
 
@@ -23,6 +24,35 @@ function applyFilter($imagePath) {
     imagedestroy($filterImage);
 }
 
+function checkImage($image) {
+    if (strlen($image) === 0) {
+        return ['code' => 400, 'message' => "The image is empty."];
+    }
+    elseif (strlen($image) > 5 * 1024 * 1024) {
+        return ['code' => 413, 'message' => "Your file is too large."];
+    }
+    $mime = finfo_buffer(finfo_open(), $image, FILEINFO_MIME_TYPE);
+    switch ($mime) {
+        case 'image/png':
+            break;
+        case 'image/jpeg':
+            break;
+        case 'image/gif':
+            break;
+        default:
+            return ['code' => 400, 'message' => "Invalid file type. Only PNG, JPG & JPEG files are allowed."];
+    }
+    return ['code' => 200];
+}
+
+function createUploadDir() {
+    $uploadDir = "../uploads/posts/";
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0777, true);
+    }
+    return ($uploadDir);
+}
+
 function submitData() {
     try {
         if (!isset($_SESSION['id'])) {
@@ -33,27 +63,35 @@ function submitData() {
         $userId = $_SESSION['id'];
         $caption = 'No caption';
 
-        $uploadsDir = "../uploads/posts/";
-        if (!is_dir($uploadsDir)) {
-            mkdir($uploadsDir, 0777, true);
+        $data = json_decode(file_get_contents("php://input"));
+
+        if (!$data->image) {
+            return ['code' => 400, 'message' => "Missing image."];
+        } elseif (!$data->filter) {
+            return ['code' => 400, 'message' => "Missing filter."];
         }
 
-        $data = json_decode(file_get_contents("php://input"));
+        $filterPath = getFilterPath($data->filter);
+        if (!$filterPath) {
+            return ['code' => 400, 'message' => "Invalid filter."];
+        }
+
         $imageData = str_replace('data:image/png;base64,', '', $data->image);
         $decodedImageData = base64_decode($imageData);
-        if (strlen($decodedImageData) === 0) {
-            return ['code' => 400, 'message' => "The image is empty."];
+        $imageCheck = checkImage($decodedImageData);
+        if ($imageCheck['code'] !== 200) {
+            return ['code' => $imageCheck['code'], 'message' => $imageCheck['message']];
         }
 
+        $uploadDir = createUploadDir();
         $fileName = uniqid($userId . '_', true) . '.png';
-        $filePath = $uploadsDir . $fileName;
+        $filePath = $uploadDir . $fileName;
 
-        
         file_put_contents($filePath, $decodedImageData);
-        applyFilter($filePath);
-
+        applyFilter($filePath, $filterPath);
         createPost($db, $userId, $caption, $fileName);
-        return ['code' => 200, 'message' => "The post was successfully published." . $filePath];
+
+        return ['code' => 200, 'message' => "The post was successfully published."];
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];
     }

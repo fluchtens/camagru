@@ -2,6 +2,7 @@
 require "./core/database.php";
 require "./models/user.model.php";
 require "./models/post.model.php";
+require "./models/filter.model.php";
 
 ob_start();
 session_start();
