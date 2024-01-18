@@ -115,8 +115,12 @@ document.addEventListener("DOMContentLoaded", (e) => {
       captureFilter.src = filterSrc;
       previewFilter.src = filterSrc;
       takePhotoBtn.disabled = false;
-      filterBtns.forEach((btn) => btn.classList.remove("selected"));
+      filterBtns.forEach((btn) => {
+        btn.classList.remove("selected");
+        btn.style.backgroundColor = "transparent";
+      });
       button.classList.add("selected");
+      button.style.backgroundColor = "#dbdbdb";
       selectedFilter = button.getAttribute("data-id");
     });
   });
