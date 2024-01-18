@@ -17,10 +17,14 @@ CREATE TABLE IF NOT EXISTS post (
 
 CREATE TABLE IF NOT EXISTS filter (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255),
   file VARCHAR(255)
 );
 
-INSERT INTO filter (name, file) VALUES ('fire', 'fire.png');
-INSERT INTO filter (name, file) VALUES ('pikachu', 'pikachu.png');
-INSERT INTO filter (name, file) VALUES ('beard', 'beard.png');
+INSERT INTO filter (file) VALUES ('flames.png');
+INSERT INTO filter (file) VALUES ('pikachu.png');
+INSERT INTO filter (file) VALUES ('beard.png');
+INSERT INTO filter (file) VALUES ('rainbow.png');
+INSERT INTO filter (file) VALUES ('vintage.png');
+INSERT INTO filter (file) VALUES ('sleaves.png');
+INSERT INTO filter (file) VALUES ('fire.png');
+INSERT INTO filter (file) VALUES ('evil.png');

@@ -17,7 +17,7 @@ $filters = getAllFilters($db);
         <div id="filters" class="filters">
             <?php foreach($filters as $filter): ?>
                 <button class="filterBtn" data-id="<?= $filter['id'] ?>" data-file="<?= $filter['file'] ?>">
-                    <img src="<?= "assets/filters/" . $filter['file'] ?>" alt="<?= $filterName ?>">
+                    <img src="<?= "assets/filters/" . $filter['file'] ?>" alt="<?= $filter['file'] ?>">
                 </button>
             <?php endforeach; ?>
         </div>
