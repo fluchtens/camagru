@@ -71,8 +71,8 @@ function submitData() {
             return ['code' => 400, 'message' => "Missing filter."];
         }
 
-        $filterPath = getFilterPath($data->filter);
-        if (!$filterPath) {
+        $filter = getFilter($db, $data->filter);
+        if (!$filter) {
             return ['code' => 400, 'message' => "Invalid filter."];
         }
 
@@ -88,7 +88,7 @@ function submitData() {
         $filePath = $uploadDir . $fileName;
 
         file_put_contents($filePath, $decodedImageData);
-        applyFilter($filePath, $filterPath);
+        applyFilter($filePath, $filter['file']);
         createPost($db, $userId, $caption, $fileName);
 
         return ['code' => 200, 'message' => "The post was successfully published."];

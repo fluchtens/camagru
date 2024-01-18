@@ -18,6 +18,16 @@ async function createPost(imageDataURL, filter) {
   }
 }
 
+async function submitData(canvasPreview, selectedFilter) {
+  const imageDataURL = canvasPreview.toDataURL("image/png");
+  const request = await createPost(imageDataURL, selectedFilter);
+  if (!request.success) {
+    console.error(request.message);
+  } else {
+    window.location.href = "/";
+  }
+}
+
 document.addEventListener("DOMContentLoaded", (e) => {
   const captureVideo = document.getElementById("captureVideo");
   const captureFilter = document.getElementById("captureFilter");
@@ -59,7 +69,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     button.addEventListener("click", () => {
       filterButtons.forEach((btn) => btn.classList.remove("selected"));
       button.classList.add("selected");
-      selectedFilter = button.getAttribute("data-name");
+      selectedFilter = button.getAttribute("data-id");
     });
   });
 
@@ -97,13 +107,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
   });
 
   submitBtn.addEventListener("click", async () => {
-    const imageDataURL = canvasPreview.toDataURL("image/png");
-
-    const res = await createPost(imageDataURL, selectedFilter);
-    if (!res.success) {
-      console.error(res.message);
-    } else {
-      window.location.href = "/";
-    }
+    submitData(canvasPreview, selectedFilter);
   });
 });
