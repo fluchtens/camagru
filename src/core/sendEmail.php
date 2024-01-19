@@ -12,8 +12,8 @@ function sendActivationEmail($email) {
     $mail->isSMTP();
     $mail->Host = "smtp.gmail.com";
     $mail->SMTPAuth = true;
-    $mail->Username = "";
-    $mail->Password = "";
+    $mail->Username = getenv("SMTP_USERNAME");
+    $mail->Password = getenv("SMTP_PASSWORD");
     $mail->SMTPSecure = "ssl";
     $mail->Port = 465;
 
