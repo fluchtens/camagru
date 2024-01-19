@@ -1,6 +1,14 @@
 <?php
-function loginUser($username, $password) {
+session_start();
+
+require "../core/database.php";
+require "../models/user.model.php";
+
+function submitData() {
     try {
+        $username = htmlspecialchars($_POST['username']);
+        $password = htmlspecialchars($_POST['password']);
+
         if (empty($username) || empty($password)) {
             return ['code' => 401, 'message' => "Username and password cannot be empty."];
         }
@@ -20,15 +28,10 @@ function loginUser($username, $password) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
-    $username = htmlspecialchars($_POST['username']);
-    $password = htmlspecialchars($_POST['password']);
-
-    $response = loginUser($username, $password);
+    $response = submitData();
     http_response_code($response['code']);
-    if ($response['code'] == 200) {
-        header("Location: /");
-        exit();
-    }
-    $error = $response['message'];
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit();
 }
 ?>

@@ -25,9 +25,10 @@ document
 
     const request = await registerUser(formData);
     if (!request.success) {
-      document.getElementById("authErrMsg").style.display = "block";
-      document.getElementById("authErrMsgText").textContent = request.message;
+      document.getElementById("registerErrMsg").style.display = "block";
+      document.getElementById("registerErrMsgText").textContent =
+        request.message;
     } else {
-      window.location.href = "/";
+      window.location.href = "/login";
     }
   });

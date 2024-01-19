@@ -6,8 +6,8 @@ if (isset($_SESSION['id'])) {
 ?>
 
 <div class="auth">
-    <div id="authErrMsg" class="err-msg">
-        <p id="authErrMsgText"></p>
+    <div id="registerErrMsg" class="err-msg">
+        <p id="registerErrMsgText"></p>
     </div>
     <div class="auth-form">
         <a class="main-link" href="/">

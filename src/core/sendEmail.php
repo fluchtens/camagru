@@ -6,7 +6,7 @@ require "../lib/PHPMailer/SMTP.php";
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-function sendActivationEmail($email) {
+function sendEmail($email, $subject, $body) {
     $mail = new PHPMailer(true);
 
     $mail->isSMTP();

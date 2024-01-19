@@ -6,27 +6,14 @@ require "../models/user.model.php";
 require "../core/utils.php";
 require "../core/sendEmail.php";
 
-function checkBody($username, $email, $password) {
-    if (!$username) {
-        return ['code' => 401, 'message' => "Username cannot be empty."];
-    } elseif (!$email) {
-        return ['code' => 401, 'message' => "Email cannot be empty."];
-    } elseif (!$password) {
-        return ['code' => 401, 'message' => "Password cannot be empty."];
-    } else {
-        return ['code' => 200];
-    }
-}
-
 function submitData() {
     try {
         $username = htmlspecialchars($_POST['username']);
         $email = htmlspecialchars($_POST['email']);
         $password = htmlspecialchars($_POST['password']);
 
-        $bodyCheck = checkBody($username, $email, $password);
-        if ($bodyCheck['code'] !== 200) {
-            return ['code' => $bodyCheck['code'], 'message' => $bodyCheck['message']];
+        if (!$username || !$email || !$password) {
+            return ['code' => 400, 'message' => "There are one or more required fields missing from the form."];
         }
 
         // $usernameCheck = checkUsername($username);
@@ -50,10 +37,14 @@ function submitData() {
         }
 
         createUser($db, $username, $email, $password);
-
-
-        sendActivationEmail($email);
-
+        $mailSubject = "Confirmation of account registration";
+        $mailBody = "
+            <div style='max-width: 640px; margin: 0 auto; text-align: center;'>
+                <img src='cid:logo' alt='logo' style='width: 300px'>
+                <p>Thank you for creating a new account to access Camagru. To benefit from all Camagru services, you must verify the e-mail address on your account.</p>
+            </div>
+        ";
+        sendEmail($email, $mailSubject, $mailBody);
         return ['code' => 200, 'message' => "User succesfully created."];
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];
