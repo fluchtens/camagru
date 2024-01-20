@@ -17,6 +17,15 @@ function getUserByUsername($db, $username) {
     return ($user ? $user : null);
 }
 
+function getUserByEmail($db, $email) {
+    $query = "SELECT * FROM user WHERE email = :email";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    return ($user ? $user : null);
+}
+
 function getUserByActivationToken($db, $activationToken) {
     $query = "SELECT * FROM user WHERE activation_token = :activation_token";
     $stmt = $db->prepare($query);
