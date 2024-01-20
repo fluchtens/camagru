@@ -36,6 +36,10 @@ function submitData() {
             return ['code' => 409, 'message' => "This username is already taken."];
         }
 
+        if (getUserByEmail($db, $email)) {
+            return ['code' => 409, 'message' => "This e-mail is already in use by another user."];
+        }
+
         $activationToken = bin2hex(random_bytes(16));
         createUser($db, $username, $email, $password, $activationToken);
         $mailSubject = "Confirmation of account registration";
