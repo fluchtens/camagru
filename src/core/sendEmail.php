@@ -22,13 +22,8 @@ function sendEmail($email, $subject, $body) {
 
     $mail->isHTML(true);
     $mail->AddEmbeddedImage("../assets/camagru.png", "logo");
-    $mail->Subject = "Confirmation of account registration";
-    $mail->Body = "
-        <div style='max-width: 640px; margin: 0 auto; text-align: center;'>
-            <img src='cid:logo' alt='logo' style='width: 300px'>
-            <p>Thank you for creating a new account to access Camagru. To benefit from all Camagru services, you must verify the e-mail address on your account.</p>
-        </div>
-    ";
+    $mail->Subject = $subject;
+    $mail->Body = $body;
 
     $mail->send();
 }

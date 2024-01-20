@@ -17,9 +17,17 @@ function getUserByUsername($db, $username) {
     return ($user ? $user : null);
 }
 
-function createUser($db, $username, $email, $password) {
+function getUserByActivationToken($db, $activationToken) {
+    $query = "SELECT * FROM user WHERE activation_token = :activation_token";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':activation_token', $activationToken);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    return ($user ? $user : null);
+}
+
+function createUser($db, $username, $email, $password, $activationToken) {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    $activationToken = bin2hex(random_bytes(16));
     $query = "INSERT INTO user (username, email, password, activation_token) 
               VALUES (:username, :email, :hashed_password, :activation_token)
              ";
@@ -36,7 +44,7 @@ function updateUsername($db, $id, $newUsername) {
     $stmt = $db->prepare($query);
     $stmt->bindParam(':newUsername', $newUsername);
     $stmt->bindParam(':id', $id);
-    return $stmt->execute();
+    $stmt->execute();
 }
 
 function updateAvatar($db, $id, $avatar) {
@@ -44,6 +52,14 @@ function updateAvatar($db, $id, $avatar) {
     $stmt = $db->prepare($query);
     $stmt->bindParam(':avatar', $avatar);
     $stmt->bindParam(':id', $id);
-    return $stmt->execute();
+    $stmt->execute();
+}
+
+function updateActiveStatus($db, $id, $active) {
+    $query = "UPDATE user SET active = :active WHERE id = :id";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':active', $active);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
 }
 ?>

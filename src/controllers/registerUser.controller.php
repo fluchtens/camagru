@@ -36,12 +36,14 @@ function submitData() {
             return ['code' => 409, 'message' => "This username is already taken."];
         }
 
-        createUser($db, $username, $email, $password);
+        $activationToken = bin2hex(random_bytes(16));
+        createUser($db, $username, $email, $password, $activationToken);
         $mailSubject = "Confirmation of account registration";
         $mailBody = "
             <div style='max-width: 640px; margin: 0 auto; text-align: center;'>
                 <img src='cid:logo' alt='logo' style='width: 300px'>
                 <p>Thank you for creating a new account to access Camagru. To benefit from all Camagru services, you must verify the e-mail address on your account.</p>
+                <a href='http://localhost:8080/controllers/accountVerification.controller.php?token=$activationToken'>Verify now</a>
             </div>
         ";
         sendEmail($email, $mailSubject, $mailBody);
