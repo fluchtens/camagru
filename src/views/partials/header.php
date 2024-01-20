@@ -1,5 +1,5 @@
 <?php
-if (isset($_SESSION['id'])) {
+if (isAuth()) {
     $userId = $_SESSION['id'];
     $user = getUserById($db, $userId);
     $avatar = $user['avatar'] ? "uploads/avatars/" . $user['avatar'] : null;

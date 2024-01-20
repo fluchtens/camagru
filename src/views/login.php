@@ -1,5 +1,5 @@
 <?php
-if (isset($_SESSION['id'])) {
+if (isAuth()) {
     header("Location: /");
     exit();
 }

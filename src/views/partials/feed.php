@@ -22,7 +22,7 @@ function formatElapsedTime($timeDiff) {
     }
 }
 
-if (isset($_SESSION['id'])) {
+if (isAuth()) {
     $posts = getAllPosts($db);
 }
 ?>
