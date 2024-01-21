@@ -2,7 +2,7 @@
 if (isAuth()) {
     $userId = $_SESSION['id'];
     $user = getUserById($db, $userId);
-    $avatar = $user['avatar'] ? $appPath . "uploads/avatars/" . $user['avatar'] : null;
+    $avatar = $user['avatar'] ? $baseUrl . "uploads/avatars/" . $user['avatar'] : null;
     $profilePath = "/" . $user['username'];
 }
 ?>
@@ -10,7 +10,7 @@ if (isAuth()) {
 <header>
     <div class="container">
         <a class="main-link" href="/">
-            <img src="<?= $appPath . "assets/camagru.png"; ?>" alt="camagru.png">
+            <img src="<?= $baseUrl . "assets/camagru.png"; ?>" alt="camagru.png">
         </a>
         <div class="links">
             <a class="link-btn" href="/">
@@ -33,7 +33,7 @@ if (isAuth()) {
                 <?php if ($avatar): ?>
                     <img src="<?= $avatar; ?>" alt="avatar">
                 <?php else: ?>
-                    <img src="<?= $appPath . "assets/noavatar.png"; ?>" alt="avatar">
+                    <img src="<?= $baseUrl . "assets/noavatar.png"; ?>" alt="avatar">
                 <?php endif; ?>
                 <p>Profile</p>
             </a>

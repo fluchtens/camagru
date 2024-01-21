@@ -8,54 +8,62 @@ require "./models/filter.model.php";
 ob_start();
 session_start();
 
+function getBaseUrl() {
+    $requestScheme = $_SERVER['REQUEST_SCHEME'];
+    $httpHost = $_SERVER['HTTP_HOST'];
+    $baseUrl = $requestScheme . "://" . $httpHost . "/";
+    return ($baseUrl);
+}
+
+function router($db, $uri, $uriArray, $baseUrl) {
+    switch ($uri) {
+        case "/":
+            $content = "home.php";
+            $css = "feed.css";
+            break;
+        case "/register":
+            $content = "register.php";
+            $css = "auth.css";
+            break;
+        case "/login":
+            $content = "login.php";
+            $css = "auth.css";
+            break;
+        case "/logout":
+            $content = "logout.php";
+            break;
+        case "/post":
+            $content = "post.php";
+            $css = "post.css";
+            break;
+        case "/settings":
+            $content = "settings.php";
+            $css = "settings.css";
+            break;
+        default:
+            if (count($uriArray) > 2) {
+                $content = "404.php";
+                $css = "404.css";
+                break;
+            }
+            $user = getUserByUsername($db, $uriArray[1]);
+            $content = $user ? "profile.php" : "404.php";
+            $css = $user ? "profile.css" : "404.css";
+            break;
+    }
+    $viewUrl = "views/" . $content;
+    $cssUrl = $baseUrl . "styles/" . $css;
+    return ['content' => $viewUrl, 'css' => $cssUrl];
+}
+
 $db = connectToDatabase();
 $userId = $_SESSION['id'];
 $uri = $_SERVER["REQUEST_URI"];
 $uriArray = explode('/', rtrim($uri, '/'));
-$requestScheme = $_SERVER['REQUEST_SCHEME'];
-$httpHost = $_SERVER['HTTP_HOST'];
-$appPath = $requestScheme . "://" . $httpHost . "/";
-
-switch ($uri) {
-    case "/":
-        $content = "views/home.php";
-        $css = "styles/feed.css";
-        break;
-    case "/register":
-        $content = "views/register.php";
-        $css = "styles/auth.css";
-        break;
-    case "/login":
-        $content = "views/login.php";
-        $css = "styles/auth.css";
-        break;
-    case "/logout":
-        $content = "views/logout.php";
-        break;
-    case "/post":
-        $content = "views/post.php";
-        $css = "styles/post.css";
-        break;
-    case "/settings":
-        $content = "views/settings.php";
-        $css = "styles/settings.css";
-        break;
-    default:
-        if (count($uriArray) > 2) {
-            $content = "views/404.php";
-            $css = $appPath . "styles/404.css";
-            break;
-        }
-        $user = getUserByUsername($db, $uriArray[1]);
-        if (!$user) {
-            $content = "views/404.php";
-            $css = $appPath . "styles/404.css";
-        } else {
-            $content = "views/profile.php";
-            $css = $appPath . "styles/profile.css";
-        }
-        break;
-}
+$baseUrl = getBaseUrl();
+$router = router($db, $uri, $uriArray, $baseUrl);
+$content = $router['content'];
+$css = $router['css'];
 ?>
 
 <!DOCTYPE html>
@@ -63,21 +71,17 @@ switch ($uri) {
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <link rel="stylesheet" type="text/css" href=<?php echo $appPath . "styles/globals.css" ?>>
-        <link rel="stylesheet" type="text/css" href=<?php echo $appPath . "styles/header.css" ?>>
-        <?php
-        if ($css) {
-            echo '<link rel="stylesheet" type="text/css" href="' . $css . '">';
-        }
-        ?>
+        <link rel="stylesheet" type="text/css" href=<?= $baseUrl . "styles/globals.css"; ?>>
+        <link rel="stylesheet" type="text/css" href=<?= $baseUrl . "styles/header.css"; ?>>
+        <?php if ($css): ?>
+            <link rel="stylesheet" type="text/css" href="<?= $css; ?>">
+        <?php endif; ?>  
         <title>camagru</title>
     </head>
     <body>
-        <?php
-            if ($userId && $uri !== "/register" && $uri !== "/login") {
-                require "./views/partials/header.php";
-            }
-        ?>
+        <?php if ($userId && $uri !== "/register" && $uri !== "/login"): ?>
+            <?php require "./views/partials/header.php"; ?>
+        <?php endif; ?>
         <main>
             <?php require $content; ?>
         </main>
