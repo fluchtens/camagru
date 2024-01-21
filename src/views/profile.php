@@ -4,10 +4,10 @@ if (!isAuth()) {
     exit();
 }
 
+$userId = $_SESSION['id'];
 $user = getUserByUsername($db, $uriArray[1]);
 $avatar = $user['avatar'] ? "uploads/avatars/" . $user['avatar'] : null;
-$userId = $_SESSION['id'];
-$me = $user['id'] === $userId ? true : false;
+$itsMe = $user['id'] === $userId ? true : false;
 $posts = getUserPosts($db, $user['id']);
 ?>
 
@@ -20,7 +20,7 @@ $posts = getUserPosts($db, $user['id']);
         <?php endif; ?>
         <div class="top-right">
             <h1><?php echo $user['username']; ?></h1>
-            <?php if ($me): ?>
+            <?php if ($itsMe): ?>
                 <a href="/settings">
                     <button>Edit profile</button>
                 </a>
@@ -33,7 +33,9 @@ $posts = getUserPosts($db, $user['id']);
             <h1>No Posts Yet</h1>
         <?php else: ?>
             <?php foreach ($posts as $post): ?>
-                <img src="<?php echo "uploads/posts/" . $post['file']; ?>" alt="picture.png">
+                <a href="/">
+                    <img src="<?= "uploads/posts/" . $post['file']; ?>" alt="<?= $post['file']; ?>">
+                </a>
             <?php endforeach; ?>
         <?php endif; ?>
     </div>
