@@ -9,7 +9,7 @@ function getPostById($db, $id) {
 }
 
 function getUserPosts($db, $id) {
-    $query = "SELECT *, TIMEDIFF(NOW(), post.created_at) AS time_diff
+    $query = "SELECT post.*, user.id AS user_id, TIMEDIFF(NOW(), post.created_at) AS time_diff
               FROM post
               JOIN user ON post.user_id = user.id
               WHERE user.id = :id

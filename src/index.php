@@ -32,15 +32,21 @@ function router($db, $uri, $uriArray, $baseUrl) {
         case "/logout":
             $content = "logout.php";
             break;
-        case "/post":
-            $content = "post.php";
-            $css = "post.css";
+        case "/create":
+            $content = "create.php";
+            $css = "create.css";
             break;
         case "/settings":
             $content = "settings.php";
             $css = "settings.css";
             break;
         default:
+            if (count($uriArray) === 3 && $uriArray[1] === "p") {
+                $post = getPostById($db, $uriArray[2]);
+                $content = $post ? "post.php" : "404.php";
+                $css = $post ? "post.css" : "404.css";
+                break;
+            }
             if (count($uriArray) > 2) {
                 $content = "404.php";
                 $css = "404.css";
