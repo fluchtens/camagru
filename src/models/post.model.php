@@ -1,11 +1,11 @@
 <?php
-function createPost($db, $userId, $caption, $file) {
-    $query = "INSERT INTO post (user_id, caption, file) VALUES (:user_id, :caption, :file)";
+function getPostById($db, $id) {
+    $query = "SELECT * FROM post WHERE id = :id";
     $stmt = $db->prepare($query);
-    $stmt->bindParam(':user_id', $userId);
-    $stmt->bindParam(':caption', $caption);
-    $stmt->bindParam(':file', $file);
+    $stmt->bindParam(':id', $id);
     $stmt->execute();
+    $post = $stmt->fetch(PDO::FETCH_ASSOC);
+    return ($post ? $post : null);
 }
 
 function getUserPosts($db, $id) {
@@ -32,5 +32,14 @@ function getAllPosts($db) {
     $stmt->execute();
     $posts = $stmt->fetchAll();
     return ($posts ? $posts : null);
+}
+
+function createPost($db, $userId, $caption, $file) {
+    $query = "INSERT INTO post (user_id, caption, file) VALUES (:user_id, :caption, :file)";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':user_id', $userId);
+    $stmt->bindParam(':caption', $caption);
+    $stmt->bindParam(':file', $file);
+    $stmt->execute();
 }
 ?>
