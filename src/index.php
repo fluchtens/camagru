@@ -85,7 +85,7 @@ $css = $router['css'];
         <title>camagru</title>
     </head>
     <body>
-        <?php if ($userId && $uri !== "/register" && $uri !== "/login"): ?>
+        <?php if ($uri !== "/register" && $uri !== "/login"): ?>
             <?php require "./views/partials/header.php"; ?>
         <?php endif; ?>
         <main>

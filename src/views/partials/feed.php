@@ -22,9 +22,7 @@ function formatElapsedTime($timeDiff) {
     }
 }
 
-if (isAuth()) {
-    $posts = getAllPosts($db);
-}
+$posts = getAllPosts($db);
 ?>
 
 <div class="feed">
