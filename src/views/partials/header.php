@@ -47,6 +47,7 @@ if (isAuth()) {
                     <p>Log out</p>
                 </a>
             </div>
+            <script src="<?= $baseUrl . "scripts/mobileHeader.js" ?>"></script>
         <?php else: ?>
             <div class="guest">
                 <a class="login" href="/login">Log In</a>
@@ -54,5 +55,4 @@ if (isAuth()) {
             </div>
         <?php endif; ?>
     </div>
-    <script src="<?= $baseUrl . "scripts/mobileHeader.js" ?>"></script>
 </header>
