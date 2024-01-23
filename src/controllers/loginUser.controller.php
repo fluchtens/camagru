@@ -19,6 +19,11 @@ function submitData() {
             http_response_code(401);
             return ['code' => 401, 'message' => "Incorrect username or password."];
         }
+
+        if (!$user['active']) {
+            return ['code' => 401, 'message' => "Please verify your account by clicking on the confirmation link we sent to your email address."];
+        }
+
         
         $_SESSION['id'] = $user['id'];
         return ['code' => 200, 'message' => "User succesfully connected."];
