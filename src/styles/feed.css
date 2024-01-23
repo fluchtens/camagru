@@ -1,9 +1,7 @@
 .feed {
   flex-direction: column;
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 1rem;
 }
 
 .feed h1 {
@@ -15,11 +13,11 @@
 .feed .post {
   flex-direction: column;
   display: flex;
-  gap: 1rem;
 }
 
 .feed .post .user {
-  padding: 0 0.2rem;
+  all: unset;
+  padding: 0.75rem 0.2rem;
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -30,6 +28,8 @@
   height: 2rem;
   border-radius: 50%;
   object-fit: cover;
+  cursor: pointer;
+  pointer-events: none;
 }
 
 .feed .post .user .text {
@@ -38,8 +38,7 @@
   gap: 0.25rem;
 }
 
-.feed .post .user .text .username {
-  all: unset;
+.feed .post .user .text p {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -47,18 +46,29 @@
   cursor: pointer;
 }
 
-.feed .post .user .text .time-diff {
+.feed .post .user .text span {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 400;
   color: #737373;
+  cursor: pointer;
 }
 
 .feed .post img {
   max-width: 468px;
   width: 100%;
   max-height: 585px;
-  height: 585px;
-  object-fit: cover;
+  height: 100%;
+  pointer-events: none;
+}
+
+@media (max-width: 485px) {
+  .feed .post .user {
+    padding: 0.75rem 0.75rem;
+  }
+
+  .feed .post .user .text span {
+    display: none;
+  }
 }

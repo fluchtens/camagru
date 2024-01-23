@@ -31,19 +31,19 @@ $posts = getAllPosts($db);
     <?php else: ?>
         <?php foreach ($posts as $post): ?>
             <div class="post">
-                <div class="user">
-                    <?php $avatar = $post['avatar'] ? "uploads/avatars/" . $post['avatar'] : null; ?>
+                <a class="user" href="<?= "/" . $post['username']; ?>">
+                    <?php $avatar = $post['avatar'] ? $baseUrl . "uploads/avatars/" . $post['avatar'] : null; ?>
                     <?php if ($avatar): ?>
-                        <img src="<?php echo $avatar ?>" alt="avatar">
+                        <img src="<?= $avatar; ?>" alt="<?= $post['avatar']; ?>">
                     <?php else: ?>
-                        <img src="assets/noavatar.png" alt="avatar">
+                        <img src="<?= $baseUrl . "assets/noavatar.png"; ?>" alt="noavatar.png">
                     <?php endif; ?>
                     <div class="text">
-                        <a class="username" href=<?php echo "/" . $post['username']?>><?php echo $post['username']; ?></a>
-                        <span class="time-diff">• <?php echo formatElapsedTime($post['time_diff']); ?></span>
+                        <p class="username"><?= $post['username']; ?></p>
+                        <span class="time-diff">• <?= formatElapsedTime($post['time_diff']); ?></span>
                     </div>
-                </div>
-                <img src="<?php echo "uploads/posts/" . $post['file']; ?>" alt="picture">
+                </a>
+                <img src="<?= $baseUrl . "uploads/posts/" . $post['file']; ?>" alt="<?= $post['file']; ?>">
             </div>
         <?php endforeach; ?>
     <? endif; ?>
