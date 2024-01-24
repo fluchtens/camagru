@@ -4,9 +4,8 @@ if (!isAuth()) {
     exit();
 }
 
-$userId = $_SESSION['id'];
 $user = getUserByUsername($db, $uriArray[1]);
-$avatar = $user['avatar'] ? "uploads/avatars/" . $user['avatar'] : null;
+$avatar = $user['avatar'] ? $baseUrl . "uploads/avatars/" . $user['avatar'] : null;
 $itsMe = $user['id'] === $userId ? true : false;
 $posts = getUserPosts($db, $user['id']);
 ?>
@@ -14,16 +13,16 @@ $posts = getUserPosts($db, $user['id']);
 <div class="profile">
     <div class="top">
         <?php if ($avatar): ?>
-            <img src="<?php echo $avatar ?>" alt="avatar">
+            <img src="<?= $avatar ?>" alt="<?= $user['avatar'] ?>">
         <?php else: ?>
-            <img src="assets/noavatar.png" alt="avatar">
+            <img src="<?= $baseUrl . "assets/noavatar.png" ?>" alt="noavatar.png">
         <?php endif; ?>
         <div class="top-right">
-            <h1><?php echo $user['username']; ?></h1>
+            <h1><?= $user['username']; ?></h1>
+            <span>Cristiano Ronaldo</span>
+            <p>Join my NFT journey on @Binance. Click the link below to get started.</p>
             <?php if ($itsMe): ?>
-                <a href="/settings">
-                    <button>Edit profile</button>
-                </a>
+                <a href="/settings">Edit profile</a>
             <?php endif; ?>
         </div>
     </div>
@@ -34,7 +33,7 @@ $posts = getUserPosts($db, $user['id']);
         <?php else: ?>
             <?php foreach ($posts as $post): ?>
                 <a href="<?= "p/" . $post['id'] ?>">
-                    <img src="<?= "uploads/posts/" . $post['file']; ?>" alt="<?= $post['file']; ?>">
+                    <img src="<?= $baseUrl . "uploads/posts/" . $post['file']; ?>" alt="<?= $post['file']; ?>">
                 </a>
             <?php endforeach; ?>
         <?php endif; ?>

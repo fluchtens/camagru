@@ -1,13 +1,12 @@
 .profile {
-  padding: 1rem 0;
   max-width: 1024px;
   margin: auto;
   flex-direction: column;
   display: flex;
-  gap: 2rem;
 }
 
 .profile .top {
+  padding: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,10 +35,25 @@
   font-weight: 400;
 }
 
-.profile .top-right button {
-  padding: 0.5rem 1rem;
+.profile .top-right span {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+}
+
+.profile .top-right p {
+  margin: 0;
+  max-width: 400px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+}
+
+.profile .top-right a {
+  all: unset;
+  padding: 0.4rem 1rem;
   align-self: flex-start;
-  border: none;
   border-radius: 0.375rem;
   background: #efefef;
   transition: 0.3s background ease;
@@ -49,11 +63,12 @@
   cursor: pointer;
 }
 
-.profile .top-right button:hover {
+.profile .top-right a:hover {
   background: #dbdbdb;
 }
 
 .profile .posts {
+  padding: 2rem 1rem;
   flex-wrap: wrap;
   display: flex;
   justify-content: center;
@@ -92,4 +107,22 @@
   height: 100%;
   object-fit: cover;
   pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .profile .top {
+    padding: 1rem;
+    justify-content: start;
+    align-items: normal;
+    gap: 1.75rem;
+  }
+
+  .profile .top img {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .profile .posts {
+    padding: 1rem 0;
+  }
 }
