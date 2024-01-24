@@ -3,6 +3,8 @@ if (!isAuth()) {
     header("Location: /login");
     exit();
 }
+
+$user = getUserById($db, $userId);
 ?>
 
 <div class="settings">
@@ -12,8 +14,12 @@ if (!isAuth()) {
         </div>
     <form class="options" id="settingsForm">
         <div class="data">
-            <label for="newUsername">Username</label>
-            <input type="text" name="newUsername" value="<?php echo $user['username']; ?>" placeholder="Username" autocomplete="off">
+            <label for="fullname">Full Name</label>
+            <input type="text" name="fullname" value="<?= $user['full_name']; ?>" placeholder="Full Name" autocomplete="off">
+        </div>
+        <div class="data">
+            <label for="username">Username</label>
+            <input type="text" name="username" value="<?= $user['username']; ?>" placeholder="Username" autocomplete="off">
         </div>
         <div class="data">
             <label for="avatarToUpload">Avatar</label>

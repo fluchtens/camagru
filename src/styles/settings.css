@@ -1,6 +1,7 @@
 .settings {
-  margin: auto;
+  padding: 2rem;
   max-width: 1024px;
+  margin: auto;
   flex-direction: column;
   display: flex;
   gap: 2rem;
@@ -77,4 +78,11 @@
 
 .settings button[type="submit"]:hover {
   background-color: #1976f2;
+}
+
+@media (max-width: 768px) {
+  .settings {
+    padding: 1rem;
+    gap: 1rem;
+  }
 }

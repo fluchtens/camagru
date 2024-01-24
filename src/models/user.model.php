@@ -57,6 +57,14 @@ function updateUsername($db, $id, $newUsername) {
     $stmt->execute();
 }
 
+function updateFullName($db, $id, $fullname) {
+    $query = "UPDATE user SET full_name = :full_name WHERE id = :id";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':full_name', $fullname);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+}
+
 function updateAvatar($db, $id, $avatar) {
     $query = "UPDATE user SET avatar = :avatar WHERE id = :id";
     $stmt = $db->prepare($query);

@@ -1,6 +1,6 @@
-async function updateUsername(formData) {
+async function updateProfile(formData) {
   try {
-    const response = await fetch("controllers/updateUsername.controller.php", {
+    const response = await fetch("controllers/updateProfile.controller.php", {
       method: "POST",
       body: formData,
     });
@@ -42,10 +42,10 @@ document
     e.preventDefault();
     const formData = new FormData(e.target);
 
-    const usernameRes = await updateUsername(formData);
-    if (!usernameRes.success) {
+    const profileRes = await updateProfile(formData);
+    if (!profileRes.success) {
       document.getElementById("errMsg").style.display = "block";
-      document.getElementById("errMsgText").textContent = usernameRes.message;
+      document.getElementById("errMsgText").textContent = profileRes.message;
     } else {
       document.getElementById("errMsg").style.display = "none";
     }
