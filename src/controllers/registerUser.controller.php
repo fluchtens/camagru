@@ -8,27 +8,33 @@ require "../core/sendEmail.php";
 
 function submitData() {
     try {
-        $username = trim(htmlspecialchars($_POST['username']));
         $email = trim(htmlspecialchars($_POST['email']));
+        $fullname = trim(htmlspecialchars($_POST['fullname']));
+        $username = trim(htmlspecialchars($_POST['username']));
         $password = trim(htmlspecialchars($_POST['password']));
 
-        if (!$username || !$email || !$password) {
+        if (!$email || !$fullname || !$username || !$password) {
             return ['code' => 400, 'message' => "There are one or more required fields missing from the form."];
         }
 
-        // $usernameCheck = checkUsername($username);
-        // if (!$usernameCheck['success']) {
-        //     return ['code' => 400, 'message' => $usernameCheck['message']];
-        // }
+        $fullnameCheck = checkFullName($fullname);
+        if (!$fullnameCheck['success']) {
+            return ['code' => 400, 'message' => $fullnameCheck['message']];
+        }
+
+        $usernameCheck = checkUsername($username);
+        if (!$usernameCheck['success']) {
+            return ['code' => 400, 'message' => $usernameCheck['message']];
+        }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return ['code' => 400, 'message' => "Email is invalid."];
         }
 
-        // $passwordCheck = checkPassword($password);
-        // if (!$passwordCheck['success']) {
-        //     return ['code' => 400, 'message' => $passwordCheck['message']];
-        // }
+        $passwordCheck = checkPassword($password);
+        if (!$passwordCheck['success']) {
+            return ['code' => 400, 'message' => $passwordCheck['message']];
+        }
 
         $db = connectToDatabase();  
 
@@ -41,7 +47,7 @@ function submitData() {
         }
 
         $activationToken = bin2hex(random_bytes(16));
-        createUser($db, $username, $email, $password, $activationToken);
+        createUser($db, $username, $email, $fullname, $password, $activationToken);
         $mailSubject = "Confirmation of account registration";
         $mailBody = "
             <div style='max-width: 640px; margin: 0 auto; text-align: center;'>

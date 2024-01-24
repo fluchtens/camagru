@@ -1,4 +1,11 @@
 <?php
+function checkFullName($fullname) {
+    if (strlen($fullname) < 1 || strlen($fullname) > 30) {
+        return ['success' => false, 'message' => "Full name must be between 3 and 16 characters long."];
+    }
+    return ['success' => true, 'message' => null];
+}
+
 function checkUsername($username) {
     if (strlen($username) < 3 || strlen($username) > 16) {
         return ['success' => false, 'message' => "Username must be between 3 and 16 characters long."];

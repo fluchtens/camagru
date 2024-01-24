@@ -19,8 +19,8 @@ $posts = getUserPosts($db, $user['id']);
         <?php endif; ?>
         <div class="top-right">
             <h1><?= $user['username']; ?></h1>
-            <span>Cristiano Ronaldo</span>
-            <p>Join my NFT journey on @Binance. Click the link below to get started.</p>
+            <span><?= $user['full_name']; ?></span>
+            <p><?= $user['bio']; ?></p>
             <?php if ($itsMe): ?>
                 <a href="/settings">Edit profile</a>
             <?php endif; ?>

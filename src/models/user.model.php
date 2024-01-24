@@ -35,14 +35,15 @@ function getUserByActivationToken($db, $activationToken) {
     return ($user ? $user : null);
 }
 
-function createUser($db, $username, $email, $password, $activationToken) {
+function createUser($db, $username, $email, $fullname, $password, $activationToken) {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    $query = "INSERT INTO user (username, email, password, activation_token) 
-              VALUES (:username, :email, :hashed_password, :activation_token)
+    $query = "INSERT INTO user (username, email, full_name, password, activation_token) 
+              VALUES (:username, :email, :full_name, :hashed_password, :activation_token)
              ";
     $stmt = $db->prepare($query);
     $stmt->bindParam(':username', $username);
     $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':full_name', $fullname);
     $stmt->bindParam(':hashed_password', $hashedPassword);
     $stmt->bindParam(':activation_token', $activationToken);
     $stmt->execute();
