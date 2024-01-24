@@ -8,9 +8,9 @@ require "../core/sendEmail.php";
 
 function submitData() {
     try {
-        $username = htmlspecialchars($_POST['username']);
-        $email = htmlspecialchars($_POST['email']);
-        $password = htmlspecialchars($_POST['password']);
+        $username = trim(htmlspecialchars($_POST['username']));
+        $email = trim(htmlspecialchars($_POST['email']));
+        $password = trim(htmlspecialchars($_POST['password']));
 
         if (!$username || !$email || !$password) {
             return ['code' => 400, 'message' => "There are one or more required fields missing from the form."];

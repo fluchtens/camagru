@@ -6,8 +6,8 @@ require "../models/user.model.php";
 
 function submitData() {
     try {
-        $username = htmlspecialchars($_POST['username']);
-        $password = htmlspecialchars($_POST['password']);
+        $username = trim(htmlspecialchars($_POST['username']));
+        $password = trim(htmlspecialchars($_POST['password']));
 
         if (empty($username) || empty($password)) {
             return ['code' => 401, 'message' => "Username and password cannot be empty."];
