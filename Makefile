@@ -4,7 +4,6 @@ build: clean
 	docker-compose up --build
 
 up: down
-	docker-compose down
 	docker-compose up
 
 down:
