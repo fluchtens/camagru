@@ -47,9 +47,21 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       SMTP_USERNAME: ${SMTP_USERNAME}
       SMTP_PASSWORD: ${SMTP_PASSWORD}
-    ports:
-      - 8080:80
     volumes:
+      - ./src:/var/www/html
+    networks:
+      - camagru
+    restart: always
+
+  nginx:
+    container_name: camagru-nginx
+    image: nginx:latest
+    depends_on:
+      - app
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - ./src:/var/www/html
     networks:
       - camagru
