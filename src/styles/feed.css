@@ -11,6 +11,7 @@
 }
 
 .feed .post {
+  max-width: 468px;
   flex-direction: column;
   display: flex;
 }
@@ -63,9 +64,28 @@
   pointer-events: none;
 }
 
+.feed .post .actions {
+  padding: 0.2rem 0;
+  display: flex;
+}
+
+.feed .post .actions button {
+  all: unset;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.feed .post .actions button:hover {
+  opacity: 0.5;
+}
+
 @media (max-width: 485px) {
   .feed .post .user {
     padding: 0.75rem 0.75rem;
+  }
+
+  .feed .post .actions {
+    padding: 0.2rem 0.5rem;
   }
 
   .feed .post .user .text span {
