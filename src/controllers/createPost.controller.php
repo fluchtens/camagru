@@ -20,7 +20,7 @@ function checkImage($image) {
 }
 
 function createUploadDir() {
-    $uploadDir = "../uploads/posts/";
+    $uploadDir = "../assets/uploads/posts/";
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0777, true);
     }

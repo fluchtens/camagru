@@ -33,7 +33,7 @@ function submitData($username) {
         $userId = $_SESSION['id'];
         $db = connectToDatabase();
 
-        $dir = "../uploads/avatars/";
+        $dir = "../assets/uploads/avatars/";
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);
         }

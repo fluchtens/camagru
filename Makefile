@@ -11,7 +11,7 @@ down:
 
 clean:
 	docker-compose down --rmi all --volumes
-	rm -rf src/uploads
+	rm -rf src/assets/uploads
 
 .PHONY: all build up down clean
 

@@ -6,7 +6,7 @@ if (!isAuth()) {
 
 $post = getPostById($db, $uriArray[2]);
 if ($post) {
-    $image = $baseUrl . "uploads/posts/" . $post['file'];
+    $image = $baseUrl . "assets/uploads/posts/" . $post['file'];
 }
 ?>
 

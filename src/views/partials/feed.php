@@ -32,7 +32,7 @@ $posts = getAllPosts($db);
         <?php foreach ($posts as $post): ?>
             <div class="post">
                 <a class="user" href="<?= "/" . $post['username']; ?>">
-                    <?php $avatar = $post['avatar'] ? $baseUrl . "uploads/avatars/" . $post['avatar'] : null; ?>
+                    <?php $avatar = $post['avatar'] ? $baseUrl . "assets/uploads/avatars/" . $post['avatar'] : null; ?>
                     <?php if ($avatar): ?>
                         <img src="<?= $avatar; ?>" alt="<?= $post['avatar']; ?>">
                     <?php else: ?>
@@ -43,7 +43,7 @@ $posts = getAllPosts($db);
                         <span class="time-diff">• <?= formatElapsedTime($post['time_diff']); ?></span>
                     </div>
                 </a>
-                <img src="<?= $baseUrl . "uploads/posts/" . $post['file']; ?>" alt="<?= $post['file']; ?>">
+                <img src="<?= $baseUrl . "assets/uploads/posts/" . $post['file']; ?>" alt="<?= $post['file']; ?>">
             </div>
         <?php endforeach; ?>
     <? endif; ?>

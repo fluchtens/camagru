@@ -3,7 +3,7 @@ $isAuth = false;
 if (isAuth()) {
     $isAuth = true;
     $user = getUserById($db, $userId);
-    $avatar = $user['avatar'] ? $baseUrl . "uploads/avatars/" . $user['avatar'] : null;
+    $avatar = $user['avatar'] ? $baseUrl . "assets/uploads/avatars/" . $user['avatar'] : null;
     $profilePath = "/" . $user['username'];
 }
 ?>

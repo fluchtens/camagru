@@ -5,7 +5,7 @@ if (!isAuth()) {
 }
 
 $user = getUserByUsername($db, $uriArray[1]);
-$avatar = $user['avatar'] ? $baseUrl . "uploads/avatars/" . $user['avatar'] : null;
+$avatar = $user['avatar'] ? $baseUrl . "assets/uploads/avatars/" . $user['avatar'] : null;
 $itsMe = $user['id'] === $userId ? true : false;
 $posts = getUserPosts($db, $user['id']);
 ?>
@@ -33,7 +33,7 @@ $posts = getUserPosts($db, $user['id']);
         <?php else: ?>
             <?php foreach ($posts as $post): ?>
                 <a href="<?= "p/" . $post['id'] ?>">
-                    <img src="<?= $baseUrl . "uploads/posts/" . $post['file']; ?>" alt="<?= $post['file']; ?>">
+                    <img src="<?= $baseUrl . "assets/uploads/posts/" . $post['file']; ?>" alt="<?= $post['file']; ?>">
                 </a>
             <?php endforeach; ?>
         <?php endif; ?>
