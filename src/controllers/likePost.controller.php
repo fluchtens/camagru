@@ -11,7 +11,10 @@ function submitData() {
             return ['code' => 401, 'message' => "You are not logged in."];    
         }
 
-        $postId = trim(htmlspecialchars($_POST['post_id']));
+        $jsonData = file_get_contents('php://input');
+        $data = json_decode($jsonData, true);
+
+        $postId = $data['post_id'];
         if (empty($postId)) {
             return ['code' => 401, 'message' => "Post id cannot be empty."];
         }
@@ -19,13 +22,17 @@ function submitData() {
         $userId = $_SESSION['id'];
         $db = connectToDatabase();
 
-        $post = getPostLiked($db, $userId, $postId);
-        if ($post) {
-            return ['code' => 400, 'message' => "You have already liked this post."];
+        if (!getPostById($db, $postId)) {
+            return ['code' => 400, 'message' => "This post does not exist."];
         }
 
-        likePost($db, $userId, $postId);
-        return ['code' => 200, 'message' => "You have successfully liked the post." . $type];
+        if (getPostLiked($db, $userId, $postId)) {
+            unlikePost($db, $userId, $postId);
+            return ['code' => 200, 'message' => "You have successfully unliked the post."];
+        } else {
+            likePost($db, $userId, $postId);
+            return ['code' => 200, 'message' => "You have successfully liked the post." . $type];
+        }
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];
     }

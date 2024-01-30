@@ -79,11 +79,11 @@
   opacity: 0.5;
 }
 
-.feed .post .actions .unlike {
+.feed .post .actions .unlikeBtn {
   color: #f62f40;
 }
 
-.feed .post .actions .unlike:hover {
+.feed .post .actions .unlikeBtn:hover {
   opacity: 1;
 }
 
