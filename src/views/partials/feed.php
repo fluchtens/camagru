@@ -31,15 +31,15 @@ $posts = getAllPosts($db, $userId);
     <?php else: ?>
         <?php foreach ($posts as $post): ?>
             <div class="post">
-                <a class="user" href="<?= "/" . $post['username']; ?>">
-                    <?php $avatar = $post['avatar'] ? $baseUrl . "assets/uploads/avatars/" . $post['avatar'] : null; ?>
+                <a class="user" href="<?= "/" . $post['user_username']; ?>">
+                    <?php $avatar = $post['user_avatar'] ? $baseUrl . "assets/uploads/avatars/" . $post['user_avatar'] : null; ?>
                     <?php if ($avatar): ?>
                         <img src="<?= $avatar; ?>" alt="<?= $post['avatar']; ?>">
                     <?php else: ?>
                         <img src="<?= $baseUrl . "assets/noavatar.png"; ?>" alt="noavatar.png">
                     <?php endif; ?>
                     <div class="text">
-                        <p class="username"><?= $post['username']; ?></p>
+                        <p class="username"><?= $post['user_username']; ?></p>
                         <span class="time-diff">• <?= formatElapsedTime($post['time_diff']); ?></span>
                     </div>
                 </a>

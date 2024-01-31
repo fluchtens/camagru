@@ -2,12 +2,12 @@
 function getAllPosts($db, $userId) {
     $query = "SELECT 
                 post.*, 
-                user.username, 
-                user.avatar, 
-                TIMEDIFF(NOW(), post.created_at) AS time_diff,
-                IFNULL(post_like.id, 0) AS liked
+                user.username as user_username, 
+                user.avatar as user_avatar, 
+                IF(post_like.post_id IS NOT NULL, 1, 0) AS liked,
+                TIMEDIFF(NOW(), post.created_at) AS time_diff
             FROM post
-            JOIN user ON post.user_id = user.id
+            INNER JOIN user ON post.user_id = user.id
             LEFT JOIN post_like ON post.id = post_like.post_id AND post_like.user_id = :user_id
             ORDER BY post.created_at DESC
     ";
