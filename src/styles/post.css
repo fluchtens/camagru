@@ -1,6 +1,22 @@
-.post {
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
+  align-items: center;
   justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.post {
+  max-width: 75%;
+  width: 100%;
+  max-height: 585px;
+  height: 100%;
+  display: flex;
+  background: #ffffff;
 }
 
 .post img {
@@ -8,4 +24,52 @@
   width: 100%;
   max-height: 585px;
   height: 100%;
+  pointer-events: none;
+}
+
+.post .comments {
+  width: 100%;
+  height: auto;
+  /* min-height: 0; */
+  overflow-y: auto;
+}
+
+.post .comment {
+  padding: 0.75rem 0rem;
+  display: flex;
+  /* align-items: center; */
+  gap: 0.75rem;
+}
+
+.post .comment img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.post .comment .username {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  text-wrap: nowrap;
+}
+
+.post .comment .message {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+}
+
+@media (max-width: 1536px) {
+  .post {
+    max-width: 90%;
+    width: 100%;
+    max-height: 90%;
+    height: 100%;
+    flex-direction: column;
+  }
 }

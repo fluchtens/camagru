@@ -93,6 +93,16 @@
   opacity: 1;
 }
 
+.feed .post .actions a {
+  all: unset;
+  padding: 0.5rem 0;
+  cursor: pointer;
+}
+
+.feed .post .actions a:hover {
+  opacity: 0.5;
+}
+
 .feed .post .actions p {
   margin: 0;
   font-size: 0.875rem;
