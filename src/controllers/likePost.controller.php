@@ -16,14 +16,14 @@ function submitData() {
 
         $postId = $data['post_id'];
         if (empty($postId)) {
-            return ['code' => 401, 'message' => "Post id cannot be empty."];
+            return ['code' => 400, 'message' => "Post id cannot be empty."];
         }
 
         $userId = $_SESSION['id'];
         $db = connectToDatabase();
 
         if (!getPostById($db, $postId)) {
-            return ['code' => 400, 'message' => "This post does not exist."];
+            return ['code' => 404, 'message' => "This post does not exist or has been removed."];
         }
 
         if (getPostLiked($db, $userId, $postId)) {

@@ -10,13 +10,13 @@ async function likePost(postId) {
 
     const data = await response.json();
     if (!response.ok) {
-      return { success: false, message: data.message };
+      return { success: false, code: data.code, message: data.message };
     }
 
-    return { success: true, message: data.message };
+    return { success: true, code: data.code, message: data.message };
   } catch (error) {
     console.error("An error occurred:", error);
-    return { success: false, message: error.message };
+    return { success: false, code: data.code, message: error.message };
   }
 }
 
@@ -48,6 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
           );
           btn.classList.remove("unlikeBtn");
           btn.classList.add("likeBtn");
+        }
+      } else {
+        if (request.code === 401) {
+          window.location.href = "/login";
         }
       }
     });
