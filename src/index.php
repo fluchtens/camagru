@@ -3,6 +3,7 @@ require "./core/database.php";
 require "./core/isAuth.php";
 require "./models/user.model.php";
 require "./models/post.model.php";
+require "./models/comment.model.php";
 require "./models/filter.model.php";
 
 ob_start();
