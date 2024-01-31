@@ -31,6 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (request.success) {
         const svg = btn.querySelector("svg");
         const path = btn.querySelector("path");
+        const likeCount = btn.closest(".actions").querySelector(".likeCount");
+        const currentLikes = parseInt(likeCount.textContent);
 
         if (btn.classList.contains("likeBtn")) {
           svg.setAttribute("viewBox", "0 0 48 48");
@@ -40,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
           );
           btn.classList.remove("likeBtn");
           btn.classList.add("unlikeBtn");
+          likeCount.textContent = currentLikes + 1 + " likes";
         } else {
           svg.setAttribute("viewBox", "0 0 24 24");
           path.setAttribute(
@@ -48,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
           );
           btn.classList.remove("unlikeBtn");
           btn.classList.add("likeBtn");
+          likeCount.textContent = currentLikes - 1 + " likes";
         }
       } else {
         if (request.code === 401) {

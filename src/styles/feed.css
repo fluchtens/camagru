@@ -18,7 +18,7 @@
 
 .feed .post .user {
   all: unset;
-  padding: 0.75rem 0.2rem;
+  padding: 0.75rem 0rem;
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -65,13 +65,19 @@
 }
 
 .feed .post .actions {
-  padding: 0.2rem 0;
+  padding: 0 0 1rem 0;
+  flex-direction: column;
   display: flex;
+}
+
+.feed .post .buttons {
+  display: flex;
+  gap: 0.75rem;
 }
 
 .feed .post .actions button {
   all: unset;
-  padding: 0.5rem;
+  padding: 0.5rem 0;
   cursor: pointer;
 }
 
@@ -87,16 +93,23 @@
   opacity: 1;
 }
 
+.feed .post .actions p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+}
+
 @media (max-width: 485px) {
   .feed .post .user {
-    padding: 0.75rem 0.75rem;
-  }
-
-  .feed .post .actions {
-    padding: 0.2rem 0.5rem;
+    padding: 0.75rem 1rem;
   }
 
   .feed .post .user .text span {
     display: none;
+  }
+
+  .feed .post .actions {
+    padding: 0 1rem 1rem 1rem;
   }
 }
