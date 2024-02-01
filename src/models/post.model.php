@@ -2,8 +2,8 @@
 function getAllPosts($db, $userId) {
     $query = "SELECT 
                 post.*, 
-                user.username as user_username, 
-                user.avatar as user_avatar, 
+                user.username AS user_username, 
+                user.avatar AS user_avatar, 
                 IF(post_like.post_id IS NOT NULL, 1, 0) AS liked,
                 TIMEDIFF(NOW(), post.created_at) AS time_diff,
                 (SELECT COUNT(*) FROM post_like WHERE post_id = post.id) AS like_count

@@ -20,7 +20,7 @@ function router($db, $uri, $uriArray, $baseUrl) {
     switch ($uri) {
         case "/":
             $content = "home.php";
-            $css = "feed.css";
+            $css = "home.css";
             break;
         case "/register":
             $content = "register.php";
