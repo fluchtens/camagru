@@ -1,27 +1,4 @@
 <?php
-function formatElapsedTime($timeDiff) {
-    $timeComponents = explode(':', $timeDiff);
-    $hours = $timeComponents[0];
-    $minutes = $timeComponents[1];
-    $seconds = $timeComponents[2];    
-    $weeks = floor($hours / 24 / 7);
-    $days = floor($hours / 24) % 7;
-
-    if ($weeks > 0) {
-        return $weeks . 'w';
-    } elseif ($days > 0) {
-        return $days . 'd';
-    } elseif ($hours > 0) {
-        return $hours . 'h';
-    } elseif ($minutes > 0) {
-        return $minutes . 'min';
-    } elseif ($seconds > 0) {
-        return $seconds . 's';
-    } else {
-        return 'Now';
-    }
-}
-
 $posts = getAllPosts($db, $userId);
 ?>
 
@@ -60,7 +37,7 @@ $posts = getAllPosts($db, $userId);
                         </a>
                     </div>
                     <p class="likeCount"><?= $post['like_count'] . " likes"; ?></p>
-                    <a href="/" class="commentCount"><?= "View all " . $post['comment_count'] . " comments" ?></a>
+                    <a href="<?= "p/" . $post['id']; ?>" class="commentCount"><?= "View all " . $post['comment_count'] . " comments" ?></a>
                 </div>
                 <hr>
             </div>

@@ -1,6 +1,7 @@
 <?php
 require "./core/database.php";
 require "./core/isAuth.php";
+require "./core/utils.php";
 require "./models/user.model.php";
 require "./models/post.model.php";
 require "./models/comment.model.php";
