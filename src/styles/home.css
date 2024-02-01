@@ -103,11 +103,19 @@
   opacity: 0.5;
 }
 
-.feed .post .actions p {
+.feed .post .actions .likeCount {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
+}
+
+.feed .post .actions .commentCount {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  color: #737373;
 }
 
 @media (max-width: 485px) {

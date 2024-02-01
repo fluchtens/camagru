@@ -23,9 +23,6 @@ function formatElapsedTime($timeDiff) {
 }
 
 $posts = getAllPosts($db, $userId);
-echo "<pre>";
-print_r($posts);
-echo "</pre>";
 ?>
 
 <div class="feed">
@@ -63,6 +60,7 @@ echo "</pre>";
                         </a>
                     </div>
                     <p class="likeCount"><?= $post['like_count'] . " likes"; ?></p>
+                    <a href="/" class="commentCount"><?= "View all " . $post['comment_count'] . " comments" ?></a>
                 </div>
                 <hr>
             </div>

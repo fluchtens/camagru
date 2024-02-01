@@ -4,9 +4,10 @@ function getAllPosts($db, $userId) {
                 post.*, 
                 user.username AS user_username, 
                 user.avatar AS user_avatar, 
-                IF(post_like.post_id IS NOT NULL, 1, 0) AS liked,
+                IF(post_like.id IS NOT NULL, 1, 0) AS liked,
                 TIMEDIFF(NOW(), post.created_at) AS time_diff,
-                (SELECT COUNT(*) FROM post_like WHERE post_id = post.id) AS like_count
+                (SELECT COUNT(*) FROM post_like WHERE post_id = post.id) AS like_count,
+                (SELECT COUNT(*) FROM post_comment WHERE post_id = post.id) AS comment_count
             FROM post
             INNER JOIN user ON post.user_id = user.id
             LEFT JOIN post_like ON post.id = post_like.post_id AND post_like.user_id = :user_id
