@@ -22,7 +22,15 @@ function getAllPosts($db, $userId) {
 
 
 function getPostById($db, $postId) {
-    $query = "SELECT * FROM post WHERE id = :id";
+    $query = "SELECT
+                post.*,
+                TIMEDIFF(NOW(), post.created_at) AS time_diff,
+                user.username AS user_username,
+                user.avatar AS user_avatar
+            FROM post
+            INNER JOIN user ON post.user_id = user.id
+            WHERE post.id = :id
+    ";
     $stmt = $db->prepare($query);
     $stmt->bindParam(':id', $postId, PDO::PARAM_INT);
     $stmt->execute();

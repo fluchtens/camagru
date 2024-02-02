@@ -1,0 +1,136 @@
+.comments-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.comments-modal .post {
+  width: 50%;
+  height: 75%;
+  flex-direction: column;
+  display: flex;
+  border-radius: 0.5rem;
+  background: #ffffff;
+}
+
+.comments-modal .post .header {
+  padding-left: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comments-modal .post .header h1 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.comments-modal .post .header button {
+  all: unset;
+  width: 1rem;
+  height: 1rem;
+  padding: 0.75rem;
+  display: flex;
+  cursor: pointer;
+}
+
+.comments-modal .post .comments {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.comments-modal .post .comments h2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.comments-modal .post .comments h3 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+.comments-modal .post .comment {
+  padding: 0.75rem 0.75rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.comments-modal .post .comment img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.comments-modal .post .comment .texts {
+  flex-direction: column;
+  display: flex;
+}
+
+.comments-modal .post .comment .texts .title {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.comments-modal .post .comment .username {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  text-wrap: nowrap;
+}
+
+.comments-modal .post .comment .time-diff {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  color: #737373;
+  text-wrap: nowrap;
+}
+
+.comments-modal .post .comment .message {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+}
+
+/* @media (max-width: 1536px) {
+  .post {
+    max-width: 90%;
+    width: 100%;
+    max-height: 90%;
+    height: 100%;
+    flex-direction: column;
+  }
+} */
+
+@media (max-width: 768px) {
+  .comments-modal {
+    align-items: end;
+  }
+
+  .comments-modal .post {
+    width: 100%;
+  }
+
+  .comments-modal .post .comment {
+    padding: 0.5rem 0.5rem;
+  }
+}

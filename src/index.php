@@ -49,6 +49,12 @@ function router($db, $uri, $uriArray, $baseUrl) {
                 $css = $post ? "post.css" : "404.css";
                 break;
             }
+            if (count($uriArray) === 3 && $uriArray[1] === "c") {
+                $post = getPostById($db, $uriArray[2]);
+                $content = $post ? "comments.php" : "404.php";
+                $css = $post ? "comments.css" : "404.css";
+                break;
+            }
             if (count($uriArray) > 2) {
                 $content = "404.php";
                 $css = "404.css";
