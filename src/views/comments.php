@@ -11,7 +11,7 @@ $me = getUserById($db, $userId);
 $myAvatar = $me['avatar'] ? $baseUrl . "assets/uploads/avatars/" . $me['avatar'] : null;
 ?>
 
-<div id="commentsModal" class="comments-modal">
+<div id="commentsModal" class="comments-modal" data-post-id="<?= $post['id']; ?>">
     <div class="post">
         <div class="header">
             <h1>Comments</h1>
@@ -20,7 +20,7 @@ $myAvatar = $me['avatar'] ? $baseUrl . "assets/uploads/avatars/" . $me['avatar']
             </button>
         </div>
         <hr>
-        <div class="comments">
+        <div id="comments" class="comments">
             <?php if (!$comments): ?>
                 <h2>No comments yet.</h2>
                 <h3>Start the conversation.</h3>
@@ -45,7 +45,7 @@ $myAvatar = $me['avatar'] ? $baseUrl . "assets/uploads/avatars/" . $me['avatar']
             <?php endif; ?>
         </div>
         <hr>
-        <form id="commentForm" method="post" data-post-id="<?= $post['id']; ?>">
+        <form id="commentForm" method="post">
             <?php if ($myAvatar): ?>
                 <img src="<?= $myAvatar; ?>" alt="<?= $me['avatar'] ?>">
             <?php else: ?>
@@ -54,5 +54,6 @@ $myAvatar = $me['avatar'] ? $baseUrl . "assets/uploads/avatars/" . $me['avatar']
             <input type="text" name="comment" placeholder="Add a comment.." autocomplete="off">
         </form>
     </div>
+    <script>const baseUrl = "<?= $baseUrl ?>";</script>
     <script src="<?= $baseUrl . "scripts/comments.js" ?>"></script>
 </div>
