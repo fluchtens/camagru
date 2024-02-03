@@ -37,7 +37,11 @@ $posts = getAllPosts($db, $userId);
                         </a>
                     </div>
                     <p class="likeCount"><?= $post['like_count'] . " likes"; ?></p>
-                    <a href="<?= "c/" . $post['id']; ?>" class="commentCount"><?= "View all " . $post['comment_count'] . " comments" ?></a>
+                    <a href="<?= "c/" . $post['id']; ?>" class="commentCount">
+                        <?php if ($post['comment_count']): ?>
+                            <?= "View all " . $post['comment_count'] . " comments" ?>
+                        <?php endif; ?>
+                    </a>
                 </div>
                 <hr>
             </div>
