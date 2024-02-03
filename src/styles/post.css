@@ -1,6 +1,6 @@
 .post {
-  margin: auto;
   max-width: 468px;
+  margin: auto;
   flex-direction: column;
   display: flex;
 }
@@ -54,7 +54,7 @@
 }
 
 .post .actions {
-  padding: 0 0 1rem 0;
+  padding: 0 0 0.25rem 0;
   flex-direction: column;
   display: flex;
 }
@@ -109,7 +109,7 @@
 
 @media (max-width: 485px) {
   .post .user {
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 0 0.75rem 1rem;
   }
 
   .post .user .text span {

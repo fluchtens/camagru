@@ -32,7 +32,7 @@ $posts = getUserPosts($db, $user['id']);
             <h1>No Posts Yet</h1>
         <?php else: ?>
             <?php foreach ($posts as $post): ?>
-                <a href="<?= "p/" . $post['id'] ?>">
+                <a href="<?= "/p/" . $post['id'] ?>">
                     <img src="<?= $baseUrl . "assets/uploads/posts/" . $post['file']; ?>" alt="<?= $post['file']; ?>">
                     <div class="stats">
                         <div class="stat">
