@@ -44,7 +44,6 @@ $posts = getAllPosts($db, $userId);
                             <?php endif; ?>
                         </a>
                     </div>
-                    <hr>
                 </li>
             <?php endforeach; ?>
         </ul>
