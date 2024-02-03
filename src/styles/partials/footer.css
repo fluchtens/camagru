@@ -1,0 +1,23 @@
+footer {
+  padding: 0.75rem 1rem 0.75rem 1rem;
+  border-top: 1px solid #dbdbdb;
+}
+
+footer .footer-container {
+  max-width: 1024px;
+  margin: auto;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+footer .footer-container p {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 400;
+  color: #737373;
+}

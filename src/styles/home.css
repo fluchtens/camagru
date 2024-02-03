@@ -10,10 +10,19 @@
   font-weight: 800;
 }
 
+.feed ul {
+  margin: 0;
+  padding: 0;
+}
+
 .feed .post {
-  max-width: 468px;
   flex-direction: column;
   display: flex;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.feed .post:last-child {
+  border-bottom: none;
 }
 
 .feed .post .user {
@@ -65,7 +74,6 @@
 }
 
 .feed .post .actions {
-  padding: 0 0 0.25rem 0;
   flex-direction: column;
   display: flex;
 }
@@ -128,6 +136,6 @@
   }
 
   .feed .post .actions {
-    padding: 0 1rem 1rem 1rem;
+    padding: 0 1rem 0 1rem;
   }
 }

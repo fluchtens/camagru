@@ -88,6 +88,7 @@ $css = $router['css'];
         <link rel="icon" type="image/png" href="<?= $baseUrl . "assets/favicon.png" ?>" />
         <link rel="stylesheet" type="text/css" href=<?= $baseUrl . "styles/globals.css"; ?>>
         <link rel="stylesheet" type="text/css" href=<?= $baseUrl . "styles/partials/header.css"; ?>>
+        <link rel="stylesheet" type="text/css" href=<?= $baseUrl . "styles/partials/footer.css"; ?>>
         <?php if ($css): ?>
             <link rel="stylesheet" type="text/css" href="<?= $css; ?>">
         <?php endif; ?>  
@@ -100,6 +101,9 @@ $css = $router['css'];
         <main>
             <?php require $content; ?>
         </main>
+        <?php if ($uri !== "/register" && $uri !== "/login"): ?>
+            <?php require "./views/partials/footer.php"; ?>
+        <?php endif; ?>
     </body>
 </html>
 
