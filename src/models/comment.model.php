@@ -16,4 +16,15 @@ function getPostComments($db, $postId) {
     $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return ($comments ? $comments : null);
 }
+
+function commentPost($db, $userId, $postId, $comment) {
+    $query = "INSERT INTO post_comment (user_id, post_id, comment)
+            VALUES (:user_id, :post_id, :comment)
+    ";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam('user_id', $userId, PDO::PARAM_INT);
+    $stmt->bindParam('post_id', $postId, PDO::PARAM_INT);
+    $stmt->bindParam('comment', $comment, PDO::PARAM_STR);
+    $stmt->execute();
+}
 ?>

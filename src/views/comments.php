@@ -4,8 +4,11 @@ if (!isAuth()) {
     exit();
 }
 
-$post = getPostById($db, $uriArray[2]);
-$comments = getPostComments($db, $uriArray[2]);
+$postId = $uriArray[2];
+$post = getPostById($db, $postId);
+$comments = getPostComments($db, $postId);
+$user = getUserById($db, $userId);
+$avatar = $user['avatar'] ? $baseUrl . "assets/uploads/avatars/" . $user['avatar'] : null;
 ?>
 
 <div id="commentsModal" class="comments-modal">
@@ -41,7 +44,15 @@ $comments = getPostComments($db, $uriArray[2]);
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
-        <input type="text" placeholder="Add a comment..">
+        <hr>
+        <form id="commentForm" data-post-id="<?= $post['id']; ?>">
+            <?php if ($avatar): ?>
+                <img src="<?= $avatar; ?>" alt="<?= $user['avatar'] ?>">
+            <?php else: ?>
+                <img src="<?= $baseUrl . "assets/noavatar.png"; ?>" alt="noavatar.png">
+            <?php endif; ?>
+            <input type="text" name="comment" placeholder="Add a comment.." autocomplete="off">
+        </form>
     </div>
     <script src="<?= $baseUrl . "scripts/comments.js" ?>"></script>
 </div>

@@ -16,7 +16,7 @@ function submitData() {
         $data = json_decode($jsonData, true);
 
         $postId = $data['post_id'];
-        if (empty($postId)) {
+        if (!$postId) {
             return ['code' => 400, 'message' => "Post id cannot be empty."];
         }
 
