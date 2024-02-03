@@ -85,6 +85,7 @@ $css = $router['css'];
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="icon" type="image/png" href="<?= $baseUrl . "assets/favicon.png" ?>" />
         <link rel="stylesheet" type="text/css" href=<?= $baseUrl . "styles/globals.css"; ?>>
         <link rel="stylesheet" type="text/css" href=<?= $baseUrl . "styles/partials/header.css"; ?>>
         <?php if ($css): ?>
