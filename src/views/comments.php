@@ -7,8 +7,8 @@ if (!isAuth()) {
 $postId = $uriArray[2];
 $post = getPostById($db, $postId);
 $comments = getPostComments($db, $postId);
-$user = getUserById($db, $userId);
-$avatar = $user['avatar'] ? $baseUrl . "assets/uploads/avatars/" . $user['avatar'] : null;
+$me = getUserById($db, $userId);
+$myAvatar = $me['avatar'] ? $baseUrl . "assets/uploads/avatars/" . $me['avatar'] : null;
 ?>
 
 <div id="commentsModal" class="comments-modal">
@@ -45,9 +45,9 @@ $avatar = $user['avatar'] ? $baseUrl . "assets/uploads/avatars/" . $user['avatar
             <?php endif; ?>
         </div>
         <hr>
-        <form id="commentForm" data-post-id="<?= $post['id']; ?>">
-            <?php if ($avatar): ?>
-                <img src="<?= $avatar; ?>" alt="<?= $user['avatar'] ?>">
+        <form id="commentForm" method="post" data-post-id="<?= $post['id']; ?>">
+            <?php if ($myAvatar): ?>
+                <img src="<?= $myAvatar; ?>" alt="<?= $me['avatar'] ?>">
             <?php else: ?>
                 <img src="<?= $baseUrl . "assets/noavatar.png"; ?>" alt="noavatar.png">
             <?php endif; ?>
