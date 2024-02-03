@@ -51,7 +51,7 @@ $myAvatar = $me['avatar'] ? $baseUrl . "assets/uploads/avatars/" . $me['avatar']
             <?php else: ?>
                 <img src="<?= $baseUrl . "assets/noavatar.png"; ?>" alt="noavatar.png">
             <?php endif; ?>
-            <input type="text" name="comment" placeholder="Add a comment.." autocomplete="off">
+            <input type="text" name="comment" placeholder="Add a comment.." autocomplete="off" required>
         </form>
     </div>
     <script>const baseUrl = "<?= $baseUrl ?>";</script>
