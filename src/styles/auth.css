@@ -39,6 +39,7 @@ main {
 .auth-form .main-link {
   width: 11rem;
   height: 3.125rem;
+  pointer-events: none;
 }
 
 .auth-form .main-link img {
