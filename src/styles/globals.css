@@ -1,26 +1,19 @@
+* {
+  font: inherit;
+}
+
 body {
   min-height: 100vh;
   margin: 0;
-  padding: 0;
   flex-direction: column;
   display: flex;
   font-family: "system-ui", sans-serif;
   background-color: #ffffff;
 }
 
-input {
-  font-family: "system-ui", sans-serif;
-}
-
 main {
-  padding: 0rem;
-}
-
-.main-container {
-  max-width: 1024px;
-  margin: auto;
-  flex-direction: column;
-  display: flex;
+  min-height: 100vh;
+  padding: 0;
 }
 
 hr {
@@ -29,11 +22,5 @@ hr {
   padding: 0;
   outline: none;
   border: none;
-  /* border-bottom: 1px solid #dbdbdb; */
-}
-
-@media (max-width: 485px) {
-  main {
-    padding: 0;
-  }
+  border-bottom: 1px solid #dbdbdb;
 }
