@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     };
 
     const displayFilterContainer = () => {
-      filters.style.display = "block";
+      filters.style.display = "flex";
     };
 
     displayTakeContainer();
