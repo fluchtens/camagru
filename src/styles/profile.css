@@ -160,3 +160,16 @@
     padding: 1rem 0;
   }
 }
+
+@media (max-width: 250px) {
+  .profile .top {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile .top-right a {
+    align-self: center;
+  }
+}

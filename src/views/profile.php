@@ -4,7 +4,8 @@ if (!isAuth()) {
     exit();
 }
 
-$user = getUserByUsername($db, $uriArray[1]);
+$username = $uriArray[1];
+$user = getUserByUsername($db, $username);
 $avatar = $user['avatar'] ? $baseUrl . "assets/uploads/avatars/" . $user['avatar'] : null;
 $itsMe = $user['id'] === $userId ? true : false;
 $posts = getUserPosts($db, $user['id']);
