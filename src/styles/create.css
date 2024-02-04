@@ -112,6 +112,7 @@
   font-weight: 600;
   cursor: pointer;
 }
+
 .post .take .takePhotoBtn {
   background: #0095f6;
   color: #ffffff;
@@ -152,7 +153,12 @@
 
 @media (max-width: 485px) {
   .post .filters {
-    width: 100vw;
+    width: 90vw;
     border-radius: none;
+  }
+
+  .post .take .buttons {
+    margin: auto;
+    flex-direction: column;
   }
 }
