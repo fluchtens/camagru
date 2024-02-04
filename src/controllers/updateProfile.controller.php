@@ -6,16 +6,15 @@ require "../models/user.model.php";
 require "../core/utils.php";
 
 function submitFullName($db, $userId, $fullname) {
-    $fullnameCheck = checkFullName($fullname);
-    if (!$fullnameCheck['success']) {
-        return ['code' => 400, 'message' => $fullnameCheck['message']];
+    if (strlen($fullname) < 1 || strlen($fullname) > 30) {
+        return ['code' => 400, 'message' => "Full name must be between 3 and 16 characters long."];
     }
 
     updateFullName($db, $userId, $fullname);
     return ['code' => 200, 'message' => null];
 }
 
-function sumbitUsername($db, $userId, $username) {
+function submitUsername($db, $userId, $username) {
     $usernameCheck = checkUsername($username);
     if (!$usernameCheck['success']) {
         return ['code' => 400, 'message' => $usernameCheck['message']];
@@ -29,6 +28,15 @@ function sumbitUsername($db, $userId, $username) {
     return ['code' => 200, 'message' => null];
 }
 
+function submitBio($db, $userId, $bio) {
+    if (strlen($bio) < 0 || strlen($bio) > 150) {
+        return ['code' => 400, 'message' => "Bio must be between 1 and 150 characters long."];
+    }
+
+    updateBio($db, $userId, $bio);
+    return ['code' => 200, 'message' => null];
+}
+
 function submitData() {
     try {
         if (!isset($_SESSION['id'])) {
@@ -37,6 +45,7 @@ function submitData() {
         
         $fullname = trim(htmlspecialchars($_POST['fullname']));
         $username = trim(htmlspecialchars($_POST['username']));
+        $bio = trim(htmlspecialchars($_POST['bio']));
 
         $userId = $_SESSION['id'];
         $db = connectToDatabase();
@@ -51,9 +60,16 @@ function submitData() {
         }
 
         if ($user['username'] !== $username) {
-            $sumbitUsername = sumbitUsername($db, $userId, $username);
-            if ($sumbitUsername['code'] !== 200) {
-                return ['code' => $sumbitUsername['code'], 'message' => $sumbitUsername['message']];
+            $submitUsername = submitUsername($db, $userId, $username);
+            if ($submitUsername['code'] !== 200) {
+                return ['code' => $submitUsername['code'], 'message' => $submitUsername['message']];
+            }
+        }
+
+        if ($user['bio'] !== $bio) {
+            $submitBio = submitBio($db, $userId, $bio);
+            if ($submitBio['code'] !== 200) {
+                return ['code' => $submitBio['code'], 'message' => $submitBio['message']];
             }
         }
     

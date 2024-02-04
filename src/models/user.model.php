@@ -65,6 +65,18 @@ function updateFullName($db, $id, $fullname) {
     $stmt->execute();
 }
 
+function updateBio($db, $userId, $bio) {
+    $query = "UPDATE user SET bio = :bio WHERE id = :id";
+    $stmt = $db->prepare($query);
+    if (!$bio) {
+        $stmt->bindValue(':bio', null, PDO::PARAM_NULL);
+    } else {
+        $stmt->bindParam(':bio', $bio, PDO::PARAM_STR);
+    }
+    $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+}
+
 function updateAvatar($db, $id, $avatar) {
     $query = "UPDATE user SET avatar = :avatar WHERE id = :id";
     $stmt = $db->prepare($query);

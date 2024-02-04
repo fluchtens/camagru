@@ -1,6 +1,7 @@
 async function updateProfile(formData) {
   try {
-    const response = await fetch("controllers/updateProfile.controller.php", {
+    const url = baseUrl + "controllers/updateProfile.controller.php";
+    const response = await fetch(url, {
       method: "POST",
       body: formData,
     });
@@ -19,7 +20,8 @@ async function updateProfile(formData) {
 
 async function updateAvatar(formData) {
   try {
-    const response = await fetch("controllers/updateAvatar.controller.php", {
+    const url = baseUrl + "controllers/updateAvatar.controller.php";
+    const response = await fetch(url, {
       method: "POST",
       body: formData,
     });

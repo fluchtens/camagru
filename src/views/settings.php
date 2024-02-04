@@ -22,11 +22,16 @@ $user = getUserById($db, $userId);
             <input type="text" name="username" value="<?= $user['username']; ?>" placeholder="Username" autocomplete="off">
         </div>
         <div class="data">
+            <label for="username">Bio</label>
+            <input type="text" name="bio" value="<?= $user['bio']; ?>" placeholder="Bio" autocomplete="off">
+        </div>
+        <div class="data">
             <label for="avatarToUpload">Avatar</label>
             <input type="file" name="avatarToUpload" accept=".jpg, .jpeg, .png, .gif">
         </div>
         <button type="submit">Submit</button>
     </form>
-    <script src="scripts/updateProfile.js"></script>
+    <script>const baseUrl = "<?= $baseUrl ?>";</script>
+    <script src="<?= $baseUrl . "scripts/settings.js" ?>"></script>
 </div>
 
