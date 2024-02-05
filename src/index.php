@@ -38,9 +38,13 @@ function router($db, $uri, $uriArray, $baseUrl) {
             $content = "create.php";
             $css = "create.css";
             break;
-        case "/settings":
+        case "/accounts/edit":
             $content = "settings.php";
             $css = "settings.css";
+            break;
+        case "/accounts/password/reset":
+            $content = "password-reset.php";
+            $css = "password-reset.php";
             break;
         default:
             if (count($uriArray) === 3 && $uriArray[1] === "p") {

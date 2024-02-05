@@ -23,7 +23,7 @@ $posts = getUserPosts($db, $user['id']);
             <span><?= $user['full_name']; ?></span>
             <p><?= $user['bio']; ?></p>
             <?php if ($itsMe): ?>
-                <a href="/settings">Edit profile</a>
+                <a href="/accounts/edit">Edit profile</a>
             <?php endif; ?>
         </div>
     </div>
