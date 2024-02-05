@@ -10,10 +10,14 @@ $filters = getAllFilters($db);
 <div class="post">
     <h1>Create new post</h1>
     <div class="take">
-        <video id="captureVideo" autoplay></video>
-        <img id="captureFilter" class="capture-filter" alt="filter">
-        <canvas id="photoPreview"></canvas>
-        <img id="previewFilter" class="preview-filter" alt="filter">
+        <div class="capture">
+            <video id="captureVideo" autoplay></video>
+            <img id="captureFilter" alt="filter">
+        </div>
+        <div class="preview">
+            <canvas id="photoPreview"></canvas>
+            <img id="previewFilter" alt="filter">
+        </div>
         <div id="filters" class="filters">
             <?php foreach($filters as $filter): ?>
                 <button class="filterBtn" data-id="<?= $filter['id'] ?>" data-file="<?= $filter['file'] ?>">
