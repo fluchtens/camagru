@@ -34,8 +34,9 @@ document.addEventListener("DOMContentLoaded", (e) => {
     const constraints = {
       audio: false,
       video: {
-        width: { min: 468, max: 468 },
-        height: { min: 585, max: 585 },
+        width: 468,
+        height: 585,
+        facingMode: "user",
       },
     };
 
