@@ -31,14 +31,15 @@ function applyFilter($imagePath, $filterPath) {
     $baseImage = imagecreatefrompng($imagePath);
     $baseWidth = imagesx($baseImage);
     $baseHeight = imagesy($baseImage);
-
+    
     $filterImage = imagecreatefrompng("../assets/filters/" . $filterPath);
     $filterWidth = imagesx($filterImage);
     $filterHeight = imagesy($filterImage);
-
+    
     $positionX = ($baseWidth - $filterWidth) / 2;
     $positionY = ($baseHeight - $filterHeight) / 2;
-
+    
+    imagesavealpha($baseImage, true);
     imagecopy($baseImage, $filterImage, $positionX, $positionY, 0, 0, $filterWidth, $filterHeight);
     imagepng($baseImage, $imagePath);
 
