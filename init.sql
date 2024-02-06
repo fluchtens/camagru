@@ -46,16 +46,15 @@ CREATE TABLE IF NOT EXISTS filter (
   file VARCHAR(255)
 );
 
-INSERT INTO filter (file) VALUES ('fire.png');
-INSERT INTO filter (file) VALUES ('sleaves.png');
-INSERT INTO filter (file) VALUES ('vintage.png');
 INSERT INTO filter (file) VALUES ('evil.png');
 INSERT INTO filter (file) VALUES ('falling_cat.png');
 INSERT INTO filter (file) VALUES ('blue_flower_frame.png');
-INSERT INTO filter (file) VALUES ('christmas_balls.png');
 INSERT INTO filter (file) VALUES ('beard.png');
 INSERT INTO filter (file) VALUES ('pikachu.png');
 INSERT INTO filter (file) VALUES ('flames.png');
-INSERT INTO filter (file) VALUES ('rainbow.png');
-INSERT INTO filter (file) VALUES ('monkey_frame.png');
-
+INSERT INTO filter (file) VALUES ('dog.png');
+INSERT INTO filter (file) VALUES ('bold.png');
+INSERT INTO filter (file) VALUES ('mask.png');
+INSERT INTO filter (file) VALUES ('toast.png');
+INSERT INTO filter (file) VALUES ('racoon.png');
+INSERT INTO filter (file) VALUES ('bathing_cap.png');
