@@ -19,7 +19,7 @@ function createPost($db, $userId, $caption, $file) {
 
 function getAllPosts($db, $userId) {
     $query = "SELECT 
-                post.*, 
+                post.*,
                 user.username AS user_username, 
                 user.avatar AS user_avatar, 
                 IF(post_like.id IS NOT NULL, 1, 0) AS liked,
@@ -29,6 +29,7 @@ function getAllPosts($db, $userId) {
             FROM post
             INNER JOIN user ON post.user_id = user.id
             LEFT JOIN post_like ON post.id = post_like.post_id AND post_like.user_id = :user_id
+            WHERE post.published = 1
             ORDER BY post.created_at DESC
     ";
     $stmt = $db->prepare($query);
@@ -47,7 +48,7 @@ function getUserPosts($db, $userId) {
                 (SELECT COUNT(*) FROM post_comment WHERE post_id = post.id) AS comment_count
             FROM post
             INNER JOIN user ON post.user_id = user.id
-            WHERE user.id = :user_id
+            WHERE user.id = :user_id AND post.published = 1
             ORDER BY post.created_at DESC
     ";
     $stmt = $db->prepare($query);
@@ -55,6 +56,28 @@ function getUserPosts($db, $userId) {
     $stmt->execute();
     $posts = $stmt->fetchAll();
     return ($posts ? $posts : null);
+}
+
+function getUserWaitingPosts($db, $userId) {
+    $query = "SELECT * FROM post
+            WHERE user_id = :user_id AND published = 0
+            ORDER BY post.created_at DESC
+    ";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return ($posts ? $posts : null);
+}
+
+function publishUserWaitingPosts($db, $userId) {
+    $query = "UPDATE post
+            SET published = 1
+            WHERE user_id = :user_id AND published = 0
+    ";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
 }
 
 function getUserPostById($db, $userId, $postId) {

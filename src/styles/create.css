@@ -20,7 +20,7 @@
   flex-direction: column;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5em;
 }
 
 .post .take .capture {
@@ -111,6 +111,22 @@
   pointer-events: none;
 }
 
+.post .waiting {
+  max-width: 468px;
+  width: 100%;
+  padding: 0.25rem;
+  gap: 0.15rem;
+  overflow-x: auto;
+  display: flex;
+  box-sizing: border-box;
+  border-radius: 0.5rem;
+  background: #efefef;
+}
+
+.post .waiting img {
+  width: 5rem;
+}
+
 .post .take .buttons {
   margin-left: auto;
   display: flex;
@@ -130,46 +146,62 @@
   cursor: pointer;
 }
 
-.post .take .takePhotoBtn {
+.post .take .take-photo-btn {
   background: #0095f6;
   color: #ffffff;
 }
 
-.post .take .takePhotoBtn:hover {
+.post .take .take-photo-btn:hover {
   background: #1877f2;
 }
 
-.post .take .takePhotoBtn:disabled {
+.post .take .take-photo-btn:disabled {
   background: #efefef;
   color: #808080;
   cursor: not-allowed;
 }
 
-.post .take .takePhotoBtn:disabled:hover {
-  background: #efefef;
+.post .take .publish-photo-btn {
+  background: #0095f6;
+  color: #ffffff;
 }
 
-.post .take .cancelBtn {
+.post .take .publish-photo-btn:hover {
+  background: #1877f2;
+}
+
+.post .take .publish-photo-btn:disabled {
+  background: #efefef;
+  color: #808080;
+  cursor: not-allowed;
+}
+
+.post .take .cancel-btn {
   display: none;
   background: #efefef;
 }
 
-.post .take .cancelBtn:hover {
+.post .take .cancel-btn:hover {
   background: #dbdbdb;
 }
 
-.post .take .submitBtn {
+.post .take .save-btn {
   display: none;
   background: #0095f6;
   color: #ffffff;
 }
 
-.post .take .submitBtn:hover {
+.post .take .save-btn:hover {
   background: #1877f2;
 }
 
 @media (max-width: 485px) {
   .post .filters {
+    width: 90vw;
+    border-radius: none;
+  }
+
+  .post .waiting {
     width: 90vw;
     border-radius: none;
   }

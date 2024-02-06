@@ -57,20 +57,21 @@ function submitData() {
         $userId = $_SESSION['id'];
         $caption = 'No caption';
 
-        $data = json_decode(file_get_contents("php://input"));
+        $jsonData = file_get_contents('php://input');
+        $data = json_decode($jsonData, true);
 
-        if (!$data->image) {
+        if (!$data['image']) {
             return ['code' => 400, 'message' => "Missing image."];
-        } elseif (!$data->filter) {
+        } elseif (!$data['filter']) {
             return ['code' => 400, 'message' => "Missing filter."];
         }
 
-        $filter = getFilter($db, $data->filter);
+        $filter = getFilter($db, $data['filter']);
         if (!$filter) {
             return ['code' => 400, 'message' => "Invalid filter."];
         }
 
-        $imageData = str_replace('data:image/png;base64,', '', $data->image);
+        $imageData = str_replace('data:image/png;base64,', '', $data['image']);
         $decodedImageData = base64_decode($imageData);
         $imageCheck = checkImage($decodedImageData);
         if ($imageCheck['code'] !== 200) {
@@ -85,7 +86,7 @@ function submitData() {
         applyFilter($filePath, $filter['file']);
         createPost($db, $userId, $caption, $fileName);
 
-        return ['code' => 200, 'message' => "The post was successfully published."];
+        return ['code' => 200, 'message' => "The photo has been successfully saved."];
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];
     }

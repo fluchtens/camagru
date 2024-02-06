@@ -5,6 +5,7 @@ if (!isAuth()) {
 }
 
 $filters = getAllFilters($db);
+$waitingPosts = getUserWaitingPosts($db, $userId);
 ?>
 
 <div class="post">
@@ -25,11 +26,24 @@ $filters = getAllFilters($db);
                 </button>
             <?php endforeach; ?>
         </div>
+        <div id="waiting" class="waiting">
+            <?php if ($waitingPosts): ?>
+                <?php foreach($waitingPosts as $waitingPost): ?>
+                    <img src="<?= $baseUrl . "assets/uploads/posts/" . $waitingPost['file'] ?>" alt="<?= $waitingPost['file'] ?>">
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
         <div class="buttons">
-            <button id="takePhotoBtn" class="takePhotoBtn" disabled>Take Photo</button>
-            <button id="cancelBtn" class="cancelBtn">Cancel</button>
-            <button id="submitBtn" class="submitBtn">Submit</button>
+            <button id="takePhotoBtn" class="take-photo-btn" disabled>Take Photo</button>
+            <?php if ($waitingPost): ?>
+                <button id="publishPhotoBtn" class="publish-photo-btn">Publish Photos</button>
+            <?php else: ?>
+                <button id="publishPhotoBtn" class="publish-photo-btn" disabled>Publish Photos</button>
+            <?php endif; ?>
+            <button id="cancelBtn" class="cancel-btn">Cancel</button>
+            <button id="saveBtn" class="save-btn">Save</button>
         </div>
     </div>
-    <script src="scripts/createPost.js"></script>
+    <script>const baseUrl = "<?= $baseUrl ?>";</script>
+    <script src="<?= $baseUrl . "scripts/create.js" ?>"></script>
 </div>
