@@ -43,7 +43,7 @@ function submitData() {
             return ['code' => 401, 'message' => "You are not logged in."];    
         }
         
-        $fullname = trim(htmlspecialchars($_POST['fullname']));
+        $fullname = preg_replace('/\s+/', ' ', trim(htmlspecialchars($_POST['fullname'])));
         $username = trim(htmlspecialchars($_POST['username']));
         $bio = trim(htmlspecialchars($_POST['bio']));
 
