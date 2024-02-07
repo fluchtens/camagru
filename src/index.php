@@ -44,7 +44,7 @@ function router($db, $uri, $uriArray, $baseUrl) {
             break;
         case "/accounts/password/reset":
             $content = "password-reset.php";
-            $css = "password-reset.php";
+            $css = "password-reset.css";
             break;
         default:
             if (count($uriArray) === 3 && $uriArray[1] === "p") {
