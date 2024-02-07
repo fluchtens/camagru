@@ -7,6 +7,8 @@ CREATE TABLE IF NOT EXISTS user (
   bio TEXT DEFAULT NULL,
   active BOOLEAN DEFAULT 0,
   activation_token varchar(255) NOT NULL,
+  reset_token VARCHAR(255) DEFAULT NULL,
+  reset_token_expiration DATETIME DEFAULT NULL,
   password VARCHAR(255) NOT NULL
 );
 
