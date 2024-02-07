@@ -24,7 +24,7 @@ function uploadFile($file) {
     return ['code' => 200];
 }
 
-function submitData($username) {
+function submitData() {
     try {
         if (!isset($_SESSION['id'])) {
             return ['code' => 401, 'message' => "You are not logged in."];    
@@ -59,7 +59,7 @@ function submitData($username) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $response = submitData($newUsername);
+    $response = submitData();
     http_response_code($response['code']);
     header('Content-Type: application/json');
     echo json_encode($response);
