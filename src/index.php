@@ -17,6 +17,11 @@ function getBaseUrl() {
     return ($baseUrl);
 }
 
+function shouldIncludeHeader($uri) {
+    $exclude = ["/register", "/login", "/accounts/password/reset"];
+    return !in_array($uri, $exclude);
+}
+
 function router($db, $uri, $uriArray, $baseUrl) {
     switch ($uri) {
         case "/":
@@ -104,13 +109,13 @@ $css = $router['css'];
         <title>camagru</title>
     </head>
     <body>
-        <?php if ($uri !== "/register" && $uri !== "/login"): ?>
+        <?php if (shouldIncludeHeader($uri)): ?>
             <?php require "./views/partials/header.php"; ?>
         <?php endif; ?>
         <main>
             <?php require $content; ?>
         </main>
-        <?php if ($uri !== "/register" && $uri !== "/login"): ?>
+        <?php if (shouldIncludeHeader($uri)): ?>
             <?php require "./views/partials/footer.php"; ?>
         <?php endif; ?>
     </body>

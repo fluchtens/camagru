@@ -92,4 +92,16 @@ function updateActiveStatus($db, $userId, $active) {
     $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
     $stmt->execute();
 }
+
+function updateResetToken($db, $userId, $resetToken, $expirationTime) {
+    $query = "UPDATE user
+            SET reset_token = :resetToken, reset_token_expiration = :expirationTime
+            WHERE id = :userId
+    ";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':resetToken', $resetToken, PDO::PARAM_STR);
+    $stmt->bindParam(':expirationTime', $expirationTime, PDO::PARAM_STR);
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+}
 ?>
