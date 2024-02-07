@@ -53,13 +53,18 @@ function router($db, $uri, $uriArray, $baseUrl) {
                 $css = $post ? "post.css" : "404.css";
                 break;
             }
-            if (count($uriArray) === 3 && $uriArray[1] === "c") {
+            elseif (count($uriArray) === 3 && $uriArray[1] === "c") {
                 $post = getPostById($db, $uriArray[2]);
                 $content = $post ? "comments.php" : "404.php";
                 $css = $post ? "comments.css" : "404.css";
                 break;
             }
-            if (count($uriArray) > 2) {
+            elseif (count($uriArray) === 3 && $uriArray[1] === "accounts" && str_starts_with($uriArray[2], "verification?token=")) {
+                $content = "verification.php";
+                $css = "verification.css";
+                break;
+            }
+            elseif (count($uriArray) > 2) {
                 $content = "404.php";
                 $css = "404.css";
                 break;
@@ -75,7 +80,7 @@ function router($db, $uri, $uriArray, $baseUrl) {
 }
 
 $db = connectToDatabase();
-$userId = $_SESSION['id'];
+$userId = $_SESSION['id'] ?? null;
 $uri = $_SERVER["REQUEST_URI"];
 $uriArray = explode('/', rtrim($uri, '/'));
 $baseUrl = getBaseUrl();

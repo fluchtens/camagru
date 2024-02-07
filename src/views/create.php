@@ -35,7 +35,7 @@ $waitingPosts = getUserWaitingPosts($db, $userId);
         </div>
         <div class="buttons">
             <button id="takePhotoBtn" class="take-photo-btn" disabled>Take Photo</button>
-            <?php if ($waitingPost): ?>
+            <?php if (isset($waitingPost)): ?>
                 <button id="publishPhotoBtn" class="publish-photo-btn">Publish Photos</button>
             <?php else: ?>
                 <button id="publishPhotoBtn" class="publish-photo-btn" disabled>Publish Photos</button>
