@@ -15,7 +15,7 @@ function submitData() {
         $jsonData = file_get_contents('php://input');
         $data = json_decode($jsonData, true);
 
-        $postId = $data['post_id'];
+        $postId = isset($data['post_id']) ? htmlspecialchars($data['post_id']) : null;
         if (!$postId) {
             return ['code' => 400, 'message' => "Post id cannot be empty."];
         }
@@ -32,7 +32,7 @@ function submitData() {
             return ['code' => 200, 'message' => "You have successfully unliked the post."];
         } else {
             likePost($db, $userId, $postId);
-            return ['code' => 200, 'message' => "You have successfully liked the post." . $type];
+            return ['code' => 200, 'message' => "You have successfully liked the post." ];
         }
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];
