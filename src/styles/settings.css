@@ -99,6 +99,7 @@
   }
 
   .settings form button[type="submit"] {
+    max-width: none;
     margin: auto;
   }
 }
