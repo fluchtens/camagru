@@ -29,7 +29,7 @@ $myAvatar = $me['avatar'] ? $baseUrl . "assets/uploads/avatars/" . $me['avatar']
                     <div class="comment">
                         <?php $avatar = $comment['user_avatar'] ? $baseUrl . "assets/uploads/avatars/" . $comment['user_avatar'] : null; ?>
                         <?php if ($avatar): ?>
-                            <img src="<?= $avatar; ?>" alt="<?= $comment['avatar']; ?>">
+                            <img src="<?= $avatar; ?>" alt="<?= $comment['user_avatar']; ?>">
                         <?php else: ?>
                             <img src="<?= $baseUrl . "assets/noavatar.png"; ?>" alt="noavatar.png">
                         <?php endif; ?>
