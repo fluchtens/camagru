@@ -8,29 +8,49 @@ $user = getUserById($db, $userId);
 ?>
 
 <div class="settings">
-    <h1>Edit profile</h1>
-        <div class="err-msg" id="errMsg">
-            <p id="errMsgText"></p>
+    <div class="editProfile">
+        <h1>Edit profile</h1>
+        <div id="msg" class="msg">
+            <p id="msgText"></p>
         </div>
-    <form class="options" id="settingsForm">
-        <div class="data">
-            <label for="fullname">Full Name</label>
-            <input type="text" name="fullname" value="<?= $user['full_name']; ?>" placeholder="Full Name" autocomplete="off">
-        </div>
-        <div class="data">
-            <label for="username">Username</label>
-            <input type="text" name="username" value="<?= $user['username']; ?>" placeholder="Username" autocomplete="off">
-        </div>
-        <div class="data">
-            <label for="username">Bio</label>
-            <input type="text" name="bio" value="<?= $user['bio']; ?>" placeholder="Bio" autocomplete="off">
-        </div>
-        <div class="data">
-            <label for="avatarToUpload">Avatar</label>
-            <input type="file" name="avatarToUpload" accept=".jpg, .jpeg, .png, .gif">
-        </div>
-        <button type="submit">Submit</button>
-    </form>
+        <form id="editProfileForm">
+            <div class="data">
+                <label for="fullname">Full Name</label>
+                <input type="text" name="fullname" value="<?= $user['full_name']; ?>" placeholder="Full Name" autocomplete="off">
+            </div>
+            <div class="data">
+                <label for="username">Username</label>
+                <input type="text" name="username" value="<?= $user['username']; ?>" placeholder="Username" autocomplete="off">
+            </div>
+            <div class="data">
+                <label for="username">Bio</label>
+                <input type="text" name="bio" value="<?= $user['bio']; ?>" placeholder="Bio" autocomplete="off">
+            </div>
+            <div class="data">
+                <label for="avatarToUpload">Avatar</label>
+                <input type="file" name="avatarToUpload" accept=".jpg, .jpeg, .png, .gif">
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="editPassword">
+        <h1>Edit password</h1>
+        <form id="editPasswordForm">
+            <div class="data">
+                <label for="old-password">Old password</label>
+                <input type="password" name="old-password" placeholder="Old password" autocomplete="off">
+            </div>
+            <div class="data">
+                <label for="new-password">New password</label>
+                <input type="password" name="new-password" placeholder="New password" autocomplete="off">
+            </div>
+            <div class="data">
+                <label for="confirm-new-password">New password</label>
+                <input type="password" name="confirm-new-password" placeholder="Confirm new password" autocomplete="off">
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
     <script>const baseUrl = "<?= $baseUrl ?>";</script>
     <script src="<?= $baseUrl . "scripts/settings.js" ?>"></script>
 </div>

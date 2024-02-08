@@ -1,7 +1,15 @@
 .settings {
+  max-width: 768px;
   padding: 2rem;
-  max-width: 1024px;
+  box-sizing: border-box;
   margin: auto;
+  flex-direction: column;
+  display: flex;
+  gap: 2rem;
+}
+
+.settings .editProfile,
+.editPassword {
   flex-direction: column;
   display: flex;
   gap: 2rem;
@@ -14,14 +22,14 @@
   font-weight: 700;
 }
 
-.settings .err-msg {
+.settings .msg {
   display: none;
   padding: 1rem;
   background: #ffebe8;
   border: 1px solid #ffc1bf;
 }
 
-.settings .err-msg p {
+.settings .msg p {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -30,26 +38,26 @@
   text-overflow: ellipsis;
 }
 
-.settings .options {
+.settings form {
   flex-direction: column;
   display: flex;
   gap: 2rem;
 }
 
-.settings .data {
+.settings form .data {
   flex-direction: column;
   display: flex;
   gap: 0.75rem;
 }
 
-.settings label {
+.settings form .data label {
   margin: 0;
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 700;
 }
 
-.settings input {
+.settings form .data input {
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
   border: 1px solid #dbdfe3;
@@ -58,7 +66,7 @@
   font-weight: 400;
 }
 
-.settings button[type="submit"] {
+.settings form button[type="submit"] {
   max-width: 14rem;
   width: 100%;
   margin-left: auto;
@@ -73,7 +81,7 @@
   cursor: pointer;
 }
 
-.settings button[type="submit"]:hover {
+.settings form button[type="submit"]:hover {
   background-color: #1976f2;
 }
 
@@ -81,5 +89,18 @@
   .settings {
     padding: 1rem;
     gap: 1rem;
+  }
+
+  .settings .editProfile,
+  .editPassword {
+    gap: 1rem;
+  }
+
+  .settings form {
+    gap: 1rem;
+  }
+
+  .settings form button[type="submit"] {
+    margin: auto;
   }
 }

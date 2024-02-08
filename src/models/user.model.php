@@ -104,4 +104,16 @@ function updateResetToken($db, $userId, $resetToken, $expirationTime) {
     $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
     $stmt->execute();
 }
+
+function updatePassword($db, $userId, $password) {
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $query = "UPDATE user
+            SET password = :hashed_password
+            WHERE id = :id
+    ";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':hashed_password', $hashedPassword, PDO::PARAM_STR);
+    $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+}
 ?>

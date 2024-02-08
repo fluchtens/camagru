@@ -38,28 +38,33 @@ async function updateAvatar(formData) {
   }
 }
 
-document
-  .getElementById("settingsForm")
-  .addEventListener("submit", async (e) => {
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("editProfileForm");
+  const msg = document.getElementById("msg");
+  const msgText = document.getElementById("msgText");
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
     const formData = new FormData(e.target);
 
     const profileRes = await updateProfile(formData);
     if (!profileRes.success) {
-      document.getElementById("errMsg").style.display = "block";
-      document.getElementById("errMsgText").textContent = profileRes.message;
+      msg.style.display = "block";
+      msgText.textContent = profileRes.message;
     } else {
-      document.getElementById("errMsg").style.display = "none";
+      msg.style.display = "none";
     }
 
     const avatarFile = formData.get("avatarToUpload");
     if (avatarFile && avatarFile.size > 0) {
       const avatarRes = await updateAvatar(formData);
       if (!avatarRes.success) {
-        document.getElementById("errMsg").style.display = "block";
-        document.getElementById("errMsgText").textContent = avatarRes.message;
+        msg.style.display = "block";
+        msgText.textContent = avatarRes.message;
       } else {
-        document.getElementById("errMsg").style.display = "none";
+        msg.style.display = "none";
       }
     }
   });
+});
