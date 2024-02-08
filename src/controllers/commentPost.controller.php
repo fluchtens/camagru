@@ -2,6 +2,8 @@
 session_start();
 
 require "../core/database.php";
+require "../core/sendEmail.php";
+require "../models/user.model.php";
 require "../models/post.model.php";
 require "../models/comment.model.php";
 
@@ -37,26 +39,42 @@ function submitData() {
         $userId = $_SESSION['id'];
         $db = connectToDatabase();
 
-        $postId = $data['post_id'];
+        $postId = isset($data['post_id']) ? trim(htmlspecialchars($data['post_id'])) : null;
+        $comment = isset($data['comment']) ? trim(htmlspecialchars($data['comment'])) : null;
+
         $postIdCheck = checkPostId($db, $postId);
         if ($postIdCheck['code'] !== 200) {
             return ['code' => $postIdCheck['code'], 'message' => $postIdCheck['message']];
         }
 
-        $comment = $data['comment'];
         $commentCheck = checkComment($comment);
         if ($commentCheck['code'] !== 200) {
             return ['code' => $commentCheck['code'], 'message' => $commentCheck['message']];
         }
 
+        $user = getUserById($db, $userId);
+        $username = $user['username'];
+        $post = getPostById($db, $postId);
+        $author = getUserById($db, $post['user_id']);
+        $authorEmail = $author['email'];
+
         commentPost($db, $userId, $postId, $comment);
+        $mailSubject = "New comment on your publication";
+        $mailBody = "
+            <div style='max-width: 640px; margin: 0 auto; text-align: center'>
+                <img src='cid:logo' alt='logo' style='width: 300px' />
+                <p>You have received a new comment from $username on your publication:</p>
+                <p>$comment</p>
+            </div>
+        ";
+        sendEmail($authorEmail, $mailSubject, $mailBody);
         return ['code' => 200, 'message' => "Comment sent succesfully."];
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $response = submitData();
     http_response_code($response['code']);
     header('Content-Type: application/json');

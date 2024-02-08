@@ -8,7 +8,8 @@ async function commentPost(postId, comment) {
       body: JSON.stringify(postData),
     });
 
-    const data = await response.json();
+    const data = await response.text();
+    console.log(data);
     if (!response.ok) {
       return { success: false, message: data.message };
     }
