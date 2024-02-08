@@ -25,8 +25,6 @@
 .settings .msg {
   display: none;
   padding: 1rem;
-  background: #ffebe8;
-  border: 1px solid #ffc1bf;
 }
 
 .settings .msg p {

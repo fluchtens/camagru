@@ -10,8 +10,8 @@ $user = getUserById($db, $userId);
 <div class="settings">
     <div class="editProfile">
         <h1>Edit profile</h1>
-        <div id="msg" class="msg">
-            <p id="msgText"></p>
+        <div id="editProfileMsg" class="msg">
+            <p id="editProfileMsgText"></p>
         </div>
         <form id="editProfileForm">
             <div class="data">
@@ -35,18 +35,21 @@ $user = getUserById($db, $userId);
     </div>
     <div class="editPassword">
         <h1>Edit password</h1>
+        <div id="editPasswordMsg" class="msg">
+            <p id="editPasswordMsgText"></p>
+        </div>
         <form id="editPasswordForm">
             <div class="data">
                 <label for="old-password">Old password</label>
-                <input type="password" name="old-password" placeholder="Old password" autocomplete="off">
+                <input type="password" name="old-password" placeholder="Old password" autocomplete="off" required>
             </div>
             <div class="data">
                 <label for="new-password">New password</label>
-                <input type="password" name="new-password" placeholder="New password" autocomplete="off">
+                <input type="password" name="new-password" placeholder="New password" autocomplete="off" required>
             </div>
             <div class="data">
                 <label for="confirm-new-password">New password</label>
-                <input type="password" name="confirm-new-password" placeholder="Confirm new password" autocomplete="off">
+                <input type="password" name="confirm-new-password" placeholder="Confirm new password" autocomplete="off" required>
             </div>
             <button type="submit">Submit</button>
         </form>
