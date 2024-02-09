@@ -26,5 +26,6 @@ if (isAuth()) {
     <div class="auth-redir-msg">
         <p>Have an account? <a href="/login">Log in</a></p>
     </div>
-    <script src="scripts/registerUser.js"></script>
+    <script>const baseUrl = "<?= $baseUrl ?>";</script>
+    <script src="<?= $baseUrl . "scripts/auth.js" ?>"></script>
 </div>

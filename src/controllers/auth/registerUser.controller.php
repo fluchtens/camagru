@@ -1,17 +1,29 @@
 <?php
 session_start();
 
-require "../core/database.php";
-require "../models/user.model.php";
-require "../core/utils.php";
-require "../core/sendEmail.php";
+require "../../core/database.php";
+require "../../models/user.model.php";
+require "../../core/utils.php";
+require "../../core/sendEmail.php";
+
+function sendVerificationEmail($email, $activationToken) {
+    $mailSubject = "Confirmation of account registration";
+    $mailBody = "
+        <div style='max-width: 640px; margin: 0 auto; text-align: center;'>
+            <img src='cid:logo' alt='logo' style='width: 300px'>
+            <p>Thank you for creating a new account to access Camagru. To benefit from all Camagru services, you must verify the e-mail address on your account.</p>
+            <a href='http://localhost/accounts/verification?token=$activationToken'>Verify now</a>
+        </div>
+    ";
+    sendEmail($email, $mailSubject, $mailBody);
+}
 
 function submitData() {
     try {
-        $email = trim(htmlspecialchars($_POST['email']));
-        $fullname = trim(htmlspecialchars($_POST['fullname']));
-        $username = trim(htmlspecialchars($_POST['username']));
-        $password = trim(htmlspecialchars($_POST['password']));
+        $email = isset($_POST['username']) ? trim(htmlspecialchars($_POST['email'])) : null;
+        $fullname = isset($_POST['username']) ? trim(htmlspecialchars($_POST['fullname'])) : null;
+        $username = isset($_POST['username']) ? trim(htmlspecialchars($_POST['username'])) : null;
+        $password = isset($_POST['username']) ? trim(htmlspecialchars($_POST['password'])) : null;
 
         if (!$email || !$fullname || !$username || !$password) {
             return ['code' => 400, 'message' => "There are one or more required fields missing from the form."];
@@ -48,22 +60,14 @@ function submitData() {
 
         $activationToken = bin2hex(random_bytes(16));
         createUser($db, $username, $email, $fullname, $password, $activationToken);
-        $mailSubject = "Confirmation of account registration";
-        $mailBody = "
-            <div style='max-width: 640px; margin: 0 auto; text-align: center;'>
-                <img src='cid:logo' alt='logo' style='width: 300px'>
-                <p>Thank you for creating a new account to access Camagru. To benefit from all Camagru services, you must verify the e-mail address on your account.</p>
-                <a href='http://localhost/accounts/verification?token=$activationToken'>Verify now</a>
-            </div>
-        ";
-        sendEmail($email, $mailSubject, $mailBody);
+        sendVerificationEmail($email, $activationToken);
         return ['code' => 200, 'message' => "User succesfully created."];
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $response = submitData();
     http_response_code($response['code']);
     header('Content-Type: application/json');
