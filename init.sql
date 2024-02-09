@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS user (
   full_name VARCHAR(255) NOT NULL,
   avatar VARCHAR(255) DEFAULT NULL,
   bio TEXT DEFAULT NULL,
+  email_notifs BOOLEAN DEFAULT 1,
   active BOOLEAN DEFAULT 0,
   activation_token varchar(255) NOT NULL,
   reset_token VARCHAR(255) DEFAULT NULL,
