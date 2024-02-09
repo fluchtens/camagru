@@ -12,7 +12,7 @@ $posts = getAllPosts($db, $userId);
                     <a class="user" href="<?= "/" . $post['user_username']; ?>">
                         <?php $avatar = $post['user_avatar'] ? $baseUrl . "assets/uploads/avatars/" . $post['user_avatar'] : null; ?>
                         <?php if ($avatar): ?>
-                            <img src="<?= $avatar; ?>" alt="<?= $post['avatar']; ?>">
+                            <img src="<?= $avatar; ?>" alt="<?= $post['user_avatar']; ?>">
                         <?php else: ?>
                             <img src="<?= $baseUrl . "assets/noavatar.png"; ?>" alt="noavatar.png">
                         <?php endif; ?>
