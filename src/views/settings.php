@@ -27,8 +27,8 @@ $user = getUserById($db, $userId);
                 <input type="text" name="bio" value="<?= $user['bio']; ?>" placeholder="Bio" autocomplete="off">
             </div>
             <div class="data">
-                <label for="avatarToUpload">Avatar</label>
-                <input type="file" name="avatarToUpload" accept=".jpg, .jpeg, .png, .gif">
+                <label for="avatar">Avatar</label>
+                <input type="file" name="avatar" accept=".jpg, .jpeg, .png, .gif">
             </div>
             <button type="submit">Submit</button>
         </form>
@@ -57,4 +57,3 @@ $user = getUserById($db, $userId);
     <script>const baseUrl = "<?= $baseUrl ?>";</script>
     <script src="<?= $baseUrl . "scripts/settings.js" ?>"></script>
 </div>
-
