@@ -30,6 +30,19 @@ $user = getUserById($db, $userId);
                 <label for="avatar">Avatar</label>
                 <input type="file" name="avatar" accept=".jpg, .jpeg, .png, .gif">
             </div>
+            <div class="data">
+                <label>Comment notifications by email</label>
+                <div class="email-notifs">
+                    <div>
+                        <input type="radio" name="notifications" value="enable" <?= $user['email_notifs'] ? 'checked' : ''; ?>>
+                        <label for="enableNotifications">Enable</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="notifications" value="disable" <?= !$user['email_notifs'] ? 'checked' : ''; ?>>
+                        <label for="notifications">Disable</label>
+                    </div>
+                </div>
+            </div>
             <button type="submit">Submit</button>
         </form>
     </div>

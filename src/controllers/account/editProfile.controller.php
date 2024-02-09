@@ -68,6 +68,19 @@ function submitData() {
             $bio = null;
         }
 
+        if (isset($_POST['notifications'])) {
+            $notifications = trim(htmlspecialchars($_POST['notifications']));
+            if ($notifications === "enable") {
+                $notifications = true;
+            } elseif ($notifications === "disable") {
+                $notifications = false;
+            } else {
+                return ['code' => 400, 'message' => "Notifications must be enable or disable."];
+            }
+        } else {
+            $notifications = $user['email_notifs'];
+        }
+
         if ($user['full_name'] !== $fullname) {
             if (strlen($fullname) < 1 || strlen($fullname) > 30) {
                 return ['code' => 400, 'message' => "Full name must be between 3 and 16 characters long."];
@@ -109,6 +122,9 @@ function submitData() {
         }
         if ($user['bio'] !== $bio) {
             updateBio($db, $userId, $bio);
+        }
+        if ($user['email_notifs'] !== $notifications) {
+            updateEmailNotifs($db, $userId, $notifications);
         }
         return ['code' => 200, 'message' => "Profile succesfully updated."];
     } catch (Exception $e) {

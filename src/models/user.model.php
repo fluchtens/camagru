@@ -85,10 +85,18 @@ function updateAvatar($db, $userId, $avatar) {
     $stmt->execute();
 }
 
+function updateEmailNotifs($db, $userId, $notifications) {
+    $query = "UPDATE user SET email_notifs = :notifications WHERE id = :id";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':notifications', $notifications, PDO::PARAM_BOOL);
+    $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+}
+
 function updateActiveStatus($db, $userId, $active) {
     $query = "UPDATE user SET active = :active WHERE id = :id";
     $stmt = $db->prepare($query);
-    $stmt->bindParam(':active', $active, PDO::PARAM_STR);
+    $stmt->bindParam(':active', $active, PDO::PARAM_BOOL);
     $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
     $stmt->execute();
 }
