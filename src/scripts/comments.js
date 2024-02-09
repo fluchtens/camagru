@@ -1,15 +1,13 @@
 async function commentPost(postId, comment) {
   try {
-    const postData = { post_id: postId, comment: comment };
-
-    const response = await fetch("../controllers/commentPost.controller.php", {
+    const url = baseUrl + "controllers/post/commentPost.controller.php";
+    const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(postData),
+      body: JSON.stringify({ post_id: postId, comment: comment }),
     });
 
-    const data = await response.text();
-    console.log(data);
+    const data = await response.json();
     if (!response.ok) {
       return { success: false, message: data.message };
     }
