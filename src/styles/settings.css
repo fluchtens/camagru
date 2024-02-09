@@ -70,6 +70,10 @@
   font-weight: 400;
 }
 
+.settings form .data input[type="radio"] {
+  cursor: pointer;
+}
+
 .settings form button[type="submit"] {
   max-width: 14rem;
   width: 100%;
