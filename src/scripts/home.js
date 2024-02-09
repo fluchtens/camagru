@@ -60,4 +60,87 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  let page = 2;
+  let loading = false;
+  const imageContainer = document.getElementById("feed");
+
+  async function loadMorePosts() {
+    if (!loading) {
+      loading = true;
+
+      try {
+        const response = await fetch(
+          `controllers/post/getAllPosts.controller.php?page=${page}`
+        );
+        const data = await response.json();
+
+        if (data && data.length > 0) {
+          for (const post of data) {
+            const postElement = document.createElement("li");
+            postElement.classList.add("post");
+
+            const userLink = document.createElement("a");
+            userLink.classList.add("user");
+            userLink.href = `/${post.user_username}`;
+
+            const avatar = document.createElement("img");
+            const avatarSrc = post.user_avatar
+              ? `${baseUrl}assets/uploads/avatars/${post.user_avatar}`
+              : `${baseUrl}assets/noavatar.png`;
+            avatar.src = avatarSrc;
+            avatar.alt = post.user_avatar;
+
+            const textContainer = document.createElement("div");
+            textContainer.classList.add("text");
+
+            const username = document.createElement("p");
+            username.classList.add("username");
+            username.textContent = post.user_username;
+
+            const timeDiff = document.createElement("span");
+            timeDiff.classList.add("time-diff");
+            timeDiff.textContent = `• ${post.time_diff}`;
+
+            textContainer.appendChild(username);
+            textContainer.appendChild(timeDiff);
+
+            userLink.appendChild(avatar);
+            userLink.appendChild(textContainer);
+
+            const postImage = document.createElement("img");
+            postImage.src = `${baseUrl}assets/uploads/posts/${post.file}`;
+            postImage.alt = post.file;
+
+            const actionsContainer = document.createElement("div");
+            actionsContainer.classList.add("actions");
+
+            postElement.appendChild(userLink);
+            postElement.appendChild(postImage);
+            postElement.appendChild(actionsContainer);
+
+            imageContainer.appendChild(postElement);
+          }
+
+          page++;
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+
+      loading = false;
+    }
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        loadMorePosts();
+      }
+    },
+    { threshold: 1 }
+  );
+  observer.observe(document.querySelector(".post:last-child"));
+
+  loadMorePosts();
 });

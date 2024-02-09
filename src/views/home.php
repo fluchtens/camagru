@@ -1,12 +1,12 @@
 <?php
-$posts = getAllPosts($db, $userId);
+$posts = getPaginatedPosts($db, $userId, 1, 5);
 ?>
 
 <div class="feed">
     <?php if (!$posts): ?>
         <h1>No Posts Yet</h1>
     <?php else: ?>
-        <ul>
+        <ul id="feed">
             <?php foreach ($posts as $post): ?>
                 <li class="post">
                     <a class="user" href="<?= "/" . $post['user_username']; ?>">
@@ -48,5 +48,6 @@ $posts = getAllPosts($db, $userId);
             <?php endforeach; ?>
         </ul>
     <? endif; ?>
-    <script src="<?= $baseUrl . "scripts/likePost.js" ?>"></script>
+    <script>const baseUrl = "<?= $baseUrl ?>";</script>
+    <script src="<?= $baseUrl . "scripts/home.js" ?>"></script>
 </div>
