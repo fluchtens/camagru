@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-require "../core/database.php";
-require "../core/sendEmail.php";
-require "../models/user.model.php";
-require "../models/post.model.php";
-require "../models/comment.model.php";
+require "../../core/database.php";
+require "../../core/sendEmail.php";
+require "../../models/user.model.php";
+require "../../models/post.model.php";
+require "../../models/comment.model.php";
 
 function checkPostId($db, $postId) {
     if (!$postId) {
@@ -27,6 +27,18 @@ function checkComment($comment) {
     return ['code' => 200];
 }
 
+function sendNotifEmail($username, $comment, $authorEmail) {
+    $mailSubject = "New comment on your publication";
+    $mailBody = "
+        <div style='max-width: 640px; margin: 0 auto; text-align: center'>
+            <img src='cid:logo' alt='logo' style='width: 300px' />
+            <p>You have received a new comment from $username on your publication:</p>
+            <p>$comment</p>
+        </div>
+    ";
+    sendEmail($authorEmail, $mailSubject, $mailBody);
+}
+
 function submitData() {
     try {
         if (!isset($_SESSION['id'])) {
@@ -35,12 +47,15 @@ function submitData() {
 
         $jsonData = file_get_contents('php://input');
         $data = json_decode($jsonData, true);
+        $postId = isset($data['post_id']) ? trim(htmlspecialchars($data['post_id'])) : null;
+        if (isset($data['comment'])) {
+            $comment = preg_replace('/\s+/', ' ', trim(htmlspecialchars($data['comment'])));
+        } else {
+            $comment = null;
+        }
 
         $userId = $_SESSION['id'];
         $db = connectToDatabase();
-
-        $postId = isset($data['post_id']) ? trim(htmlspecialchars($data['post_id'])) : null;
-        $comment = isset($data['comment']) ? trim(htmlspecialchars($data['comment'])) : null;
 
         $postIdCheck = checkPostId($db, $postId);
         if ($postIdCheck['code'] !== 200) {
@@ -59,15 +74,9 @@ function submitData() {
         $authorEmail = $author['email'];
 
         commentPost($db, $userId, $postId, $comment);
-        $mailSubject = "New comment on your publication";
-        $mailBody = "
-            <div style='max-width: 640px; margin: 0 auto; text-align: center'>
-                <img src='cid:logo' alt='logo' style='width: 300px' />
-                <p>You have received a new comment from $username on your publication:</p>
-                <p>$comment</p>
-            </div>
-        ";
-        sendEmail($authorEmail, $mailSubject, $mailBody);
+        if ($author['email_notifs']) {
+            sendNotifEmail($username, $comment, $authorEmail);
+        }
         return ['code' => 200, 'message' => "Comment sent succesfully."];
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];

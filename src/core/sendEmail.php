@@ -1,7 +1,7 @@
 <?php
-require "../lib/PHPMailer/Exception.php";
-require "../lib/PHPMailer/PHPMailer.php";
-require "../lib/PHPMailer/SMTP.php";
+require "../../lib/PHPMailer/Exception.php";
+require "../../lib/PHPMailer/PHPMailer.php";
+require "../../lib/PHPMailer/SMTP.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -21,7 +21,7 @@ function sendEmail($email, $subject, $body) {
     $mail->addAddress($email);
 
     $mail->isHTML(true);
-    $mail->AddEmbeddedImage("../assets/camagru.png", "logo");
+    $mail->AddEmbeddedImage("../../assets/camagru.png", "logo");
     $mail->Subject = $subject;
     $mail->Body = $body;
 
