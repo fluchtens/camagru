@@ -43,13 +43,13 @@
   pointer-events: none;
 }
 
-.feed .post .user .text {
+.feed .post .user .texts {
   display: flex;
   align-items: center;
   gap: 0.25rem;
 }
 
-.feed .post .user .text p {
+.feed .post .user .texts p {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -57,7 +57,7 @@
   cursor: pointer;
 }
 
-.feed .post .user .text span {
+.feed .post .user .texts span {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -127,12 +127,21 @@
   color: #737373;
 }
 
+.feed .loading {
+  display: none;
+  max-width: 2rem;
+  width: 100%;
+  max-height: 2rem;
+  height: 100%;
+  padding: 1rem;
+}
+
 @media (max-width: 485px) {
   .feed .post .user {
     padding: 0.75rem 0 0.75rem 1rem;
   }
 
-  .feed .post .user .text span {
+  .feed .post .user .texts span {
     display: none;
   }
 

@@ -7,7 +7,7 @@ $posts = getPaginatedPosts($db, $userId, 1, 5);
         <h1>No Posts Yet</h1>
     <?php else: ?>
         <ul id="feed">
-            <?php foreach ($posts as $post): ?>
+            <!-- <?php foreach ($posts as $post): ?>
                 <li class="post">
                     <a class="user" href="<?= "/" . $post['user_username']; ?>">
                         <?php $avatar = $post['user_avatar'] ? $baseUrl . "assets/uploads/avatars/" . $post['user_avatar'] : null; ?>
@@ -16,7 +16,7 @@ $posts = getPaginatedPosts($db, $userId, 1, 5);
                         <?php else: ?>
                             <img src="<?= $baseUrl . "assets/noavatar.png"; ?>" alt="noavatar.png">
                         <?php endif; ?>
-                        <div class="text">
+                        <div class="texts">
                             <p class="username"><?= $post['user_username']; ?></p>
                             <span class="time-diff">• <?= formatElapsedTime($post['time_diff']); ?></span>
                         </div>
@@ -45,9 +45,11 @@ $posts = getPaginatedPosts($db, $userId, 1, 5);
                         </a>
                     </div>
                 </li>
-            <?php endforeach; ?>
+            <?php endforeach; ?> -->
         </ul>
+        <img id="loadingIcon" class="loading" src="<?= $baseUrl . "assets/loading.gif"; ?>" alt="loading.gif">
     <? endif; ?>
     <script>const baseUrl = "<?= $baseUrl ?>";</script>
     <script src="<?= $baseUrl . "scripts/home.js" ?>"></script>
+    <script src="<?= $baseUrl . "scripts/utils.js" ?>"></script>
 </div>
