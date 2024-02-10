@@ -1,32 +1,32 @@
-.feed {
+.home {
   flex-direction: column;
   display: flex;
   align-items: center;
 }
 
-.feed h1 {
+.home h1 {
   font-size: 1.875rem;
   line-height: 2.25rem;
   font-weight: 800;
 }
 
-.feed ul {
+.home ul {
   margin: 0;
   padding: 0;
 }
 
-.feed .post {
+.home .post {
   flex-direction: column;
   display: flex;
   border-bottom: 1px solid #dbdbdb;
 }
 
-.feed .post:last-child {
+.home .post:last-child {
   padding-bottom: 0.5rem;
   border-bottom: none;
 }
 
-.feed .post .user {
+.home .post .user {
   all: unset;
   padding: 0.75rem 0rem;
   display: flex;
@@ -34,7 +34,7 @@
   gap: 0.75rem;
 }
 
-.feed .post .user img {
+.home .post .user img {
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
@@ -43,13 +43,13 @@
   pointer-events: none;
 }
 
-.feed .post .user .texts {
+.home .post .user .texts {
   display: flex;
   align-items: center;
   gap: 0.25rem;
 }
 
-.feed .post .user .texts p {
+.home .post .user .texts p {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -57,7 +57,7 @@
   cursor: pointer;
 }
 
-.feed .post .user .texts span {
+.home .post .user .texts span {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -66,7 +66,7 @@
   cursor: pointer;
 }
 
-.feed .post img {
+.home .post img {
   max-width: 468px;
   width: 100%;
   max-height: 585px;
@@ -74,52 +74,53 @@
   pointer-events: none;
 }
 
-.feed .post .actions {
+.home .post .actions {
   flex-direction: column;
   display: flex;
 }
 
-.feed .post .buttons {
+.home .post .buttons {
   display: flex;
   gap: 0.75rem;
 }
 
-.feed .post .actions button {
+.home .post .actions img {
+  width: 24px;
+  height: 24px;
+}
+
+.home .post .actions button {
   all: unset;
   padding: 0.5rem 0;
   cursor: pointer;
 }
 
-.feed .post .actions button:hover {
+.home .post .actions .likeBtn:hover {
   opacity: 0.5;
 }
 
-.feed .post .actions .unlikeBtn {
-  color: #f62f40;
-}
-
-.feed .post .actions .unlikeBtn:hover {
+.home .post .actions .unlikeBtn:hover {
   opacity: 1;
 }
 
-.feed .post .actions a {
+.home .post .actions a {
   all: unset;
   padding: 0.5rem 0;
   cursor: pointer;
 }
 
-.feed .post .actions a:hover {
+.home .post .actions a:hover {
   opacity: 0.5;
 }
 
-.feed .post .actions .likeCount {
+.home .post .actions .likeCount {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
 }
 
-.feed .post .actions .commentCount {
+.home .post .actions .commentCount {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -127,7 +128,7 @@
   color: #737373;
 }
 
-.feed .loading {
+.home .loading {
   display: none;
   max-width: 2rem;
   width: 100%;
@@ -137,15 +138,15 @@
 }
 
 @media (max-width: 485px) {
-  .feed .post .user {
+  .home .post .user {
     padding: 0.75rem 0 0.75rem 1rem;
   }
 
-  .feed .post .user .texts span {
+  .home .post .user .texts span {
     display: none;
   }
 
-  .feed .post .actions {
+  .home .post .actions {
     padding: 0 1rem 0 1rem;
   }
 }
