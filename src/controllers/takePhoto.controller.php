@@ -36,8 +36,8 @@ function applyFilter($imagePath, $filterPath) {
     $filterWidth = imagesx($filterImage);
     $filterHeight = imagesy($filterImage);
     
-    $positionX = ($baseWidth - $filterWidth) / 2;
-    $positionY = ($baseHeight - $filterHeight) / 2;
+    $positionX = round(($baseWidth - $filterWidth) / 2);
+    $positionY = round(($baseHeight - $filterHeight) / 2);
     
     imagesavealpha($baseImage, true);
     imagecopy($baseImage, $filterImage, $positionX, $positionY, 0, 0, $filterWidth, $filterHeight);
