@@ -1,5 +1,5 @@
 <?php
-$posts = getPaginatedPosts($db, $userId, 1, 5);
+$posts = getPosts($db, $userId, 1, 5);
 ?>
 
 <div class="feed">
@@ -50,6 +50,7 @@ $posts = getPaginatedPosts($db, $userId, 1, 5);
         <img id="loadingIcon" class="loading" src="<?= $baseUrl . "assets/loading.gif"; ?>" alt="loading.gif">
     <? endif; ?>
     <script>const baseUrl = "<?= $baseUrl ?>";</script>
-    <script src="<?= $baseUrl . "scripts/home.js" ?>"></script>
+    <script src="<?= $baseUrl . "scripts/feed.js" ?>"></script>
+    <script src="<?= $baseUrl . "scripts/like.js" ?>"></script>
     <script src="<?= $baseUrl . "scripts/utils.js" ?>"></script>
 </div>
