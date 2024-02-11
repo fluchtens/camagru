@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       const formData = new FormData(e.target);
 
-      const req = await submitData("registerUser.controller.php", formData);
+      const req = await submitData("signup.controller.php", formData);
       registerErrMsg.style.display = "block";
       registerErrMsgText.textContent = req.message;
       if (!req.success) {
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       const formData = new FormData(e.target);
 
-      const req = await submitData("loginUser.controller.php", formData);
+      const req = await submitData("login.controller.php", formData);
       if (!req.success) {
         document.getElementById("loginErrMsg").style.display = "block";
         document.getElementById("loginErrMsgText").textContent = req.message;

@@ -132,7 +132,7 @@ function submitData() {
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $response = submitData();
     http_response_code($response['code']);
     header('Content-Type: application/json');

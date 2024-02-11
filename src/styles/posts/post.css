@@ -22,13 +22,13 @@
   pointer-events: none;
 }
 
-.post .user .text {
+.post .user .texts {
   display: flex;
   align-items: center;
   gap: 0.25rem;
 }
 
-.post .user .text p {
+.post .user .texts p {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -36,7 +36,7 @@
   cursor: pointer;
 }
 
-.post .user .text span {
+.post .user .texts span {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -54,7 +54,6 @@
 }
 
 .post .actions {
-  padding: 0 0 0.25rem 0;
   flex-direction: column;
   display: flex;
 }
@@ -64,18 +63,19 @@
   gap: 0.75rem;
 }
 
+.post .actions img {
+  width: 24px;
+  height: 24px;
+}
+
 .post .actions button {
   all: unset;
   padding: 0.5rem 0;
   cursor: pointer;
 }
 
-.post .actions button:hover {
+.post .actions .likeBtn:hover {
   opacity: 0.5;
-}
-
-.post .actions .unlikeBtn {
-  color: #f62f40;
 }
 
 .post .actions .unlikeBtn:hover {
@@ -107,16 +107,25 @@
   color: #737373;
 }
 
+.loading {
+  display: none;
+  max-width: 2rem;
+  width: 100%;
+  max-height: 2rem;
+  height: 100%;
+  padding: 1rem;
+}
+
 @media (max-width: 485px) {
   .post .user {
     padding: 0.75rem 0 0.75rem 1rem;
   }
 
-  .post .user .text span {
+  .post .user .texts span {
     display: none;
   }
 
   .post .actions {
-    padding: 0 1rem 1rem 1rem;
+    padding: 0 1rem 0 1rem;
   }
 }

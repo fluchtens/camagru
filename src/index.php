@@ -37,15 +37,15 @@ function router($db, $uri, $uriArray, $baseUrl) {
             $css = "accounts/auth.css";
             break;
         case "/logout":
-            $content = "logout.php";
+            $content = "accounts/logout.php";
             break;
         case "/create":
-            $content = "create.php";
-            $css = "create.css";
+            $content = "posts/create.php";
+            $css = "posts/create.css";
             break;
         case "/accounts/edit":
-            $content = "settings.php";
-            $css = "settings.css";
+            $content = "accounts/edit.php";
+            $css = "accounts/edit.css";
             break;
         case "/accounts/password/forgot":
             $content = "accounts/password/forgotPassword.php";
@@ -54,19 +54,19 @@ function router($db, $uri, $uriArray, $baseUrl) {
         default:
             if (count($uriArray) === 3 && $uriArray[1] === "p") {
                 $post = getPostById($db, $uriArray[2]);
-                $content = $post ? "post.php" : "404.php";
-                $css = $post ? "post.css" : "404.css";
+                $content = $post ? "posts/post.php" : "404.php";
+                $css = $post ? "posts/post.css" : "404.css";
                 break;
             }
             elseif (count($uriArray) === 3 && $uriArray[1] === "c") {
                 $post = getPostById($db, $uriArray[2]);
-                $content = $post ? "comments.php" : "404.php";
-                $css = $post ? "comments.css" : "404.css";
+                $content = $post ? "posts/comments.php" : "404.php";
+                $css = $post ? "posts/comments.css" : "404.css";
                 break;
             }
             elseif (count($uriArray) === 3 && $uriArray[1] === "accounts" && str_starts_with($uriArray[2], "verification?token=")) {
-                $content = "verification.php";
-                $css = "verification.css";
+                $content = "accounts/verification.php";
+                $css = "accounts/verification.css";
                 break;
             }
             elseif (count($uriArray) === 4 && $uriArray[1] === "accounts" && $uriArray[2] === "password" && str_starts_with($uriArray[3], "reset?token=")) {

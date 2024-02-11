@@ -42,8 +42,10 @@ function submitData() {
         }
 
         if ($user) {
-            if (strtotime($user['reset_token_expiration']) > time()) {
-                return ['code' => 400, 'message' => "You already have a password reset request in progress, please check your emails."];
+            if (isset($user['reset_token_expiration'])) {
+                if (strtotime($user['reset_token_expiration']) > time()) {
+                    return ['code' => 400, 'message' => "You already have a password reset request in progress, please check your emails."];
+                }
             }
         } else {
             return ['code' => 400, 'message' => "No account is linked to this email address."];
