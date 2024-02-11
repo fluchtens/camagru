@@ -61,7 +61,7 @@ function submitData() {
         $activationToken = bin2hex(random_bytes(16));
         createUser($db, $username, $email, $fullname, $password, $activationToken);
         sendVerificationEmail($email, $activationToken);
-        return ['code' => 200, 'message' => "User succesfully created."];
+        return ['code' => 200, 'message' => "User succesfully created. To benefit from all Camagru services, please verify your account by clicking on the confirmation link we sent to your email address."];
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];
     }

@@ -21,19 +21,23 @@ async function submitData(controller, formData) {
 document.addEventListener("DOMContentLoaded", () => {
   const registerForm = document.getElementById("registerForm");
   const loginForm = document.getElementById("loginForm");
+  const registerErrMsg = document.getElementById("registerErrMsg");
+  const registerErrMsgText = document.getElementById("registerErrMsgText");
 
   if (registerForm) {
     registerForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const formData = new FormData(e.target);
 
-      const request = await submitData("registerUser.controller.php", formData);
-      if (!request.success) {
-        document.getElementById("registerErrMsg").style.display = "block";
-        document.getElementById("registerErrMsgText").textContent =
-          request.message;
+      const req = await submitData("registerUser.controller.php", formData);
+      registerErrMsg.style.display = "block";
+      registerErrMsgText.textContent = req.message;
+      if (!req.success) {
+        registerErrMsg.style.background = "#ffebe8";
+        registerErrMsg.style.border = "1px solid #ffc1bf";
       } else {
-        window.location.href = "/accounts/login";
+        registerErrMsg.style.background = "#e8f8e8";
+        registerErrMsg.style.border = "1px solid #b1eab5";
       }
     });
   }

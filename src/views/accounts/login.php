@@ -18,7 +18,7 @@ if (isAuth()) {
                 <input type="text" name="username" placeholder="Username" autocomplete="off" required>
                 <input type="password" name="password" placeholder="Password" autocomplete="off" required>
             </div>
-            <button type="submit">Sign up</button>
+            <button type="submit">Log in</button>
         </form>
         <div class="or">
             <hr>
