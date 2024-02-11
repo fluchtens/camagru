@@ -156,6 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (data && data.length > 0) {
+      loading.style.display = "block";
       for (const post of data) {
         addPostToFeed(post);
       }
@@ -168,12 +169,16 @@ document.addEventListener("DOMContentLoaded", () => {
       document.body.offsetHeight - 100
     ) {
       if (!loadingInProgress && !lastPage) {
-        loading.style.display = "block";
+        if (!firstLoad) {
+          loading.style.display = "block";
+        }
         loadingInProgress = true;
         page++;
         setTimeout(async () => {
           await loadMorePosts();
-          loading.style.display = "none";
+          if (!firstLoad) {
+            loading.style.display = "none";
+          }
           loadingInProgress = false;
         }, 1000);
       }
