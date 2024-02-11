@@ -1,6 +1,6 @@
 async function publishPhotos() {
   try {
-    const url = baseUrl + "controllers/publishPhotos.controller.php";
+    const url = baseUrl + "controllers/post/publishPhotos.controller.php";
     const response = await fetch(url, {
       method: "POST",
     });
@@ -19,7 +19,7 @@ async function publishPhotos() {
 
 async function savePhoto(image, filter) {
   try {
-    const url = baseUrl + "controllers/takePhoto.controller.php";
+    const url = baseUrl + "controllers/post/takePhoto.controller.php";
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
