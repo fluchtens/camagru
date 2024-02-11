@@ -7,7 +7,7 @@ if (isAuth()) {
 
 <div class="auth">
     <div id="loginErrMsg" class="err-msg">
-        <p id="loginErrMsgText"></p>
+        <p id="loginErrMsgText">mauvais password tu fais quoi la rarrete ca dotut de suite c pas bon</p>
     </div>
     <div class="auth-form">
         <a class="main-link" href="/">
@@ -20,6 +20,12 @@ if (isAuth()) {
             </div>
             <button type="submit">Sign up</button>
         </form>
+        <div class="or">
+            <hr>
+            <span>OR</span>
+            <hr>
+        </div>
+        <a class="link" href="/accounts/password/reset">Forgot password?</a>
     </div>
     <div class="auth-redir-msg">
         <p>Don't have an account? <a href="/accounts/signup">Sign up</a></p>

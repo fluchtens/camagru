@@ -17,7 +17,6 @@ if (isAuth()) {
         <p>Enter your email and we'll send you a link to get back into your account.</p>
         <input id="emailInput" type="email" name="email" placeholder="Email" autocomplete="off" required>
         <button id="submitBtn" type="submit" disabled>Send login link</button>
-
         <div class="or">
             <hr>
             <span>OR</span>

@@ -5,18 +5,24 @@ main {
 }
 
 .auth {
+  max-width: 23rem;
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
   flex-direction: column;
   display: flex;
+  align-items: center;
   gap: 1rem;
+  text-align: center;
 }
 
 .auth .err-msg {
   display: none;
-  width: 300px;
+  width: 100%;
   padding: 1rem;
+  box-sizing: border-box;
   background: #ffebe8;
   border: 1px solid #ffc1bf;
-  text-align: center;
 }
 
 .auth .err-msg p {
@@ -29,8 +35,9 @@ main {
 }
 
 .auth .auth-form {
-  width: 300px;
-  padding: 2.5rem 1rem 2.5rem 1rem;
+  width: 100%;
+  padding: 2.5rem 1rem;
+  box-sizing: border-box;
   flex-direction: column;
   display: flex;
   align-items: center;
@@ -39,8 +46,8 @@ main {
 }
 
 .auth .auth-form .main-link {
-  width: 11rem;
-  height: 3.125rem;
+  max-width: 11rem;
+  max-height: 3.125rem;
 }
 
 .auth .auth-form .main-link img {
@@ -49,7 +56,8 @@ main {
 }
 
 .auth .auth-form form {
-  width: 16rem;
+  max-width: 16rem;
+  width: 100%;
   flex-direction: column;
   display: flex;
   gap: 1rem;
@@ -88,11 +96,34 @@ main {
   background: #1976f2;
 }
 
+.auth .auth-form .or {
+  max-width: 16rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.auth .auth-form .or span {
+  font-size: 0.813rem;
+  line-height: 0.938rem;
+  font-weight: 600;
+}
+
+.auth .auth-form .link {
+  all: unset;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 400;
+  color: #00376b;
+  cursor: pointer;
+}
+
 .auth .auth-redir-msg {
-  width: 300px;
-  padding: 1.5rem 1rem 1.5rem 1rem;
+  width: 100%;
+  padding: 1.5rem 1rem;
+  box-sizing: border-box;
   border: 1px solid #dbdbdb;
-  text-align: center;
 }
 
 .auth .auth-redir-msg p {
@@ -107,4 +138,10 @@ main {
   font-weight: 600;
   text-decoration: none;
   color: #0096f6;
+}
+
+@media (max-width: 768px) {
+  .auth .auth-form .or {
+    gap: 0.5rem;
+  }
 }
