@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require "../core/database.php";
-require "../models/post.model.php";
+require "../../core/database.php";
+require "../../models/post.model.php";
 
 function submitData() {
     try {

@@ -97,7 +97,9 @@ document.addEventListener("DOMContentLoaded", (e) => {
     canvasPreview.style.display = "block";
     previewFilter.style.display = "block";
     filters.style.display = "none";
-    waiting.style.display = "none";
+    if (waiting) {
+      waiting.style.display = "none";
+    }
     takePhotoBtn.style.display = "none";
     publishBtn.style.display = "none";
     saveBtn.style.display = "inline-block";
@@ -110,7 +112,9 @@ document.addEventListener("DOMContentLoaded", (e) => {
     canvasPreview.style.display = "none";
     previewFilter.style.display = "none";
     filters.style.display = "flex";
-    waiting.style.display = "flex";
+    if (waiting) {
+      waiting.style.display = "flex";
+    }
     takePhotoBtn.style.display = "inline-block";
     publishBtn.style.display = "inline-block";
     saveBtn.style.display = "none";

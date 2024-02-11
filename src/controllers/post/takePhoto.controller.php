@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-require "../core/database.php";
-require "../models/post.model.php";
-require "../models/filter.model.php";
+require "../../core/database.php";
+require "../../models/post.model.php";
+require "../../models/filter.model.php";
 
 function checkImage($image) {
     $mime = explode('/', finfo_buffer(finfo_open(), $image, FILEINFO_MIME_TYPE))[1];
@@ -20,7 +20,7 @@ function checkImage($image) {
 }
 
 function createUploadDir() {
-    $uploadDir = "../assets/uploads/posts/";
+    $uploadDir = "../../assets/uploads/posts/";
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0777, true);
     }
@@ -32,7 +32,7 @@ function applyFilter($imagePath, $filterPath) {
     $baseWidth = imagesx($baseImage);
     $baseHeight = imagesy($baseImage);
     
-    $filterImage = imagecreatefrompng("../assets/filters/" . $filterPath);
+    $filterImage = imagecreatefrompng("../../assets/filters/" . $filterPath);
     $filterWidth = imagesx($filterImage);
     $filterHeight = imagesy($filterImage);
     

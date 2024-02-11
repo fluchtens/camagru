@@ -26,13 +26,13 @@ $waitingPosts = getUserWaitingPosts($db, $userId);
                 </button>
             <?php endforeach; ?>
         </div>
-        <div id="waiting" class="waiting">
-            <?php if ($waitingPosts): ?>
+        <?php if ($waitingPosts): ?>
+            <div id="waiting" class="waiting">
                 <?php foreach($waitingPosts as $waitingPost): ?>
                     <img src="<?= $baseUrl . "assets/uploads/posts/" . $waitingPost['file'] ?>" alt="<?= $waitingPost['file'] ?>">
                 <?php endforeach; ?>
-            <?php endif; ?>
-        </div>
+            </div>
+        <?php endif; ?>
         <div class="buttons">
             <button id="takePhotoBtn" class="take-photo-btn" disabled>Take Photo</button>
             <?php if (isset($waitingPost)): ?>
