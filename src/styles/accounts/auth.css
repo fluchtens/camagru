@@ -10,7 +10,7 @@ main {
   gap: 1rem;
 }
 
-.err-msg {
+.auth .err-msg {
   display: none;
   width: 300px;
   padding: 1rem;
@@ -19,7 +19,7 @@ main {
   text-align: center;
 }
 
-.err-msg p {
+.auth .err-msg p {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -28,7 +28,7 @@ main {
   text-overflow: ellipsis;
 }
 
-.auth-form {
+.auth .auth-form {
   width: 300px;
   padding: 2.5rem 1rem 2.5rem 1rem;
   flex-direction: column;
@@ -38,30 +38,30 @@ main {
   border: 1px solid #dbdbdb;
 }
 
-.auth-form .main-link {
+.auth .auth-form .main-link {
   width: 11rem;
   height: 3.125rem;
 }
 
-.auth-form .main-link img {
+.auth .auth-form .main-link img {
   width: 100%;
   height: 100%;
 }
 
-.auth-form form {
+.auth .auth-form form {
   width: 16rem;
   flex-direction: column;
   display: flex;
   gap: 1rem;
 }
 
-.auth-form form .input-container {
+.auth .auth-form form .input-container {
   flex-direction: column;
   display: flex;
   gap: 0.5rem;
 }
 
-.auth-form form .input-container input {
+.auth .auth-form form .input-container input {
   padding: 0.5rem;
   border: 1px solid #dbdbdb;
   border-radius: 0.25rem;
@@ -71,7 +71,7 @@ main {
   font-weight: 400;
 }
 
-.auth-form form button {
+.auth .auth-form form button {
   padding: 0.5rem;
   border: none;
   border-radius: 0.5rem;
@@ -84,25 +84,25 @@ main {
   cursor: pointer;
 }
 
-.auth-form form button:hover {
+.auth .auth-form form button:hover {
   background: #1976f2;
 }
 
-.auth-redir-msg {
+.auth .auth-redir-msg {
   width: 300px;
   padding: 1.5rem 1rem 1.5rem 1rem;
   border: 1px solid #dbdbdb;
   text-align: center;
 }
 
-.auth-redir-msg p {
+.auth .auth-redir-msg p {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 400;
 }
 
-.auth-redir-msg a {
+.auth .auth-redir-msg a {
   margin: 0;
   font-weight: 600;
   text-decoration: none;

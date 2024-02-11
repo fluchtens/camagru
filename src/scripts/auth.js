@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("registerErrMsgText").textContent =
           request.message;
       } else {
-        window.location.href = "/login";
+        window.location.href = "/accounts/login";
       }
     });
   }

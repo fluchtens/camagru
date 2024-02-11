@@ -42,8 +42,8 @@ if (isAuth()) {
             <script src="<?= $baseUrl . "scripts/mobileHeader.js" ?>"></script>
         <?php else: ?>
             <div class="guest">
-                <a class="login" href="/login">Log In</a>
-                <a class="register" href="/register">Sign Up</a>
+                <a class="login" href="/accounts/login">Log In</a>
+                <a class="register" href="/accounts/signup">Sign Up</a>
             </div>
         <?php endif; ?>
     </div>

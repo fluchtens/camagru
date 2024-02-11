@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const req = await likePost(postId);
         if (!req.success) {
           if (req.code === 401) {
-            window.location.href = "/login";
+            window.location.href = "/accounts/login";
           }
         } else {
           const img = btn.querySelector("img");

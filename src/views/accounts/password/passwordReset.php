@@ -5,7 +5,7 @@ if (isAuth()) {
 }
 ?>
 
-<div class="pwd-reset">
+<div class="reset">
     <div id="msg" class="msg">
         <p id="msgText"></p>
     </div>
@@ -17,6 +17,14 @@ if (isAuth()) {
         <p>Enter your email and we'll send you a link to get back into your account.</p>
         <input id="emailInput" type="email" name="email" placeholder="Email" autocomplete="off" required>
         <button id="submitBtn" type="submit" disabled>Send login link</button>
+
+        <div class="or">
+            <hr>
+            <span>OR</span>
+            <hr>
+        </div>
+        <a class="link" href="/accounts/signup">Create new account</a>
+        <a class="link" href="/accounts/login">Back to login</a>
     </form>
     <script>const baseUrl = "<?= $baseUrl ?>";</script>
     <script src="<?= $baseUrl . "scripts/resetPassword.js" ?>"></script>

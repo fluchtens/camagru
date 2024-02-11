@@ -1,6 +1,6 @@
 <?php
 if (!isAuth()) {
-    header("Location: /login");
+    header("Location: /accounts/login");
     exit();
 }
 
