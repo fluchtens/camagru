@@ -19,7 +19,7 @@ async function getPost(id) {
 
 async function likePost(postId) {
   try {
-    const url = baseUrl + "controllers/likePost.controller.php";
+    const url = baseUrl + "controllers/post/likePost.controller.php";
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
