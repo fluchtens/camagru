@@ -34,6 +34,10 @@ $waitingPosts = getUserWaitingPosts($db, $userId);
             </div>
         <?php endif; ?>
         <div class="buttons">
+            <div class="file-input">
+                <input id="imageInput" type="file" accept=".png">
+                <label for="imageInput">Import Photo</label>
+            </div>
             <button id="takePhotoBtn" class="take-photo-btn" disabled>Take Photo</button>
             <?php if (isset($waitingPost)): ?>
                 <button id="publishPhotoBtn" class="publish-photo-btn">Publish Photos</button>

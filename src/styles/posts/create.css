@@ -135,6 +135,30 @@
   gap: 0.5rem;
 }
 
+.post .take .buttons .file-input {
+  display: flex;
+}
+
+.post .take .buttons .file-input input {
+  display: none;
+}
+
+.post .take .buttons .file-input label {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  background: #0095f6;
+  transition: background 0.3s;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.post .take .buttons .file-input label:hover {
+  background: #1877f2;
+}
+
 .post .take button {
   padding: 0.5rem 0.75rem;
   border: none;

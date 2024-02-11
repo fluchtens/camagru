@@ -47,10 +47,11 @@ document.addEventListener("DOMContentLoaded", (e) => {
   const filterBtns = document.querySelectorAll(".filterBtn");
   const waiting = document.getElementById("waiting");
   const takePhotoBtn = document.getElementById("takePhotoBtn");
+  const imageInput = document.getElementById("imageInput");
   const publishBtn = document.getElementById("publishPhotoBtn");
   const cancelBtn = document.getElementById("cancelBtn");
   const saveBtn = document.getElementById("saveBtn");
-  let selectedFilter = "fire";
+  let selectedFilter = "1";
 
   const startWebcam = async () => {
     const constraints = {
@@ -67,6 +68,36 @@ document.addEventListener("DOMContentLoaded", (e) => {
   };
 
   startWebcam();
+
+  imageInput.addEventListener("change", (e) => {
+    const uploadedImage = e.target.files[0];
+
+    if (uploadedImage) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        captureVideo.style.display = "none";
+        captureFilter.style.display = "none";
+        canvasPreview.style.display = "block";
+        previewFilter.style.display = "block";
+
+        // Afficher l'image uploadée dans le canvas
+        const img = new Image();
+        img.onload = function () {
+          canvasPreview.width = img.width;
+          canvasPreview.height = img.height;
+          canvasPreview
+            .getContext("2d")
+            .drawImage(img, 0, 0, img.width, img.height);
+        };
+        img.src = e.target.result;
+
+        // Afficher l'image uploadée dans le previewFilter
+        previewFilter.src = e.target.result;
+      };
+
+      reader.readAsDataURL(uploadedImage);
+    }
+  });
 
   filterBtns.forEach((button) => {
     button.addEventListener("click", () => {
