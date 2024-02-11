@@ -35,6 +35,15 @@ function getUserByActivationToken($db, $activationToken) {
     return ($user ? $user : null);
 }
 
+function getUserByResetToken($db, $resetToken) {
+    $query = "SELECT * FROM user WHERE reset_token = :resetToken";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':resetToken', $resetToken, PDO::PARAM_STR);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    return ($user ? $user : null);
+}
+
 function createUser($db, $username, $email, $fullname, $password, $activationToken) {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $query = "INSERT INTO user (username, email, full_name, password, activation_token) 

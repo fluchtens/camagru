@@ -18,7 +18,7 @@ function getBaseUrl() {
 }
 
 function shouldIncludeHeader($uri) {
-    $exclude = ["/accounts/signup", "/accounts/login", "/accounts/password/reset"];
+    $exclude = ["/accounts/signup", "/accounts/login", "/accounts/password/forgot"];
     return !in_array($uri, $exclude);
 }
 
@@ -47,9 +47,9 @@ function router($db, $uri, $uriArray, $baseUrl) {
             $content = "settings.php";
             $css = "settings.css";
             break;
-        case "/accounts/password/reset":
-            $content = "accounts/password/passwordReset.php";
-            $css = "accounts/password/passwordReset.css";
+        case "/accounts/password/forgot":
+            $content = "accounts/password/forgotPassword.php";
+            $css = "accounts/password/forgotPassword.css";
             break;
         default:
             if (count($uriArray) === 3 && $uriArray[1] === "p") {
@@ -67,6 +67,11 @@ function router($db, $uri, $uriArray, $baseUrl) {
             elseif (count($uriArray) === 3 && $uriArray[1] === "accounts" && str_starts_with($uriArray[2], "verification?token=")) {
                 $content = "verification.php";
                 $css = "verification.css";
+                break;
+            }
+            elseif (count($uriArray) === 4 && $uriArray[1] === "accounts" && $uriArray[2] === "password" && str_starts_with($uriArray[3], "reset?token=")) {
+                $content = "accounts/password/resetPassword.php";
+                $css = "accounts/password/resetPassword.css";
                 break;
             }
             elseif (count($uriArray) > 2) {

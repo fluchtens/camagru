@@ -61,7 +61,7 @@ $user = getUserById($db, $userId);
                 <input type="password" name="new-password" placeholder="New password" autocomplete="off" required>
             </div>
             <div class="data">
-                <label for="confirm-new-password">New password</label>
+                <label for="confirm-new-password">Confirm new password</label>
                 <input type="password" name="confirm-new-password" placeholder="Confirm new password" autocomplete="off" required>
             </div>
             <button type="submit">Submit</button>

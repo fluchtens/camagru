@@ -5,11 +5,11 @@ if (isAuth()) {
 }
 ?>
 
-<div class="reset">
+<div class="forgot">
     <div id="msg" class="msg">
         <p id="msgText"></p>
     </div>
-    <form id="resetPasswordForm">
+    <form id="forgotPasswordForm">
         <a class="main-link" href="<?= $baseUrl ?>">
             <img src="<?= $baseUrl . "assets/camagru.png" ?>" alt="camagru.png">
         </a>
@@ -26,5 +26,5 @@ if (isAuth()) {
         <a class="link" href="/accounts/login">Back to login</a>
     </form>
     <script>const baseUrl = "<?= $baseUrl ?>";</script>
-    <script src="<?= $baseUrl . "scripts/resetPassword.js" ?>"></script>
+    <script src="<?= $baseUrl . "scripts/forgotPassword.js" ?>"></script>
 </div>

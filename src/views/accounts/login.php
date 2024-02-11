@@ -25,7 +25,7 @@ if (isAuth()) {
             <span>OR</span>
             <hr>
         </div>
-        <a class="link" href="/accounts/password/reset">Forgot password?</a>
+        <a class="link" href="/accounts/password/forgot">Forgot password?</a>
     </div>
     <div class="auth-redir-msg">
         <p>Don't have an account? <a href="/accounts/signup">Sign up</a></p>
