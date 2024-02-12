@@ -3,7 +3,11 @@ $isAuth = false;
 if (isAuth()) {
     $isAuth = true;
     $user = getUserById($db, $userId);
-    $avatar = $user['avatar'] ? $baseUrl . "assets/uploads/avatars/" . $user['avatar'] : null;
+    if ($user['avatar']) {
+        $avatar = $baseUrl . "assets/uploads/avatars/" . $user['avatar'];
+    } else {
+        $avatar = $baseUrl . "assets/noavatar.png";
+    }
     $profilePath = "/" . $user['username'];
 }
 ?>
@@ -26,12 +30,8 @@ if (isAuth()) {
                     <svg aria-label="New post" class="x1lliihq x1n2onr6 x5n08af" fill="currentColor" height="20" role="img" viewBox="0 0 24 24" width="20"><title>New post</title><path d="M2 12v3.45c0 2.849.698 4.005 1.606 4.944.94.909 2.098 1.608 4.946 1.608h6.896c2.848 0 4.006-.7 4.946-1.608C21.302 19.455 22 18.3 22 15.45V8.552c0-2.849-.698-4.006-1.606-4.945C19.454 2.7 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.547 2 5.703 2 8.552Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="6.545" x2="17.455" y1="12.001" y2="12.001"></line><line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="12.003" x2="12.003" y1="6.545" y2="17.455"></line></svg>
                     <p>Create</p>
                 </a>
-                <a class="link" href=<?= $profilePath; ?>>
-                    <?php if ($avatar): ?>
-                        <img src="<?= $avatar; ?>" alt="avatar">
-                    <?php else: ?>
-                        <img src="<?= $baseUrl . "assets/noavatar.png"; ?>" alt="avatar">
-                    <?php endif; ?>
+                <a id="headerProfileLink" class="link" href=<?= $profilePath; ?>>
+                    <img id="headerAvatarImg" src="<?= $avatar; ?>" alt="avatar">
                     <p>Profile</p>
                 </a>
                 <a class="link" href="/logout">
