@@ -6,7 +6,15 @@ async function editProfile(formData) {
       body: formData,
     });
 
+    if (response.status === 413) {
+      return {
+        success: false,
+        message: "File size exceeds the allowed limit.",
+      };
+    }
+
     const data = await response.json();
+    // document.write(data);
     if (!response.ok) {
       return { success: false, message: data.message };
     }
