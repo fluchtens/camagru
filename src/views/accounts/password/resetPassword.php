@@ -25,5 +25,5 @@ $resetToken = $_GET['token'] ?? null;
         <button type="submit">Submit</button>
     </form>
     <script>const baseUrl = "<?= $baseUrl ?>";</script>
-    <script src="<?= $baseUrl . "scripts/resetPassword.js" ?>"></script>
+    <script src="<?= $baseUrl . "scripts/accounts/password/resetPassword.js" ?>"></script>
 </div>

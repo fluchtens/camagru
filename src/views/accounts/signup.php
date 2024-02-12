@@ -27,5 +27,5 @@ if (isAuth()) {
         <p>Have an account? <a href="/accounts/login">Log in</a></p>
     </div>
     <script>const baseUrl = "<?= $baseUrl ?>";</script>
-    <script src="<?= $baseUrl . "scripts/auth.js" ?>"></script>
+    <script src="<?= $baseUrl . "scripts/accounts/auth.js" ?>"></script>
 </div>

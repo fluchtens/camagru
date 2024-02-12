@@ -87,7 +87,7 @@ function createPost(data) {
     unlikeBtn.setAttribute("data-post-id", data.id);
 
     const unlikeImg = document.createElement("img");
-    unlikeImg.src = baseUrl + "assets/unlikeBtn.png";
+    unlikeImg.src = baseUrl + "assets/unlikeBtn.svg";
 
     unlikeBtn.appendChild(unlikeImg);
     buttons.appendChild(unlikeBtn);
@@ -97,7 +97,7 @@ function createPost(data) {
     likeBtn.setAttribute("data-post-id", data.id);
 
     const likeImg = document.createElement("img");
-    likeImg.src = baseUrl + "assets/likeBtn.png";
+    likeImg.src = baseUrl + "assets/likeBtn.svg";
 
     likeBtn.appendChild(likeImg);
     buttons.appendChild(likeBtn);
@@ -108,7 +108,7 @@ function createPost(data) {
   commentLink.classList.add("comment");
 
   const commentImg = document.createElement("img");
-  commentImg.src = baseUrl + "assets/commentBtn.png";
+  commentImg.src = baseUrl + "assets/commentBtn.svg";
 
   commentLink.appendChild(commentImg);
   buttons.appendChild(commentLink);
@@ -166,12 +166,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         const currentLikes = parseInt(likeCount.textContent);
 
         if (likeBtn) {
-          img.src = baseUrl + "assets/unlikeBtn.png";
+          img.src = baseUrl + "assets/unlikeBtn.svg";
           likeBtn.classList.remove("likeBtn");
           likeBtn.classList.add("unlikeBtn");
           likeCount.textContent = currentLikes + 1 + " likes";
         } else {
-          img.src = baseUrl + "assets/likeBtn.png";
+          img.src = baseUrl + "assets/likeBtn.svg";
           unlikeBtn.classList.remove("unlikeBtn");
           unlikeBtn.classList.add("likeBtn");
           likeCount.textContent = currentLikes - 1 + " likes";

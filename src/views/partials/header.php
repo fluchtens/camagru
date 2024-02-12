@@ -39,7 +39,7 @@ if (isAuth()) {
                     <p>Log out</p>
                 </a>
             </div>
-            <script src="<?= $baseUrl . "scripts/mobileHeader.js" ?>"></script>
+            <script src="<?= $baseUrl . "scripts/partials/header.js" ?>"></script>
         <?php else: ?>
             <div class="guest">
                 <a class="login" href="/accounts/login">Log In</a>

@@ -26,5 +26,5 @@ if (isAuth()) {
         <a class="link" href="/accounts/login">Back to login</a>
     </form>
     <script>const baseUrl = "<?= $baseUrl ?>";</script>
-    <script src="<?= $baseUrl . "scripts/forgotPassword.js" ?>"></script>
+    <script src="<?= $baseUrl . "scripts/accounts/password/forgotPassword.js" ?>"></script>
 </div>

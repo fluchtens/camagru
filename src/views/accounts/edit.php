@@ -68,5 +68,5 @@ $user = getUserById($db, $userId);
         </form>
     </div>
     <script>const baseUrl = "<?= $baseUrl ?>";</script>
-    <script src="<?= $baseUrl . "scripts/settings.js" ?>"></script>
+    <script src="<?= $baseUrl . "scripts/accounts/edit.js" ?>"></script>
 </div>

@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
     if (uploadedImage) {
       const reader = new FileReader();
-      reader.onload = function (e) {
+      reader.onload = (e) => {
         stopWebcam();
         captureVideo.style.display = "none";
         captureFilter.style.display = "none";
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
         cancelBtn.style.display = "inline-block";
 
         const img = new Image();
-        img.onload = function () {
+        img.onload = () => {
           canvasPreview.width = img.width;
           canvasPreview.height = img.height;
           canvasPreview
@@ -126,7 +126,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
   filterBtns.forEach((button) => {
     button.addEventListener("click", () => {
-      const filterSrc = "assets/filters/" + button.getAttribute("data-file");
+      const filterSrc =
+        baseUrl + "assets/filters/" + button.getAttribute("data-file");
       captureFilter.style.display = "block";
       captureFilter.src = filterSrc;
       previewFilter.src = filterSrc;

@@ -31,5 +31,5 @@ if (isAuth()) {
         <p>Don't have an account? <a href="/accounts/signup">Sign up</a></p>
     </div>
     <script>const baseUrl = "<?= $baseUrl ?>";</script>
-    <script src="<?= $baseUrl . "scripts/auth.js" ?>"></script>
+    <script src="<?= $baseUrl . "scripts/accounts/auth.js" ?>"></script>
 </div>

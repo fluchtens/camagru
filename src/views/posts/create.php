@@ -36,7 +36,7 @@ $waitingPosts = getUserWaitingPosts($db, $userId);
         <div class="buttons">
             <button id="takePhotoBtn" class="take-photo-btn" disabled>Take Photo</button>
             <div class="file-input">
-                <input id="importInput" type="file" accept=".jpg, .jpeg, .png">
+                <input id="importInput" type="file" accept=".jpg, .jpeg, .png, .gif">
                 <label id="importBtn" for="importInput">Import Photo</label>
             </div>
             <?php if (isset($waitingPost)): ?>
@@ -49,5 +49,5 @@ $waitingPosts = getUserWaitingPosts($db, $userId);
         </div>
     </div>
     <script>const baseUrl = "<?= $baseUrl ?>";</script>
-    <script src="<?= $baseUrl . "scripts/create.js" ?>"></script>
+    <script src="<?= $baseUrl . "scripts/posts/create.js" ?>"></script>
 </div>
