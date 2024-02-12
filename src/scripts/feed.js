@@ -69,7 +69,7 @@ function addPostToFeed(data) {
     unlikeBtn.setAttribute("data-post-id", data.id);
 
     const unlikeImg = document.createElement("img");
-    unlikeImg.src = baseUrl + "assets/unlikeBtn.png";
+    unlikeImg.src = baseUrl + "assets/unlikeBtn.svg";
 
     unlikeBtn.appendChild(unlikeImg);
     buttons.appendChild(unlikeBtn);
@@ -79,7 +79,7 @@ function addPostToFeed(data) {
     likeBtn.setAttribute("data-post-id", data.id);
 
     const likeImg = document.createElement("img");
-    likeImg.src = baseUrl + "assets/likeBtn.png";
+    likeImg.src = baseUrl + "assets/likeBtn.svg";
 
     likeBtn.appendChild(likeImg);
     buttons.appendChild(likeBtn);
@@ -90,7 +90,7 @@ function addPostToFeed(data) {
   commentLink.classList.add("comment");
 
   const commentImg = document.createElement("img");
-  commentImg.src = baseUrl + "assets/commentBtn.png";
+  commentImg.src = baseUrl + "assets/commentBtn.svg";
 
   commentLink.appendChild(commentImg);
   buttons.appendChild(commentLink);

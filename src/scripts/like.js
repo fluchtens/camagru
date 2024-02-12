@@ -44,12 +44,12 @@ document.addEventListener("DOMContentLoaded", () => {
           const currentLikes = parseInt(likeCount.textContent);
 
           if (likeBtn) {
-            img.src = baseUrl + "assets/unlikeBtn.png";
+            img.src = baseUrl + "assets/unlikeBtn.svg";
             likeBtn.classList.remove("likeBtn");
             likeBtn.classList.add("unlikeBtn");
             likeCount.textContent = currentLikes + 1 + " likes";
           } else {
-            img.src = baseUrl + "assets/likeBtn.png";
+            img.src = baseUrl + "assets/likeBtn.svg";
             unlikeBtn.classList.remove("unlikeBtn");
             unlikeBtn.classList.add("likeBtn");
             likeCount.textContent = currentLikes - 1 + " likes";
