@@ -47,7 +47,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
   const filterBtns = document.querySelectorAll(".filterBtn");
   const waiting = document.getElementById("waiting");
   const takePhotoBtn = document.getElementById("takePhotoBtn");
-  const imageInput = document.getElementById("imageInput");
+  const importInput = document.getElementById("importInput");
+  const importBtn = document.getElementById("importBtn");
   const publishBtn = document.getElementById("publishPhotoBtn");
   const cancelBtn = document.getElementById("cancelBtn");
   const saveBtn = document.getElementById("saveBtn");
@@ -67,32 +68,56 @@ document.addEventListener("DOMContentLoaded", (e) => {
     }
   };
 
+  const stopWebcam = () => {
+    const stream = captureVideo.srcObject;
+    if (stream) {
+      const tracks = stream.getTracks();
+      tracks.forEach((track) => track.stop());
+      captureVideo.srcObject = null;
+    }
+  };
+
   startWebcam();
 
-  imageInput.addEventListener("change", (e) => {
+  importInput.addEventListener("change", (e) => {
     const uploadedImage = e.target.files[0];
 
     if (uploadedImage) {
       const reader = new FileReader();
       reader.onload = function (e) {
+        stopWebcam();
         captureVideo.style.display = "none";
         captureFilter.style.display = "none";
         canvasPreview.style.display = "block";
         previewFilter.style.display = "block";
 
-        // Afficher l'image uploadée dans le canvas
+        const selectedFilterBtn = document.querySelector(".filterBtn.selected");
+        if (!selectedFilterBtn) {
+          const firstBtn = document.querySelector(".filterBtn[data-id='1']");
+          if (firstBtn) {
+            firstBtn.click();
+          }
+        }
+
+        if (waiting) {
+          waiting.style.display = "none";
+        }
+
+        takePhotoBtn.style.display = "none";
+        importBtn.style.display = "none";
+        publishBtn.style.display = "none";
+        saveBtn.style.display = "inline-block";
+        cancelBtn.style.display = "inline-block";
+
         const img = new Image();
         img.onload = function () {
           canvasPreview.width = img.width;
           canvasPreview.height = img.height;
           canvasPreview
             .getContext("2d")
-            .drawImage(img, 0, 0, img.width, img.height);
+            .drawImage(img, 0, 0, canvasPreview.width, canvasPreview.height);
         };
         img.src = e.target.result;
-
-        // Afficher l'image uploadée dans le previewFilter
-        previewFilter.src = e.target.result;
       };
 
       reader.readAsDataURL(uploadedImage);
@@ -132,12 +157,14 @@ document.addEventListener("DOMContentLoaded", (e) => {
       waiting.style.display = "none";
     }
     takePhotoBtn.style.display = "none";
+    importBtn.style.display = "none";
     publishBtn.style.display = "none";
     saveBtn.style.display = "inline-block";
     cancelBtn.style.display = "inline-block";
   });
 
   cancelBtn.addEventListener("click", () => {
+    startWebcam();
     captureVideo.style.display = "block";
     captureFilter.style.display = "block";
     canvasPreview.style.display = "none";
@@ -147,6 +174,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
       waiting.style.display = "flex";
     }
     takePhotoBtn.style.display = "inline-block";
+    importBtn.style.display = "inline-block";
     publishBtn.style.display = "inline-block";
     saveBtn.style.display = "none";
     cancelBtn.style.display = "none";
