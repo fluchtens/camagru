@@ -16,7 +16,7 @@ function checkImage($image) {
     elseif (strlen($image) > 1 * 1024 * 1024) {
         return ['code' => 413, 'message' => "Your file is too large."];
     }
-    elseif ($mime !== "png" || $mime !== "jpeg") {
+    elseif ($mime !== "png" && $mime !== "jpeg") {
         return ['code' => 400, 'message' => "Only PNG, JPG, JPEG & GIF files are allowed."];
     }
     return ['code' => 200];
