@@ -7,7 +7,7 @@ function getAllFilters($db) {
     return ($filters ? $filters : null);
 }
 
-function getFilter($db, $filterId) {
+function getFilterById($db, $filterId) {
     $query = "SELECT * FROM filter WHERE id = :id";
     $stmt = $db->prepare($query);
     $stmt->bindParam(':id', $filterId, PDO::PARAM_INT);
