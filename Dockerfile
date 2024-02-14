@@ -7,3 +7,5 @@ RUN apt-get update && \
 
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install gd
+
+RUN echo "access.log = /dev/null" >> /usr/local/etc/php-fpm.d/www.conf
