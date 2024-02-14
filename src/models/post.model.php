@@ -91,6 +91,7 @@ function getUserPostById($db, $userId, $postId) {
                 user.username AS user_username,
                 user.avatar AS user_avatar,
                 IF(post_like.id IS NOT NULL, 1, 0) AS liked,
+                (post.user_id = :user_id) AS deletable,
                 (SELECT COUNT(*) FROM post_like WHERE post_id = post.id) AS like_count,
                 (SELECT COUNT(*) FROM post_comment WHERE post_id = post.id) AS comment_count
             FROM post
@@ -104,5 +105,12 @@ function getUserPostById($db, $userId, $postId) {
     $stmt->execute();
     $post = $stmt->fetch(PDO::FETCH_ASSOC);
     return ($post ? $post : null);
+}
+
+function deletePostById($db, $postId) {
+    $query = "DELETE FROM post WHERE id = :postId";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':postId', $postId, PDO::PARAM_INT);
+    $stmt->execute();
 }
 ?>

@@ -17,6 +17,23 @@ async function getPost(id) {
   }
 }
 
+async function deletePost(postId) {
+  try {
+    const url = baseUrl + "controllers/post/deletePost.controller.php";
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ post_id: postId }),
+    });
+
+    if (response.ok) {
+      window.history.back();
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+}
+
 async function likePost(postId) {
   try {
     const url = baseUrl + "controllers/post/likePost.controller.php";
@@ -76,83 +93,93 @@ function createPost(data) {
     infos.appendChild(texts);
     user.appendChild(infos);
 
-    const deleteBtn = document.createElement("button");
-    deleteBtn.classList.add("deleteBtn");
+    if (data.deletable) {
+      const deleteBtn = document.createElement("button");
+      deleteBtn.classList.add("deleteBtn");
+      deleteBtn.onclick = () => deletePost(data.id);
 
-    const deleteIcon = document.createElement("img");
-    deleteIcon.src = baseUrl + "assets/deleteIcon.png";
+      const deleteIcon = document.createElement("img");
+      deleteIcon.src = baseUrl + "assets/deleteIcon.png";
 
-    deleteBtn.appendChild(deleteIcon);
-    user.appendChild(deleteBtn);
+      deleteBtn.appendChild(deleteIcon);
+      user.appendChild(deleteBtn);
+    }
 
-    return user;
+    post.appendChild(user);
   };
 
-  const user = createUser();
+  const createImage = () => {
+    const image = document.createElement("img");
+    image.src = `${baseUrl}assets/uploads/posts/${data.file}`;
+    image.alt = data.file;
 
-  const image = document.createElement("img");
-  image.src = `${baseUrl}assets/uploads/posts/${data.file}`;
-  image.alt = data.file;
+    post.appendChild(image);
+  };
 
-  const actions = document.createElement("div");
-  actions.classList.add("actions");
+  const createActions = () => {
+    const actions = document.createElement("div");
+    actions.classList.add("actions");
 
-  const buttons = document.createElement("div");
-  buttons.classList.add("buttons");
+    const buttons = document.createElement("div");
+    buttons.classList.add("buttons");
 
-  if (data.liked) {
-    const unlikeBtn = document.createElement("button");
-    unlikeBtn.classList.add("unlikeBtn");
-    unlikeBtn.setAttribute("data-post-id", data.id);
+    if (data.liked) {
+      const unlikeBtn = document.createElement("button");
+      unlikeBtn.classList.add("unlikeBtn");
+      unlikeBtn.setAttribute("data-post-id", data.id);
 
-    const unlikeImg = document.createElement("img");
-    unlikeImg.src = baseUrl + "assets/unlikeBtn.svg";
+      const unlikeImg = document.createElement("img");
+      unlikeImg.src = baseUrl + "assets/unlikeBtn.svg";
 
-    unlikeBtn.appendChild(unlikeImg);
-    buttons.appendChild(unlikeBtn);
-  } else {
-    const likeBtn = document.createElement("button");
-    likeBtn.classList.add("likeBtn");
-    likeBtn.setAttribute("data-post-id", data.id);
+      unlikeBtn.appendChild(unlikeImg);
+      buttons.appendChild(unlikeBtn);
+    } else {
+      const likeBtn = document.createElement("button");
+      likeBtn.classList.add("likeBtn");
+      likeBtn.setAttribute("data-post-id", data.id);
 
-    const likeImg = document.createElement("img");
-    likeImg.src = baseUrl + "assets/likeBtn.svg";
+      const likeImg = document.createElement("img");
+      likeImg.src = baseUrl + "assets/likeBtn.svg";
 
-    likeBtn.appendChild(likeImg);
-    buttons.appendChild(likeBtn);
-  }
+      likeBtn.appendChild(likeImg);
+      buttons.appendChild(likeBtn);
+    }
 
-  const commentLink = document.createElement("a");
-  commentLink.href = `/c/${data.id}`;
-  commentLink.classList.add("comment");
+    const commentLink = document.createElement("a");
+    commentLink.href = `/c/${data.id}`;
+    commentLink.classList.add("comment");
 
-  const commentImg = document.createElement("img");
-  commentImg.src = baseUrl + "assets/commentBtn.svg";
+    const commentImg = document.createElement("img");
+    commentImg.src = baseUrl + "assets/commentBtn.svg";
 
-  commentLink.appendChild(commentImg);
-  buttons.appendChild(commentLink);
+    commentLink.appendChild(commentImg);
+    buttons.appendChild(commentLink);
 
-  actions.appendChild(buttons);
+    actions.appendChild(buttons);
 
-  const likeCount = document.createElement("p");
-  likeCount.classList.add("likeCount");
-  likeCount.textContent = `${data.like_count} likes`;
+    const likeCount = document.createElement("p");
+    likeCount.classList.add("likeCount");
+    likeCount.textContent = `${data.like_count} likes`;
 
-  const commentCount = document.createElement("a");
-  commentCount.href = `/c/${data.id}`;
-  commentCount.classList.add("commentCount");
-  if (data.comment_count) {
-    commentCount.textContent = `View all ${data.comment_count} comments`;
-  } else {
-    commentCount.textContent = "Add a comment..";
-  }
+    actions.appendChild(likeCount);
 
-  actions.appendChild(likeCount);
-  actions.appendChild(commentCount);
+    const commentCount = document.createElement("a");
+    commentCount.href = `/c/${data.id}`;
+    commentCount.classList.add("commentCount");
+    if (data.comment_count) {
+      commentCount.textContent = `View all ${data.comment_count} comments`;
+    } else {
+      commentCount.textContent = "Add a comment..";
+    }
 
-  post.appendChild(user);
-  post.appendChild(image);
-  post.appendChild(actions);
+    actions.appendChild(commentCount);
+
+    post.appendChild(actions);
+  };
+
+  createUser();
+  createImage();
+  createActions();
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
