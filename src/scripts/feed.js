@@ -17,105 +17,151 @@ async function getPosts(page) {
   }
 }
 
+async function deletePost(postId) {
+  try {
+    const url = baseUrl + "controllers/post/deletePost.controller.php";
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ post_id: postId }),
+    });
+
+    if (response.ok) {
+      window.history.back();
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+}
+
 function addPostToFeed(data) {
   const feed = document.getElementById("feed");
 
   const post = document.createElement("li");
   post.classList.add("post");
 
-  const user = document.createElement("a");
-  user.classList.add("user");
-  user.href = `/${data.user_username}`;
+  const createUser = () => {
+    const user = document.createElement("div");
+    user.classList.add("user");
 
-  const avatar = document.createElement("img");
-  if (data.user_avatar) {
-    avatar.src = `${baseUrl}assets/uploads/avatars/${data.user_avatar}`;
-    avatar.alt = data.user_avatar;
-  } else {
-    avatar.src = `${baseUrl}assets/noavatar.png`;
-    avatar.alt = "noavatar.png";
-  }
+    const infos = document.createElement("a");
+    infos.href = `/${data.user_username}`;
+    infos.classList.add("infos");
 
-  const texts = document.createElement("div");
-  texts.classList.add("texts");
+    const avatar = document.createElement("img");
+    if (data.user_avatar) {
+      avatar.src = `${baseUrl}assets/uploads/avatars/${data.user_avatar}`;
+      avatar.alt = data.user_avatar;
+    } else {
+      avatar.src = `${baseUrl}assets/noavatar.png`;
+      avatar.alt = "noavatar.png";
+    }
 
-  const username = document.createElement("p");
-  username.classList.add("username");
-  username.textContent = data.user_username;
+    infos.appendChild(avatar);
 
-  const timeDiff = document.createElement("span");
-  timeDiff.classList.add("time-diff");
-  timeDiff.textContent = `• ${formatElapsedTime(data.time_diff)}`;
+    const texts = document.createElement("div");
+    texts.classList.add("texts");
 
-  texts.appendChild(username);
-  texts.appendChild(timeDiff);
+    const username = document.createElement("p");
+    username.classList.add("username");
+    username.textContent = data.user_username;
 
-  user.appendChild(avatar);
-  user.appendChild(texts);
+    const timeDiff = document.createElement("span");
+    timeDiff.classList.add("time-diff");
+    timeDiff.textContent = `• ${formatElapsedTime(data.time_diff)}`;
 
-  const image = document.createElement("img");
-  image.src = `${baseUrl}assets/uploads/posts/${data.file}`;
-  image.alt = data.file;
+    texts.appendChild(username);
+    texts.appendChild(timeDiff);
+    infos.appendChild(texts);
+    user.appendChild(infos);
 
-  const actions = document.createElement("div");
-  actions.classList.add("actions");
+    if (data.deletable) {
+      const deleteBtn = document.createElement("button");
+      deleteBtn.classList.add("deleteBtn");
+      deleteBtn.onclick = () => deletePost(data.id);
 
-  const buttons = document.createElement("div");
-  buttons.classList.add("buttons");
+      const deleteIcon = document.createElement("img");
+      deleteIcon.src = baseUrl + "assets/deleteIcon.png";
 
-  if (data.liked) {
-    const unlikeBtn = document.createElement("button");
-    unlikeBtn.classList.add("unlikeBtn");
-    unlikeBtn.setAttribute("data-post-id", data.id);
+      deleteBtn.appendChild(deleteIcon);
+      user.appendChild(deleteBtn);
+    }
 
-    const unlikeImg = document.createElement("img");
-    unlikeImg.src = baseUrl + "assets/unlikeBtn.svg";
+    post.appendChild(user);
+  };
 
-    unlikeBtn.appendChild(unlikeImg);
-    buttons.appendChild(unlikeBtn);
-  } else {
-    const likeBtn = document.createElement("button");
-    likeBtn.classList.add("likeBtn");
-    likeBtn.setAttribute("data-post-id", data.id);
+  const createImage = () => {
+    const image = document.createElement("img");
+    image.src = `${baseUrl}assets/uploads/posts/${data.file}`;
+    image.alt = data.file;
 
-    const likeImg = document.createElement("img");
-    likeImg.src = baseUrl + "assets/likeBtn.svg";
+    post.appendChild(image);
+  };
 
-    likeBtn.appendChild(likeImg);
-    buttons.appendChild(likeBtn);
-  }
+  const createActions = () => {
+    const actions = document.createElement("div");
+    actions.classList.add("actions");
 
-  const commentLink = document.createElement("a");
-  commentLink.href = `/c/${data.id}`;
-  commentLink.classList.add("comment");
+    const buttons = document.createElement("div");
+    buttons.classList.add("buttons");
 
-  const commentImg = document.createElement("img");
-  commentImg.src = baseUrl + "assets/commentBtn.svg";
+    if (data.liked) {
+      const unlikeBtn = document.createElement("button");
+      unlikeBtn.classList.add("unlikeBtn");
+      unlikeBtn.setAttribute("data-post-id", data.id);
 
-  commentLink.appendChild(commentImg);
-  buttons.appendChild(commentLink);
+      const unlikeImg = document.createElement("img");
+      unlikeImg.src = baseUrl + "assets/unlikeBtn.svg";
 
-  actions.appendChild(buttons);
+      unlikeBtn.appendChild(unlikeImg);
+      buttons.appendChild(unlikeBtn);
+    } else {
+      const likeBtn = document.createElement("button");
+      likeBtn.classList.add("likeBtn");
+      likeBtn.setAttribute("data-post-id", data.id);
 
-  const likeCount = document.createElement("p");
-  likeCount.classList.add("likeCount");
-  likeCount.textContent = `${data.like_count} likes`;
+      const likeImg = document.createElement("img");
+      likeImg.src = baseUrl + "assets/likeBtn.svg";
 
-  const commentCount = document.createElement("a");
-  commentCount.href = `/c/${data.id}`;
-  commentCount.classList.add("commentCount");
-  if (data.comment_count) {
-    commentCount.textContent = `View all ${data.comment_count} comments`;
-  } else {
-    commentCount.textContent = "Add a comment..";
-  }
+      likeBtn.appendChild(likeImg);
+      buttons.appendChild(likeBtn);
+    }
 
-  actions.appendChild(likeCount);
-  actions.appendChild(commentCount);
+    const commentLink = document.createElement("a");
+    commentLink.href = `/c/${data.id}`;
+    commentLink.classList.add("comment");
 
-  post.appendChild(user);
-  post.appendChild(image);
-  post.appendChild(actions);
+    const commentImg = document.createElement("img");
+    commentImg.src = baseUrl + "assets/commentBtn.svg";
+
+    commentLink.appendChild(commentImg);
+    buttons.appendChild(commentLink);
+
+    actions.appendChild(buttons);
+
+    const likeCount = document.createElement("p");
+    likeCount.classList.add("likeCount");
+    likeCount.textContent = `${data.like_count} likes`;
+
+    actions.appendChild(likeCount);
+
+    const commentCount = document.createElement("a");
+    commentCount.href = `/c/${data.id}`;
+    commentCount.classList.add("commentCount");
+    if (data.comment_count) {
+      commentCount.textContent = `View all ${data.comment_count} comments`;
+    } else {
+      commentCount.textContent = "Add a comment..";
+    }
+
+    actions.appendChild(commentCount);
+
+    post.appendChild(actions);
+  };
+
+  createUser();
+  createImage();
+  createActions();
 
   feed.appendChild(post);
 }
