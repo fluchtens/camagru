@@ -156,7 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (data && data.length > 0) {
-      loading.style.display = "block";
       for (const post of data) {
         addPostToFeed(post);
       }
