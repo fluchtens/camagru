@@ -6,42 +6,59 @@
 }
 
 .post .user {
-  all: unset;
   padding: 0.75rem 0rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post .user .infos {
+  all: unset;
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
 
-.post .user img {
+.post .user .infos:hover {
+  cursor: pointer;
+}
+
+.post .user .infos img {
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
   object-fit: cover;
-  cursor: pointer;
   pointer-events: none;
 }
 
-.post .user .texts {
+.post .user .infos .texts {
   display: flex;
   align-items: center;
   gap: 0.25rem;
 }
 
-.post .user .texts p {
+.post .user .infos .texts p {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
-  cursor: pointer;
 }
 
-.post .user .texts span {
+.post .user .infos .texts span {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 400;
   color: #737373;
+}
+
+.post .user .deleteBtn {
+  all: unset;
+  width: 1rem;
+  width: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
 }
 
@@ -118,7 +135,7 @@
 
 @media (max-width: 485px) {
   .post .user {
-    padding: 0.75rem 0 0.75rem 1rem;
+    padding: 0.75rem 1rem;
   }
 
   .post .user .texts span {
@@ -127,5 +144,11 @@
 
   .post .actions {
     padding: 0 1rem 0 1rem;
+  }
+}
+
+@media (max-width: 200px) {
+  .post .user .infos img {
+    display: none;
   }
 }

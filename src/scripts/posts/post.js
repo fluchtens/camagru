@@ -41,35 +41,54 @@ async function likePost(postId) {
 function createPost(data) {
   const post = document.getElementById("post");
 
-  const user = document.createElement("a");
-  user.classList.add("user");
-  user.href = `/${data.user_username}`;
+  const createUser = () => {
+    const user = document.createElement("div");
+    user.classList.add("user");
 
-  const avatar = document.createElement("img");
-  if (data.user_avatar) {
-    avatar.src = `${baseUrl}assets/uploads/avatars/${data.user_avatar}`;
-    avatar.alt = data.user_avatar;
-  } else {
-    avatar.src = `${baseUrl}assets/noavatar.png`;
-    avatar.alt = "noavatar.png";
-  }
+    const infos = document.createElement("a");
+    infos.href = `/${data.user_username}`;
+    infos.classList.add("infos");
 
-  const texts = document.createElement("div");
-  texts.classList.add("texts");
+    const avatar = document.createElement("img");
+    if (data.user_avatar) {
+      avatar.src = `${baseUrl}assets/uploads/avatars/${data.user_avatar}`;
+      avatar.alt = data.user_avatar;
+    } else {
+      avatar.src = `${baseUrl}assets/noavatar.png`;
+      avatar.alt = "noavatar.png";
+    }
 
-  const username = document.createElement("p");
-  username.classList.add("username");
-  username.textContent = data.user_username;
+    infos.appendChild(avatar);
 
-  const timeDiff = document.createElement("span");
-  timeDiff.classList.add("time-diff");
-  timeDiff.textContent = `• ${formatElapsedTime(data.time_diff)}`;
+    const texts = document.createElement("div");
+    texts.classList.add("texts");
 
-  texts.appendChild(username);
-  texts.appendChild(timeDiff);
+    const username = document.createElement("p");
+    username.classList.add("username");
+    username.textContent = data.user_username;
 
-  user.appendChild(avatar);
-  user.appendChild(texts);
+    const timeDiff = document.createElement("span");
+    timeDiff.classList.add("time-diff");
+    timeDiff.textContent = `• ${formatElapsedTime(data.time_diff)}`;
+
+    texts.appendChild(username);
+    texts.appendChild(timeDiff);
+    infos.appendChild(texts);
+    user.appendChild(infos);
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("deleteBtn");
+
+    const deleteIcon = document.createElement("img");
+    deleteIcon.src = baseUrl + "assets/deleteIcon.png";
+
+    deleteBtn.appendChild(deleteIcon);
+    user.appendChild(deleteBtn);
+
+    return user;
+  };
+
+  const user = createUser();
 
   const image = document.createElement("img");
   image.src = `${baseUrl}assets/uploads/posts/${data.file}`;
