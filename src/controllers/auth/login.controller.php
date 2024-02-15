@@ -16,7 +16,6 @@ function submitData() {
         $db = connectToDatabase();  
         $user = getUserByUsername($db, $username);
         if (!$user || !password_verify($password, $user['password'])) {
-            http_response_code(401);
             return ['code' => 401, 'message' => "Incorrect username or password."];
         }
 
