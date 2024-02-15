@@ -6,7 +6,7 @@
 function getPostById($db, $postId) {
     $query = "SELECT *
             FROM post
-            WHERE id = :postId
+            WHERE id = :postId AND published = 1
     ";
     $stmt = $db->prepare($query);
     $stmt->bindParam(':postId', $postId, PDO::PARAM_INT);
