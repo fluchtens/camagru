@@ -9,19 +9,17 @@ async function editProfile(formData) {
     if (response.status === 413) {
       return {
         success: false,
-        message: "File size exceeds the allowed limit.",
+        message: response.statusText,
       };
     }
 
     const data = await response.json();
-    // document.write(data);
     if (!response.ok) {
       return { success: false, message: data.message };
     }
 
     return { success: true, message: data.message };
   } catch (error) {
-    console.error("An error occurred:", error);
     return { success: false, message: error.message };
   }
 }
@@ -34,6 +32,13 @@ async function updatePassword(formData) {
       body: formData,
     });
 
+    if (response.status === 413) {
+      return {
+        success: false,
+        message: response.statusText,
+      };
+    }
+
     const data = await response.json();
     if (!response.ok) {
       return { success: false, message: data.message };
@@ -41,7 +46,6 @@ async function updatePassword(formData) {
 
     return { success: true, message: data.message };
   } catch (error) {
-    console.error("An error occurred:", error);
     return { success: false, message: error.message };
   }
 }
@@ -55,13 +59,12 @@ async function getUser() {
 
     const data = await response.json();
     if (!response.ok) {
-      return { success: false, message: data.message };
+      return null;
     }
 
-    return { success: true, user: data.user };
+    return data.user;
   } catch (error) {
-    console.error("An error occurred:", error);
-    return { success: false, message: error.message };
+    return null;
   }
 }
 
@@ -89,8 +92,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const updatedUserReq = await getUser();
-    if (updatedUserReq.success) {
-      const updatedUser = updatedUserReq.user;
+    if (updatedUserReq) {
+      const updatedUser = updatedUserReq;
       const fullNameInput = document.querySelector("input[name='fullname']");
       const usernameInput = document.querySelector("input[name='username']");
       const bioInput = document.querySelector("input[name='bio']");

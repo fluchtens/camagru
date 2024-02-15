@@ -9,8 +9,8 @@ function checkAvatarFile($avatar, $file, $type) {
     if (file_exists($file)) {
         return ['code' => 409, 'message' => "This file already exists."];
     }
-    elseif ($avatar["size"] > 500000) {
-        return ['code' => 413, 'message' => "Your file is too large."];
+    elseif ($avatar["size"] > 500 * 1024) {
+        return ['code' => 400, 'message' => "Your avatar is too large (+500 ko)."];
     }
     elseif ($type != "png" && $type != "jpg" && $type != "jpeg" && $type != "gif" ) {
         return ['code' => 400, 'message' => "Only PNG, JPG, JPEG & GIF files are allowed."];
