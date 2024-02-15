@@ -3,6 +3,8 @@ session_start();
 
 require "../../core/database.php";
 require "../../models/post.model.php";
+require "../../models/like.model.php";
+require "../../models/comment.model.php";
 
 function submitData() {
     try {
@@ -30,6 +32,8 @@ function submitData() {
             return ['code' => 401, 'message' => "You are not the owner of this post."];
         }
 
+        deletePostLikes($db, $postId);
+        deletePostComments($db, $postId);
         deletePostById($db, $postId);
         return ['code' => 200, 'message' => "You have successfully deleted the post." ];
     } catch (Exception $e) {

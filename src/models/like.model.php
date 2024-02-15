@@ -24,4 +24,11 @@ function unlikePost($db, $userId, $postId) {
     $stmt->bindParam(':post_id', $postId, PDO::PARAM_INT);
     $stmt->execute();
 }
+
+function deletePostLikes($db, $postId) {
+    $query = "DELETE FROM post_like WHERE post_id = :postId";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':postId', $postId, PDO::PARAM_INT);
+    $stmt->execute();
+}
 ?>

@@ -27,4 +27,11 @@ function commentPost($db, $userId, $postId, $comment) {
     $stmt->bindParam('comment', $comment, PDO::PARAM_STR);
     $stmt->execute();
 }
+
+function deletePostComments($db, $postId) {
+    $query = "DELETE FROM post_comment WHERE post_id = :postId";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':postId', $postId, PDO::PARAM_INT);
+    $stmt->execute();
+}
 ?>
