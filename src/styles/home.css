@@ -76,7 +76,7 @@
   cursor: pointer;
 }
 
-.home .post .user .deleteBtn {
+.home .post .user .delete-btn {
   all: unset;
   width: 1rem;
   width: 1rem;
@@ -159,7 +159,7 @@
 
 @media (max-width: 485px) {
   .home .post .user {
-    padding: 0.75rem 0 0.75rem 1rem;
+    padding: 0.75rem 1rem;
   }
 
   .home .post .user .texts span {
@@ -171,8 +171,16 @@
   }
 }
 
-@media (max-width: 200px) {
-  .post .user .infos img {
+@media (max-width: 250px) {
+  .home .post .user {
+    padding: 0.75rem 0.25rem;
+  }
+
+  .home .post .user .infos img {
     display: none;
+  }
+
+  .home .post .actions {
+    padding: 0 0.25rem;
   }
 }

@@ -95,7 +95,7 @@ function createPost(data) {
 
     if (data.deletable) {
       const deleteBtn = document.createElement("button");
-      deleteBtn.classList.add("deleteBtn");
+      deleteBtn.classList.add("delete-btn");
       deleteBtn.onclick = () => deletePost(data.id);
 
       const deleteIcon = document.createElement("img");
