@@ -124,15 +124,6 @@
   color: #737373;
 }
 
-.loading {
-  display: none;
-  max-width: 2rem;
-  width: 100%;
-  max-height: 2rem;
-  height: 100%;
-  padding: 1rem;
-}
-
 @media (max-width: 485px) {
   .post .user {
     padding: 0.75rem 1rem;

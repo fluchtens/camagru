@@ -54,8 +54,13 @@ function router($db, $uri, $uriArray, $baseUrl) {
         default:
             if (count($uriArray) === 3 && $uriArray[1] === "p") {
                 $post = getPostById($db, $uriArray[2]);
-                $content = $post ? "posts/post.php" : "404.php";
-                $css = $post ? "posts/post.css" : "404.css";
+                if (!$post || !$post['published']) {
+                    $content = "404.php";
+                    $css = "404.css";
+                } else {
+                    $content = "posts/post.php";
+                    $css = "posts/post.css";
+                }
                 break;
             }
             elseif (count($uriArray) === 3 && $uriArray[1] === "c") {

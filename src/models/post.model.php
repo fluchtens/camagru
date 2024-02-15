@@ -97,7 +97,7 @@ function getUserPostById($db, $userId, $postId) {
             FROM post
             INNER JOIN user ON post.user_id = user.id
             LEFT JOIN post_like ON post.id = post_like.post_id AND post_like.user_id = :user_id
-            WHERE post.id = :post_id
+            WHERE post.id = :post_id AND post.published = 1
     ";
     $stmt = $db->prepare($query);
     $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
