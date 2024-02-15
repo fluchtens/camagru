@@ -54,6 +54,40 @@ document.addEventListener("DOMContentLoaded", (e) => {
   const saveBtn = document.getElementById("saveBtn");
   let selectedFilter = "1";
 
+  let isDragging = false;
+  let currentX, currentY;
+
+  captureFilter.addEventListener("mousedown", function (e) {
+    isDragging = true;
+    currentX = e.clientX;
+    currentY = e.clientY;
+  });
+
+  document.addEventListener("mousemove", function (e) {
+    e.preventDefault();
+
+    if (isDragging) {
+      const dx = e.clientX - currentX;
+      const dy = e.clientY - currentY;
+      const style = window.getComputedStyle(captureFilter);
+      const left = parseInt(style.left) + dx;
+      const top = parseInt(style.top) + dy;
+      captureFilter.style.left = `${left}px`;
+      captureFilter.style.top = `${top}px`;
+      currentX = e.clientX;
+      currentY = e.clientY;
+    }
+  });
+
+  document.addEventListener("mouseup", function (e) {
+    if (isDragging) {
+      isDragging = false;
+      let style = window.getComputedStyle(captureFilter);
+      let left = parseInt(style.left);
+      let top = parseInt(style.top);
+    }
+  });
+
   const startWebcam = async () => {
     const constraints = {
       audio: false,

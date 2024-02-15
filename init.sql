@@ -62,3 +62,4 @@ INSERT INTO filter (file) VALUES ('mask.png');
 INSERT INTO filter (file) VALUES ('toast.png');
 INSERT INTO filter (file) VALUES ('racoon.png');
 INSERT INTO filter (file) VALUES ('bathing_cap.png');
+INSERT INTO filter (file) VALUES ('dices.png');
