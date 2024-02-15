@@ -8,7 +8,7 @@ $username = $uriArray[1];
 $user = getUserByUsername($db, $username);
 $avatar = $user['avatar'] ? $baseUrl . "assets/uploads/avatars/" . $user['avatar'] : null;
 $itsMe = $user['id'] === $userId ? true : false;
-$posts = getUserPosts($db, $user['id']);
+$posts = getUserProfilePosts($db, $user['id']);
 ?>
 
 <div class="profile">
