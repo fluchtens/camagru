@@ -30,26 +30,6 @@ function createUploadDir() {
     return ($uploadDir);
 }
 
-function applyFilter($imagePath, $filterPath) {
-    $baseImage = imagecreatefrompng($imagePath);
-    $baseWidth = imagesx($baseImage);
-    $baseHeight = imagesy($baseImage);
-    
-    $filterImage = imagecreatefrompng("../../assets/filters/" . $filterPath);
-    $filterWidth = imagesx($filterImage);
-    $filterHeight = imagesy($filterImage);
-    
-    $positionX = round(($baseWidth - $filterWidth) / 2);
-    $positionY = round(($baseHeight - $filterHeight) / 2);
-    
-    imagesavealpha($baseImage, true);
-    imagecopy($baseImage, $filterImage, $positionX, $positionY, 0, 0, $filterWidth, $filterHeight);
-    imagepng($baseImage, $imagePath);
-
-    imagedestroy($baseImage);
-    imagedestroy($filterImage);
-}
-
 // function applyFilter($imagePath, $filterPath) {
 //     $baseImage = imagecreatefrompng($imagePath);
 //     $baseWidth = imagesx($baseImage);
@@ -58,33 +38,53 @@ function applyFilter($imagePath, $filterPath) {
 //     $filterImage = imagecreatefrompng("../../assets/filters/" . $filterPath);
 //     $filterWidth = imagesx($filterImage);
 //     $filterHeight = imagesy($filterImage);
-
-//     // Calculer le ratio d'aspect du filtre
-//     $filterAspectRatio = $filterWidth / $filterHeight;
-
-//     // Calculer la nouvelle hauteur du filtre en conservant le ratio d'aspect
-//     $newFilterHeight = $baseHeight;
-
-//     // Calculer la nouvelle largeur du filtre
-//     $newFilterWidth = $newFilterHeight * $filterAspectRatio;
-
-//     // Redimensionner le filtre
-//     $resizedFilter = imagescale($filterImage, $newFilterWidth, $newFilterHeight);
-
-//     // Positionner le filtre au centre de l'image de base
-//     $positionX = round(($baseWidth - $newFilterWidth) / 2);
-//     $positionY = round(($baseHeight - $newFilterHeight) / 2);
-
-//     // Appliquer le filtre redimensionné à l'image de base
+    
+//     $positionX = round(($baseWidth - $filterWidth) / 2);
+//     $positionY = round(($baseHeight - $filterHeight) / 2);
+    
 //     imagesavealpha($baseImage, true);
-//     imagecopy($baseImage, $resizedFilter, $positionX, $positionY, 0, 0, $newFilterWidth, $newFilterHeight);
+//     imagecopy($baseImage, $filterImage, $positionX, $positionY, 0, 0, $filterWidth, $filterHeight);
 //     imagepng($baseImage, $imagePath);
 
-//     // Libérer les ressources
 //     imagedestroy($baseImage);
 //     imagedestroy($filterImage);
-//     imagedestroy($resizedFilter);
 // }
+
+function applyFilter($imagePath, $filterPath) {
+    $baseImage = imagecreatefrompng($imagePath);
+    $baseWidth = imagesx($baseImage);
+    $baseHeight = imagesy($baseImage);
+    
+    $filterImage = imagecreatefrompng("../../assets/filters/" . $filterPath);
+    $filterWidth = imagesx($filterImage);
+    $filterHeight = imagesy($filterImage);
+
+    // Calculer le ratio d'aspect du filtre
+    $filterAspectRatio = $filterWidth / $filterHeight;
+
+    // Calculer la nouvelle hauteur du filtre en conservant le ratio d'aspect
+    $newFilterHeight = $baseHeight;
+
+    // Calculer la nouvelle largeur du filtre
+    $newFilterWidth = $newFilterHeight * $filterAspectRatio;
+
+    // Redimensionner le filtre
+    $resizedFilter = imagescale($filterImage, $newFilterWidth, $newFilterHeight);
+
+    // Positionner le filtre au centre de l'image de base
+    $positionX = round(($baseWidth - $newFilterWidth) / 2);
+    $positionY = round(($baseHeight - $newFilterHeight) / 2);
+
+    // Appliquer le filtre redimensionné à l'image de base
+    imagesavealpha($baseImage, true);
+    imagecopy($baseImage, $resizedFilter, $positionX, $positionY, 0, 0, $newFilterWidth, $newFilterHeight);
+    imagepng($baseImage, $imagePath);
+
+    // Libérer les ressources
+    imagedestroy($baseImage);
+    imagedestroy($filterImage);
+    imagedestroy($resizedFilter);
+}
 
 function submitData() {
     try {

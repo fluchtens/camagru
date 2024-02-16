@@ -58,6 +58,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
   let currentX, currentY;
 
   captureFilter.addEventListener("mousedown", function (e) {
+    e.preventDefault();
+
     isDragging = true;
     currentX = e.clientX;
     currentY = e.clientY;
@@ -80,6 +82,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
   });
 
   document.addEventListener("mouseup", function (e) {
+    e.preventDefault();
+
     if (isDragging) {
       isDragging = false;
       let style = window.getComputedStyle(captureFilter);
@@ -156,6 +160,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
       reader.readAsDataURL(uploadedImage);
     }
+    e.currentTarget.value = null;
   });
 
   filterBtns.forEach((button) => {
