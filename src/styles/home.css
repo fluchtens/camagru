@@ -1,7 +1,8 @@
 .home {
+  max-width: 468px;
+  margin: auto;
   flex-direction: column;
   display: flex;
-  align-items: center;
 }
 
 .home h1 {
