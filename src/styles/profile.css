@@ -70,10 +70,10 @@
 /* //////////////////// */
 
 .profile .posts {
+  margin: auto;
   padding: 2rem 1rem;
   flex-direction: column;
   display: flex;
-  align-items: center;
   gap: 0.2rem;
 }
 
