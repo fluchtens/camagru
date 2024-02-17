@@ -5,6 +5,13 @@ async function publishPhotos() {
       method: "POST",
     });
 
+    if (response.status === 413) {
+      return {
+        success: false,
+        message: response.statusText,
+      };
+    }
+
     const data = await response.json();
     if (!response.ok) {
       return { success: false, message: data.message };
@@ -12,7 +19,6 @@ async function publishPhotos() {
 
     return { success: true, message: data.message };
   } catch (error) {
-    console.error("An error occurred:", error);
     return { success: false, message: error.message };
   }
 }
@@ -26,6 +32,13 @@ async function savePhoto(image, filter) {
       body: JSON.stringify({ image: image, filter: filter }),
     });
 
+    if (response.status === 413) {
+      return {
+        success: false,
+        message: response.statusText,
+      };
+    }
+
     const data = await response.json();
     if (!response.ok) {
       return { success: false, message: data.message };
@@ -33,15 +46,17 @@ async function savePhoto(image, filter) {
 
     return { success: true, message: data.message };
   } catch (error) {
-    console.error("An error occurred:", error);
     return { success: false, message: error.message };
   }
 }
 
 document.addEventListener("DOMContentLoaded", (e) => {
+  const msg = document.getElementById("msg");
+  const msgText = document.getElementById("msgText");
   const captureVideo = document.getElementById("captureVideo");
   const captureFilter = document.getElementById("captureFilter");
   const canvasPreview = document.getElementById("photoPreview");
+  const importPreview = document.getElementById("importPreview");
   const previewFilter = document.getElementById("previewFilter");
   const filters = document.getElementById("filters");
   const filterBtns = document.querySelectorAll(".filterBtn");
@@ -53,44 +68,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
   const cancelBtn = document.getElementById("cancelBtn");
   const saveBtn = document.getElementById("saveBtn");
   let selectedFilter = "1";
-
-  let isDragging = false;
-  let currentX, currentY;
-
-  captureFilter.addEventListener("mousedown", function (e) {
-    e.preventDefault();
-
-    isDragging = true;
-    currentX = e.clientX;
-    currentY = e.clientY;
-  });
-
-  document.addEventListener("mousemove", function (e) {
-    e.preventDefault();
-
-    if (isDragging) {
-      const dx = e.clientX - currentX;
-      const dy = e.clientY - currentY;
-      const style = window.getComputedStyle(captureFilter);
-      const left = parseInt(style.left) + dx;
-      const top = parseInt(style.top) + dy;
-      captureFilter.style.left = `${left}px`;
-      captureFilter.style.top = `${top}px`;
-      currentX = e.clientX;
-      currentY = e.clientY;
-    }
-  });
-
-  document.addEventListener("mouseup", function (e) {
-    e.preventDefault();
-
-    if (isDragging) {
-      isDragging = false;
-      let style = window.getComputedStyle(captureFilter);
-      let left = parseInt(style.left);
-      let top = parseInt(style.top);
-    }
-  });
+  let uploadedImageData = null;
 
   const startWebcam = async () => {
     const constraints = {
@@ -115,18 +93,21 @@ document.addEventListener("DOMContentLoaded", (e) => {
     }
   };
 
-  startWebcam();
-
-  importInput.addEventListener("change", (e) => {
+  const importFile = (e) => {
     const uploadedImage = e.target.files[0];
 
     if (uploadedImage) {
       const reader = new FileReader();
-      reader.onload = (e) => {
-        stopWebcam();
+
+      reader.onload = () => {
+        uploadedImageData = reader.result;
+
         captureVideo.style.display = "none";
         captureFilter.style.display = "none";
-        canvasPreview.style.display = "block";
+        stopWebcam();
+
+        importPreview.style.display = "block";
+        importPreview.src = uploadedImageData;
         previewFilter.style.display = "block";
 
         const selectedFilterBtn = document.querySelector(".filterBtn.selected");
@@ -144,44 +125,35 @@ document.addEventListener("DOMContentLoaded", (e) => {
         takePhotoBtn.style.display = "none";
         importBtn.style.display = "none";
         publishBtn.style.display = "none";
+
         saveBtn.style.display = "inline-block";
         cancelBtn.style.display = "inline-block";
-
-        const img = new Image();
-        img.onload = () => {
-          canvasPreview.width = img.width;
-          canvasPreview.height = img.height;
-          canvasPreview
-            .getContext("2d")
-            .drawImage(img, 0, 0, canvasPreview.width, canvasPreview.height);
-        };
-        img.src = e.target.result;
       };
 
       reader.readAsDataURL(uploadedImage);
     }
+
     e.currentTarget.value = null;
-  });
+  };
 
-  filterBtns.forEach((button) => {
-    button.addEventListener("click", () => {
-      const filterSrc =
-        baseUrl + "assets/filters/" + button.getAttribute("data-file");
-      captureFilter.style.display = "block";
-      captureFilter.src = filterSrc;
-      previewFilter.src = filterSrc;
-      takePhotoBtn.disabled = false;
-      filterBtns.forEach((btn) => {
-        btn.classList.remove("selected");
-        btn.style.backgroundColor = "transparent";
-      });
-      button.classList.add("selected");
-      button.style.backgroundColor = "#dbdbdb";
-      selectedFilter = button.getAttribute("data-id");
+  const filterBtnClick = (btn) => {
+    const filterSrc =
+      baseUrl + "assets/filters/" + btn.getAttribute("data-file");
+
+    captureFilter.style.display = "block";
+    captureFilter.src = filterSrc;
+    previewFilter.src = filterSrc;
+    takePhotoBtn.disabled = false;
+    filterBtns.forEach((btn) => {
+      btn.classList.remove("selected");
+      btn.style.backgroundColor = "transparent";
     });
-  });
+    btn.classList.add("selected");
+    btn.style.backgroundColor = "#dbdbdb";
+    selectedFilter = btn.getAttribute("data-id");
+  };
 
-  takePhotoBtn.addEventListener("click", () => {
+  const takePhotoBtnClick = () => {
     canvasPreview.width = captureVideo.videoWidth;
     canvasPreview.height = captureVideo.videoHeight;
     canvasPreview
@@ -190,52 +162,79 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
     captureVideo.style.display = "none";
     captureFilter.style.display = "none";
+
     canvasPreview.style.display = "block";
     previewFilter.style.display = "block";
+
     filters.style.display = "none";
+
     if (waiting) {
       waiting.style.display = "none";
     }
+
     takePhotoBtn.style.display = "none";
     importBtn.style.display = "none";
     publishBtn.style.display = "none";
+
     saveBtn.style.display = "inline-block";
     cancelBtn.style.display = "inline-block";
-  });
+  };
 
-  cancelBtn.addEventListener("click", () => {
+  const cancelBtnClick = () => {
+    msg.style.display = "none";
+
     startWebcam();
     captureVideo.style.display = "block";
     captureFilter.style.display = "block";
+
     canvasPreview.style.display = "none";
+    importPreview.style.display = "none";
+    importPreview.src = "";
     previewFilter.style.display = "none";
+
     filters.style.display = "flex";
+
     if (waiting) {
       waiting.style.display = "flex";
     }
+
     takePhotoBtn.style.display = "inline-block";
     importBtn.style.display = "inline-block";
     publishBtn.style.display = "inline-block";
+
     saveBtn.style.display = "none";
     cancelBtn.style.display = "none";
-  });
+  };
 
-  saveBtn.addEventListener("click", async () => {
-    const image = canvasPreview.toDataURL("image/png");
-    const request = await savePhoto(image, selectedFilter);
-    if (!request.success) {
-      console.error(request.message);
+  const saveBtnClick = async () => {
+    const image = uploadedImageData || canvasPreview.toDataURL("image/png");
+
+    const req = await savePhoto(image, selectedFilter);
+    if (!req.success) {
+      msg.style.display = "block";
+      msgText.textContent = req.message;
     } else {
       window.location.href = "/create";
     }
-  });
+  };
 
-  publishBtn.addEventListener("click", async () => {
-    const request = await publishPhotos();
-    if (!request.success) {
-      console.error(request.message);
+  const publishBtnClick = async () => {
+    const req = await publishPhotos();
+    if (!req.success) {
+      msg.style.display = "block";
+      msgText.textContent = req.message;
     } else {
       window.location.href = "/";
     }
+  };
+
+  startWebcam();
+  importInput.addEventListener("change", (e) => importFile(e));
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => filterBtnClick(btn));
   });
+  takePhotoBtn.addEventListener("click", takePhotoBtnClick);
+  cancelBtn.addEventListener("click", cancelBtnClick);
+  saveBtn.addEventListener("click", saveBtnClick);
+  publishBtn.addEventListener("click", publishBtnClick);
 });

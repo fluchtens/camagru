@@ -10,6 +10,9 @@ $waitingPosts = getUserWaitingPosts($db, $userId);
 
 <div class="post">
     <h1>Create new post</h1>
+    <div id="msg" class="msg">
+        <p id="msgText">ds</p>
+    </div>
     <div class="take">
         <div class="capture">
             <video id="captureVideo" autoplay></video>
@@ -17,7 +20,8 @@ $waitingPosts = getUserWaitingPosts($db, $userId);
         </div>
         <div class="preview">
             <canvas id="photoPreview"></canvas>
-            <img id="previewFilter" alt="filter">
+            <img id="importPreview" class="import" alt="import_preview">
+            <img id="previewFilter" class="filter" alt="filter">
         </div>
         <div id="filters" class="filters">
             <?php foreach($filters as $filter): ?>

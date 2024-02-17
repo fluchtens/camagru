@@ -5,18 +5,14 @@ require "../../core/database.php";
 require "../../models/post.model.php";
 require "../../models/filter.model.php";
 
-function checkImage($image) {
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $mime = explode('/', finfo_buffer($finfo, $image))[1];
-    finfo_close($finfo);
-
+function checkImage($image, $type) {
     if (strlen($image) === 0) {
         return ['code' => 400, 'message' => "The image is empty."];
     }
     elseif (strlen($image) > 1 * 1024 * 1024) {
         return ['code' => 400, 'message' => "Your image is too large (+1 mo)."];
     }
-    elseif ($mime !== "png" && $mime !== "jpeg") {
+    elseif ($type !== "png" && $type !== "jpeg") {
         return ['code' => 400, 'message' => "Only PNG, JPG, JPEG & GIF files are allowed."];
     }
     return ['code' => 200];
@@ -29,26 +25,6 @@ function createUploadDir() {
     }
     return ($uploadDir);
 }
-
-// function applyFilter($imagePath, $filterPath) {
-//     $baseImage = imagecreatefrompng($imagePath);
-//     $baseWidth = imagesx($baseImage);
-//     $baseHeight = imagesy($baseImage);
-    
-//     $filterImage = imagecreatefrompng("../../assets/filters/" . $filterPath);
-//     $filterWidth = imagesx($filterImage);
-//     $filterHeight = imagesy($filterImage);
-    
-//     $positionX = round(($baseWidth - $filterWidth) / 2);
-//     $positionY = round(($baseHeight - $filterHeight) / 2);
-    
-//     imagesavealpha($baseImage, true);
-//     imagecopy($baseImage, $filterImage, $positionX, $positionY, 0, 0, $filterWidth, $filterHeight);
-//     imagepng($baseImage, $imagePath);
-
-//     imagedestroy($baseImage);
-//     imagedestroy($filterImage);
-// }
 
 function applyFilter($imagePath, $filterPath) {
     $baseImage = imagecreatefrompng($imagePath);
@@ -114,15 +90,15 @@ function submitData() {
             return ['code' => 400, 'message' => "Invalid filter."];
         }
 
-        // $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        // $mime = finfo_buffer($finfo, base64_decode($imageBase64));
-        // finfo_close($finfo);
-        // return ['code' => 400, 'message' => $mime];
-
         $imageData = preg_replace('/^data:image\/\w+;base64,/', '', $imageBase64);
         // $imageData = str_replace('data:image/png;base64,', '', $imageBase64);
         $decodedImageData = base64_decode($imageData);
-        $imageCheck = checkImage($decodedImageData);
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime = explode('/', finfo_buffer($finfo, $decodedImageData))[1];
+        finfo_close($finfo);
+
+
+        $imageCheck = checkImage($decodedImageData, $mime);
         if ($imageCheck['code'] !== 200) {
             return ['code' => $imageCheck['code'], 'message' => $imageCheck['message']];
         }
