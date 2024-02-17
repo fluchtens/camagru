@@ -190,6 +190,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     canvasPreview.style.display = "none";
     importPreview.style.display = "none";
     importPreview.src = "";
+    uploadedImageData = null;
     previewFilter.style.display = "none";
 
     filters.style.display = "flex";

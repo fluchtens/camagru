@@ -13,7 +13,7 @@ function checkImage($image, $type) {
         return ['code' => 400, 'message' => "Your image is too large (+1 mo)."];
     }
     elseif ($type !== "png" && $type !== "jpeg") {
-        return ['code' => 400, 'message' => "Only PNG, JPG, JPEG & GIF files are allowed."];
+        return ['code' => 400, 'message' => "Only PNG, JPG & JPEG files are allowed."];
     }
     return ['code' => 200];
 }
@@ -26,8 +26,16 @@ function createUploadDir() {
     return ($uploadDir);
 }
 
-function applyFilter($imagePath, $filterPath) {
-    $baseImage = imagecreatefrompng($imagePath);
+function applyFilter($imagePath, $imageType, $filterPath) {
+    switch ($imageType) {
+        case 'png':
+            $baseImage = imagecreatefrompng($imagePath);
+            break;
+        case 'jpeg':
+            $baseImage = imagecreatefromjpeg($imagePath);
+            break;
+    }
+
     $baseWidth = imagesx($baseImage);
     $baseHeight = imagesy($baseImage);
     
@@ -35,28 +43,27 @@ function applyFilter($imagePath, $filterPath) {
     $filterWidth = imagesx($filterImage);
     $filterHeight = imagesy($filterImage);
 
-    // Calculer le ratio d'aspect du filtre
     $filterAspectRatio = $filterWidth / $filterHeight;
-
-    // Calculer la nouvelle hauteur du filtre en conservant le ratio d'aspect
     $newFilterHeight = $baseHeight;
-
-    // Calculer la nouvelle largeur du filtre
     $newFilterWidth = $newFilterHeight * $filterAspectRatio;
-
-    // Redimensionner le filtre
     $resizedFilter = imagescale($filterImage, $newFilterWidth, $newFilterHeight);
 
-    // Positionner le filtre au centre de l'image de base
     $positionX = round(($baseWidth - $newFilterWidth) / 2);
     $positionY = round(($baseHeight - $newFilterHeight) / 2);
 
-    // Appliquer le filtre redimensionné à l'image de base
+    imagealphablending($baseImage, false);
     imagesavealpha($baseImage, true);
     imagecopy($baseImage, $resizedFilter, $positionX, $positionY, 0, 0, $newFilterWidth, $newFilterHeight);
-    imagepng($baseImage, $imagePath);
 
-    // Libérer les ressources
+    switch ($imageType) {
+        case 'png':
+            imagepng($baseImage, $imagePath);
+            break;
+        case 'jpeg':
+            imagejpeg($baseImage, $imagePath);
+            break;
+    }
+
     imagedestroy($baseImage);
     imagedestroy($filterImage);
     imagedestroy($resizedFilter);
@@ -97,18 +104,17 @@ function submitData() {
         $mime = explode('/', finfo_buffer($finfo, $decodedImageData))[1];
         finfo_close($finfo);
 
-
         $imageCheck = checkImage($decodedImageData, $mime);
         if ($imageCheck['code'] !== 200) {
             return ['code' => $imageCheck['code'], 'message' => $imageCheck['message']];
         }
 
         $uploadDir = createUploadDir();
-        $fileName = uniqid($userId . '_', true) . '.png';
+        $fileName = uniqid($userId . '_', true) . '.' . $mime;
         $filePath = $uploadDir . $fileName;
 
         file_put_contents($filePath, $decodedImageData);
-        applyFilter($filePath, $filter['file']);
+        applyFilter($filePath, $mime, $filter['file']);
         createPost($db, $userId, $caption, $fileName);
 
         return ['code' => 200, 'message' => "The photo has been successfully saved."];
