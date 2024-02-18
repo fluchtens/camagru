@@ -50,7 +50,7 @@ async function savePhoto(image, filter) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", (e) => {
+document.addEventListener("DOMContentLoaded", () => {
   const msg = document.getElementById("msg");
   const msgText = document.getElementById("msgText");
   const captureVideo = document.getElementById("captureVideo");

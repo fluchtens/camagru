@@ -45,13 +45,12 @@ function applyFilter($imagePath, $imageType, $filterPath) {
 
     $filterAspectRatio = $filterWidth / $filterHeight;
     $newFilterHeight = $baseHeight;
-    $newFilterWidth = $newFilterHeight * $filterAspectRatio;
+    $newFilterWidth = round($newFilterHeight * $filterAspectRatio);
     $resizedFilter = imagescale($filterImage, $newFilterWidth, $newFilterHeight);
 
     $positionX = round(($baseWidth - $newFilterWidth) / 2);
     $positionY = round(($baseHeight - $newFilterHeight) / 2);
 
-    imagealphablending($baseImage, false);
     imagesavealpha($baseImage, true);
     imagecopy($baseImage, $resizedFilter, $positionX, $positionY, 0, 0, $newFilterWidth, $newFilterHeight);
 
