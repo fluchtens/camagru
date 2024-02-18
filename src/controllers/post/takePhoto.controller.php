@@ -46,7 +46,11 @@ function applyFilter($imagePath, $imageType, $filterPath) {
     $filterAspectRatio = $filterWidth / $filterHeight;
     $newFilterHeight = $baseHeight;
     $newFilterWidth = round($newFilterHeight * $filterAspectRatio);
-    $resizedFilter = imagescale($filterImage, $newFilterWidth, $newFilterHeight);
+
+    $resizedFilter = imagecreatetruecolor($newFilterWidth, $newFilterHeight);
+    imagealphablending($resizedFilter, false);
+    imagesavealpha($resizedFilter, true);
+    imagecopyresampled($resizedFilter, $filterImage, 0, 0, 0, 0, $newFilterWidth, $newFilterHeight, $filterWidth, $filterHeight);
 
     $positionX = round(($baseWidth - $newFilterWidth) / 2);
     $positionY = round(($baseHeight - $newFilterHeight) / 2);

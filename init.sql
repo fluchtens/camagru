@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS filter (
   file VARCHAR(255)
 );
 
+INSERT INTO filter (file) VALUES ('transparent.png');
 INSERT INTO filter (file) VALUES ('evil.png');
 INSERT INTO filter (file) VALUES ('falling_cat.png');
 INSERT INTO filter (file) VALUES ('blue_flower_frame.png');
