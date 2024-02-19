@@ -40,32 +40,6 @@ function createHr(post) {
   post.appendChild(hr);
 }
 
-async function createForm(post, postId) {
-  const form = document.createElement("form");
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.target);
-    const comment = formData.get("comment");
-    const req = await commentPost(postId, comment);
-    form.reset();
-  });
-
-  const senderAvatar = document.createElement("img");
-  senderAvatar.src = baseUrl + "assets/camagru.png";
-
-  const input = document.createElement("input");
-  input.type = "text";
-  input.name = "comment";
-  input.placeholder = "Add a comment..";
-  input.autocomplete = "off";
-  input.required = true;
-
-  form.appendChild(senderAvatar);
-  form.appendChild(input);
-  post.appendChild(form);
-}
-
 function createComment(comments, com) {
   const comment = document.createElement("div");
   comment.className = "comment";
@@ -109,6 +83,7 @@ function createComment(comments, com) {
 async function createComments(post, postId) {
   const comments = document.createElement("div");
   comments.className = "comments";
+  comments.id = "comments";
 
   const req = await getComments(postId);
   if (!req) {
@@ -127,6 +102,42 @@ async function createComments(post, postId) {
   }
 
   post.appendChild(comments);
+  return comments;
+}
+
+async function createForm(post, postId, comments) {
+  const form = document.createElement("form");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const comment = formData.get("comment");
+    const req = await addComment(postId, comment);
+    if (req.success) {
+      const newComments = await getComments(postId);
+      if (newComments) {
+        comments.innerHTML = "";
+        newComments.forEach((com) => {
+          createComment(comments, com);
+        });
+      }
+    }
+    form.reset();
+  });
+
+  const senderAvatar = document.createElement("img");
+  senderAvatar.src = baseUrl + "assets/camagru.png";
+
+  const input = document.createElement("input");
+  input.type = "text";
+  input.name = "comment";
+  input.placeholder = "Add a comment..";
+  input.autocomplete = "off";
+  input.required = true;
+
+  form.appendChild(senderAvatar);
+  form.appendChild(input);
+  post.appendChild(form);
 }
 
 async function displayComments(postId) {
@@ -135,9 +146,9 @@ async function displayComments(postId) {
   const post = createPost();
   createHeader(modal, post);
   createHr(post);
-  await createComments(post, postId);
+  const comments = await createComments(post, postId);
   createHr(post);
-  await createForm(post, postId);
+  await createForm(post, postId, comments);
   modal.appendChild(post);
   home.appendChild(modal);
 }

@@ -57,9 +57,9 @@ async function getComments(postId) {
   }
 }
 
-async function commentPost(postId, comment) {
+async function addComment(postId, comment) {
   try {
-    const url = baseUrl + "controllers/post/commentPost.controller.php";
+    const url = baseUrl + "controllers/post/addComment.controller.php";
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -73,7 +73,6 @@ async function commentPost(postId, comment) {
 
     return { success: true, message: data.message };
   } catch (error) {
-    console.error("An error occurred:", error);
     return { success: false, message: error.message };
   }
 }
