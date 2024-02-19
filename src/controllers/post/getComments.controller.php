@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-require "../core/database.php";
-require "../models/post.model.php";
-require "../models/comment.model.php";
+require "../../core/database.php";
+require "../../models/post.model.php";
+require "../../models/comment.model.php";
 
 function submitData() {
     try {
@@ -33,7 +33,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $response = submitData();
     http_response_code($response['code']);
     header('Content-Type: application/json');
-    echo json_encode($response);
+    if ($response['code'] !== 200) {
+        echo json_encode($response['message']);
+    } else {
+        echo json_encode($response['comments']);
+    }
     exit();
 }
 ?>

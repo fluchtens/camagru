@@ -150,7 +150,7 @@
   color: #737373;
 }
 
-.home .comments-modal {
+.home .modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -162,7 +162,7 @@
   background: rgba(0, 0, 0, 0.7);
 }
 
-.home .comments-modal .post {
+.home .modal .comments-post {
   width: 50%;
   height: 75%;
   flex-direction: column;
@@ -171,21 +171,21 @@
   background: #ffffff;
 }
 
-.home .comments-modal .post .header {
+.home .modal .comments-post .header {
   padding-left: 0.75rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.home .comments-modal .post .header h1 {
+.home .modal .comments-post .header h1 {
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 600;
   text-align: center;
 }
 
-.home .comments-modal .post .header button {
+.home .modal .comments-post .header button {
   all: unset;
   width: 1rem;
   height: 1rem;
@@ -194,33 +194,33 @@
   cursor: pointer;
 }
 
-.home .comments-modal .post .comments {
+.home .modal .comments-post .comments {
   width: 100%;
   height: 100%;
   overflow-y: auto;
 }
 
-.home .comments-modal .post .comments h2 {
+.home .modal .comments-post .comments h2 {
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 700;
   text-align: center;
 }
 
-.home .comments-modal .post .comments h3 {
+.home .modal .comments-post .comments h3 {
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 400;
   text-align: center;
 }
 
-.home .comments-modal .post .comment {
+.home .modal .comments-post .comments .comment {
   padding: 0.75rem 0.75rem;
   display: flex;
   gap: 0.75rem;
 }
 
-.home .comments-modal .post .comment img {
+.home .modal .comments-post .comments .comment img {
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
@@ -228,25 +228,25 @@
   pointer-events: none;
 }
 
-.home .comments-modal .post .comment .texts {
+.home .modal .comments-post .comments .comment .texts {
   flex-direction: column;
   display: flex;
 }
 
-.home .comments-modal .post .comment .texts .title {
+.home .modal .comments-post .comments .comment .texts .title {
   display: flex;
   align-items: center;
   gap: 0.25rem;
 }
 
-.home .comments-modal .post .comment .username {
+.home .modal .comments-post .comments .comment .username {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
 }
 
-.home .comments-modal .post .comment .time-diff {
+.home .modal .comments-post .comments .comment .time-diff {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -254,21 +254,21 @@
   color: #737373;
 }
 
-.home .comments-modal .post .comment .message {
+.home .modal .comments-post .comments .comment .message {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 400;
 }
 
-.home .comments-modal .post form {
+.home .modal .comments-post form {
   padding: 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.home .comments-modal .post form img {
+.home .modal .comments-post form img {
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
@@ -276,7 +276,7 @@
   pointer-events: none;
 }
 
-.home .comments-modal .post form input {
+.home .modal .comments-post form input {
   width: 100%;
   padding: 0.6rem;
   border: solid 1px #dbdbdb;

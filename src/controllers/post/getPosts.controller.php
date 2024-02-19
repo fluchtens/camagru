@@ -20,7 +20,11 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $response = submitData();
     http_response_code($response['code']);
     header('Content-Type: application/json');
-    echo json_encode($response['posts']);
+    if ($response['code'] !== 200) {
+        echo json_encode($response['message']);
+    } else {
+        echo json_encode($response['posts']);
+    }
     exit();
 }
 ?>

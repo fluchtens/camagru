@@ -1,118 +1,143 @@
-async function commentPost(postId, comment) {
-  try {
-    const url = baseUrl + "controllers/post/commentPost.controller.php";
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ post_id: postId, comment: comment }),
-    });
-
-    const data = await response.json();
-    if (!response.ok) {
-      return { success: false, message: data.message };
-    }
-
-    return { success: true, message: data.message };
-  } catch (error) {
-    console.error("An error occurred:", error);
-    return { success: false, message: error.message };
-  }
+function createModal() {
+  document.body.style.overflow = "hidden";
+  const modal = document.createElement("div");
+  modal.id = "commentsModal";
+  modal.className = "modal";
+  return modal;
 }
 
-async function getPostComments(postId) {
-  try {
-    const url = baseUrl + "controllers/getPostComments.controller.php";
-    const response = await fetch(`${url}?post_id=${postId}`, {
-      method: "GET",
-    });
-
-    const data = await response.json();
-    if (!response.ok) {
-      return { success: false, message: data.message };
-    }
-
-    return { success: true, message: data.message };
-  } catch (error) {
-    console.error("An error occurred:", error);
-    return { success: false, message: error.message };
-  }
+function createPost() {
+  const post = document.createElement("div");
+  post.className = "comments-post";
+  return post;
 }
 
-async function loadPostComments(postId) {
-  const formatElapsedTime = (timeDiff) => {
-    const timeComponents = timeDiff.split(":");
-    const hours = parseInt(timeComponents[0], 10);
-    const minutes = parseInt(timeComponents[1], 10);
-    const seconds = parseInt(timeComponents[2], 10);
+function createHeader(modal, post) {
+  const header = document.createElement("div");
+  header.className = "header";
 
-    const weeks = Math.floor(hours / 24 / 7);
-    const days = Math.floor(hours / 24) % 7;
+  const title = document.createElement("h1");
+  title.textContent = "Comments";
 
-    if (weeks > 0) {
-      return weeks + "w";
-    } else if (days > 0) {
-      return days + "d";
-    } else if (hours > 0) {
-      return hours + "h";
-    } else if (minutes > 0) {
-      return minutes + "min";
-    } else if (seconds > 0) {
-      return seconds + "s";
-    } else {
-      return "Now";
-    }
-  };
-
-  const req = await getPostComments(postId);
-  if (req.success) {
-    const commentsContainer = document.getElementById("comments");
-    commentsContainer.innerHTML = "";
-
-    req.message.forEach((comment) => {
-      const commentElement = document.createElement("div");
-      commentElement.classList.add("comment");
-      commentElement.innerHTML = `
-      <img src="${
-        comment.user_avatar
-          ? baseUrl + "assets/uploads/avatars/" + comment.user_avatar
-          : baseUrl + "assets/noavatar.png"
-      }" alt="avatar">
-        <div class="texts">
-            <div class="title">
-                <span class="username">${comment.user_username}</span>
-                <span class="time-diff">• ${formatElapsedTime(
-                  comment.time_diff
-                )}</span>
-            </div>
-            <p class="message">${comment.comment}</p>
-        </div>
-      `;
-      commentsContainer.appendChild(commentElement);
-    });
-  }
-}
-
-document.addEventListener("DOMContentLoaded", async () => {
-  const modal = document.getElementById("commentsModal");
-  const closeBtn = document.getElementById("closeCommentsModalBtn");
-  const form = document.getElementById("commentForm");
-  const postId = modal.getAttribute("data-post-id");
-
+  const closeBtn = document.createElement("button");
   closeBtn.addEventListener("click", () => {
-    modal.style.display = "none";
-    window.history.back();
+    document.body.style.overflow = "auto";
+    modal.parentNode.removeChild(modal);
   });
 
+  const closeImg = document.createElement("img");
+  closeImg.src = baseUrl + "assets/cross.png";
+  closeImg.alt = "cross.png";
+
+  header.appendChild(title);
+  closeBtn.appendChild(closeImg);
+  header.appendChild(closeBtn);
+  post.appendChild(header);
+}
+
+function createHr(post) {
+  const hr = document.createElement("hr");
+  post.appendChild(hr);
+}
+
+async function createForm(post, postId) {
+  const form = document.createElement("form");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
     const comment = formData.get("comment");
-
     const req = await commentPost(postId, comment);
-    if (req.success) {
-      await loadPostComments(postId);
-    }
     form.reset();
   });
-});
+
+  const senderAvatar = document.createElement("img");
+  senderAvatar.src = baseUrl + "assets/camagru.png";
+
+  const input = document.createElement("input");
+  input.type = "text";
+  input.name = "comment";
+  input.placeholder = "Add a comment..";
+  input.autocomplete = "off";
+  input.required = true;
+
+  form.appendChild(senderAvatar);
+  form.appendChild(input);
+  post.appendChild(form);
+}
+
+function createComment(comments, com) {
+  const comment = document.createElement("div");
+  comment.className = "comment";
+
+  const avatar = document.createElement("img");
+  if (com.user_avatar) {
+    avatar.src = baseUrl + "assets/uploads/avatars/" + com.user_avatar;
+    avatar.alt = com.user_avatar;
+  } else {
+    avatar.src = baseUrl + "assets/noavatar.png";
+    avatar.alt = "noavatar.png";
+  }
+
+  const texts = document.createElement("div");
+  texts.className = "texts";
+
+  const title = document.createElement("div");
+  title.className = "title";
+
+  const username = document.createElement("span");
+  username.className = "username";
+  username.textContent = com.user_username;
+
+  const timeDiff = document.createElement("span");
+  timeDiff.className = "time-diff";
+  timeDiff.textContent = formatElapsedTime(com.time_diff);
+
+  const message = document.createElement("message");
+  message.className = "message";
+  message.textContent = com.comment;
+
+  comment.appendChild(avatar);
+  title.appendChild(username);
+  title.appendChild(timeDiff);
+  texts.appendChild(title);
+  texts.appendChild(message);
+  comment.appendChild(texts);
+  comments.appendChild(comment);
+}
+
+async function createComments(post, postId) {
+  const comments = document.createElement("div");
+  comments.className = "comments";
+
+  const req = await getComments(postId);
+  if (!req) {
+    const h2 = document.createElement("h2");
+    h2.textContent = "No comments yet";
+
+    const h3 = document.createElement("h3");
+    h3.textContent = "Start the conversation.";
+
+    comments.appendChild(h2);
+    comments.appendChild(h3);
+  } else {
+    req.forEach((com) => {
+      createComment(comments, com);
+    });
+  }
+
+  post.appendChild(comments);
+}
+
+async function displayComments(postId) {
+  const home = document.getElementById("home");
+  const modal = createModal();
+  const post = createPost();
+  createHeader(modal, post);
+  createHr(post);
+  await createComments(post, postId);
+  createHr(post);
+  await createForm(post, postId);
+  modal.appendChild(post);
+  home.appendChild(modal);
+}
