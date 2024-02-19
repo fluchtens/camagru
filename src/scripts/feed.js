@@ -156,13 +156,17 @@ function displayComments(data) {
     }
 
     post.appendChild(comments);
-  };
 
-  const createForm = () => {
+    createHr();
+
     const form = document.createElement("form");
 
     const input = document.createElement("input");
-    input.type = "password";
+    input.type = "text";
+    input.name = "comment";
+    input.placeholder = "Add a comment..";
+    input.autocomplete = "off";
+    input.required = true;
     form.appendChild(input);
 
     post.appendChild(form);
@@ -171,8 +175,6 @@ function displayComments(data) {
   createHeader();
   createHr();
   createComments();
-  createHr();
-  createForm();
 
   modal.appendChild(post);
   home.appendChild(modal);
