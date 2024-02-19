@@ -34,6 +34,150 @@ async function deletePost(postId) {
   }
 }
 
+async function commentPost(postId, comment) {
+  try {
+    const url = baseUrl + "controllers/post/commentPost.controller.php";
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ post_id: postId, comment: comment }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      return { success: false, message: data.message };
+    }
+
+    return { success: true, message: data.message };
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return { success: false, message: error.message };
+  }
+}
+
+async function getPostComments(postId) {
+  try {
+    const url = baseUrl + "controllers/getPostComments.controller.php";
+    const response = await fetch(`${url}?post_id=${postId}`, {
+      method: "GET",
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      return { success: false, message: data.message };
+    }
+
+    return { success: true, comments: data.comments };
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return { success: false, message: error.message };
+  }
+}
+
+function displayComments(data) {
+  const home = document.getElementById("home");
+
+  const modal = document.createElement("div");
+  modal.classList.add("comments-modal");
+
+  const post = document.createElement("div");
+  post.classList.add("post");
+
+  const createHeader = () => {
+    const header = document.createElement("div");
+    header.classList.add("header");
+
+    const title = document.createElement("h1");
+    title.textContent = "Comments";
+    header.appendChild(title);
+
+    const closeBtn = document.createElement("button");
+    const closeImg = document.createElement("img");
+    closeImg.src = baseUrl + "assets/cross.png";
+    closeImg.alt = "cross.png";
+    closeBtn.appendChild(closeImg);
+    header.appendChild(closeBtn);
+
+    post.appendChild(header);
+  };
+
+  const createHr = () => {
+    const hr = document.createElement("hr");
+    post.appendChild(hr);
+  };
+
+  const createComments = async () => {
+    const comments = document.createElement("div");
+    comments.classList.add("comments");
+
+    const req = await getPostComments(data.id);
+    if (req.success) {
+      req.comments.forEach((com) => {
+        const comment = document.createElement("div");
+        comment.classList.add("comment");
+
+        const avatar = document.createElement("img");
+        if (com.user_avatar) {
+          avatar.src = baseUrl + "assets/uploads/avatars/" + com.user_avatar;
+          avatar.alt = com.user_avatar;
+        } else {
+          avatar.src = baseUrl + "assets/noavatar.png";
+          avatar.alt = "noavatar.png";
+        }
+        comment.appendChild(avatar);
+
+        const texts = document.createElement("div");
+        texts.classList.add("texts");
+
+        const title = document.createElement("div");
+        title.classList.add("title");
+
+        const username = document.createElement("span");
+        username.classList.add("username");
+        username.textContent = com.user_username;
+        title.appendChild(username);
+
+        const timeDiff = document.createElement("span");
+        timeDiff.classList.add("time-diff");
+        timeDiff.textContent = formatElapsedTime(com.time_diff);
+        title.appendChild(timeDiff);
+
+        texts.appendChild(title);
+
+        const message = document.createElement("message");
+        message.classList.add("message");
+        message.textContent = com.comment;
+        texts.appendChild(message);
+
+        comment.appendChild(texts);
+
+        comments.appendChild(comment);
+      });
+    }
+
+    post.appendChild(comments);
+  };
+
+  const createForm = () => {
+    const form = document.createElement("form");
+
+    const input = document.createElement("input");
+    input.type = "password";
+    form.appendChild(input);
+
+    post.appendChild(form);
+  };
+
+  createHeader();
+  createHr();
+  createComments();
+  createHr();
+  createForm();
+
+  modal.appendChild(post);
+  home.appendChild(modal);
+}
+
 function addPostToFeed(data) {
   const feed = document.getElementById("feed");
 
@@ -127,9 +271,9 @@ function addPostToFeed(data) {
       buttons.appendChild(likeBtn);
     }
 
-    const commentLink = document.createElement("a");
-    commentLink.href = `/c/${data.id}`;
+    const commentLink = document.createElement("button");
     commentLink.classList.add("comment");
+    commentLink.onclick = () => displayComments(data);
 
     const commentImg = document.createElement("img");
     commentImg.src = baseUrl + "assets/commentBtn.svg";

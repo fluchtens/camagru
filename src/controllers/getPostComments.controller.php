@@ -23,7 +23,7 @@ function submitData() {
         }
 
         $comments = getPostComments($db, $postId);
-        return ['code' => 200, 'message' => $comments];
+        return ['code' => 200, 'comments' => $comments];
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];
     }
