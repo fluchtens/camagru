@@ -312,6 +312,21 @@
   padding: 1rem;
 }
 
+@media (max-width: 768px) {
+  .home .modal {
+    align-items: end;
+  }
+
+  .home .modal .comments-post {
+    width: 100%;
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+
+  .home .modal .comments-post .comments .comment {
+    padding: 0.5rem 0.5rem;
+  }
+}
+
 @media (max-width: 485px) {
   .home .post .user {
     padding: 0.75rem 1rem;
@@ -337,5 +352,13 @@
 
   .home .post .actions {
     padding: 0 0.25rem;
+  }
+
+  .home .modal .comments-post .comments .comment img {
+    display: none;
+  }
+
+  .home .modal .comments-post .comments .comment .time-diff {
+    display: none;
   }
 }
