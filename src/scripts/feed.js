@@ -1,131 +1,131 @@
+function createPost() {
+  const post = document.createElement("li");
+  post.className = "post";
+  return post;
+}
+
+function createPostHeader(post, data) {
+  const user = document.createElement("div");
+  user.className = "user";
+
+  const infos = document.createElement("a");
+  infos.href = `/${data.user_username}`;
+  infos.className = "infos";
+
+  const avatar = document.createElement("img");
+  if (data.user_avatar) {
+    avatar.src = `${baseUrl}assets/uploads/avatars/${data.user_avatar}`;
+    avatar.alt = data.user_avatar;
+  } else {
+    avatar.src = `${baseUrl}assets/noavatar.png`;
+    avatar.alt = "noavatar.png";
+  }
+
+  const texts = document.createElement("div");
+  texts.className = "texts";
+
+  const username = document.createElement("p");
+  username.className = "username";
+  username.textContent = data.user_username;
+
+  const timeDiff = document.createElement("span");
+  timeDiff.className = "time-diff";
+  timeDiff.textContent = `• ${formatElapsedTime(data.time_diff)}`;
+
+  infos.appendChild(avatar);
+  texts.appendChild(username);
+  texts.appendChild(timeDiff);
+  infos.appendChild(texts);
+  user.appendChild(infos);
+
+  if (data.deletable) {
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "delete-btn";
+    deleteBtn.onclick = () => deletePost(data.id);
+
+    const deleteIcon = document.createElement("img");
+    deleteIcon.src = baseUrl + "assets/deleteIcon.png";
+
+    deleteBtn.appendChild(deleteIcon);
+    user.appendChild(deleteBtn);
+  }
+
+  post.appendChild(user);
+}
+
+function createPostImage(post, data) {
+  const image = document.createElement("img");
+  image.src = `${baseUrl}assets/uploads/posts/${data.file}`;
+  image.alt = data.file;
+  post.appendChild(image);
+}
+
+function createPostActions(post, data) {
+  const actions = document.createElement("div");
+  actions.className = "actions";
+
+  const buttons = document.createElement("div");
+  buttons.className = "buttons";
+
+  if (data.liked) {
+    const unlikeBtn = document.createElement("button");
+    unlikeBtn.className = "unlikeBtn";
+    unlikeBtn.setAttribute("data-post-id", data.id);
+
+    const unlikeImg = document.createElement("img");
+    unlikeImg.src = baseUrl + "assets/unlikeBtn.svg";
+    unlikeBtn.appendChild(unlikeImg);
+
+    buttons.appendChild(unlikeBtn);
+  } else {
+    const likeBtn = document.createElement("button");
+    likeBtn.className = "likeBtn";
+    likeBtn.setAttribute("data-post-id", data.id);
+
+    const likeImg = document.createElement("img");
+    likeImg.src = baseUrl + "assets/likeBtn.svg";
+    likeBtn.appendChild(likeImg);
+
+    buttons.appendChild(likeBtn);
+  }
+
+  const commentLink = document.createElement("button");
+  commentLink.className = "comment";
+  commentLink.onclick = () => displayComments(data.id);
+
+  const commentImg = document.createElement("img");
+  commentImg.src = baseUrl + "assets/commentBtn.svg";
+
+  commentLink.appendChild(commentImg);
+  buttons.appendChild(commentLink);
+
+  actions.appendChild(buttons);
+
+  const likeCount = document.createElement("p");
+  likeCount.className = "like-count";
+  likeCount.textContent = `${data.like_count} likes`;
+  actions.appendChild(likeCount);
+
+  const commentCount = document.createElement("button");
+  commentCount.className = "comment-count";
+  if (data.comment_count) {
+    commentCount.textContent = `View all ${data.comment_count} comments`;
+  } else {
+    commentCount.textContent = "Add a comment..";
+  }
+  commentCount.onclick = () => displayComments(data.id);
+
+  actions.appendChild(commentCount);
+  post.appendChild(actions);
+}
+
 function addPostToFeed(data) {
   const feed = document.getElementById("feed");
 
-  const post = document.createElement("li");
-  post.classList.add("post");
-
-  const createUser = () => {
-    const user = document.createElement("div");
-    user.classList.add("user");
-
-    const infos = document.createElement("a");
-    infos.href = `/${data.user_username}`;
-    infos.classList.add("infos");
-
-    const avatar = document.createElement("img");
-    if (data.user_avatar) {
-      avatar.src = `${baseUrl}assets/uploads/avatars/${data.user_avatar}`;
-      avatar.alt = data.user_avatar;
-    } else {
-      avatar.src = `${baseUrl}assets/noavatar.png`;
-      avatar.alt = "noavatar.png";
-    }
-
-    infos.appendChild(avatar);
-
-    const texts = document.createElement("div");
-    texts.classList.add("texts");
-
-    const username = document.createElement("p");
-    username.classList.add("username");
-    username.textContent = data.user_username;
-
-    const timeDiff = document.createElement("span");
-    timeDiff.classList.add("time-diff");
-    timeDiff.textContent = `• ${formatElapsedTime(data.time_diff)}`;
-
-    texts.appendChild(username);
-    texts.appendChild(timeDiff);
-    infos.appendChild(texts);
-    user.appendChild(infos);
-
-    if (data.deletable) {
-      const deleteBtn = document.createElement("button");
-      deleteBtn.classList.add("delete-btn");
-      deleteBtn.onclick = () => deletePost(data.id);
-
-      const deleteIcon = document.createElement("img");
-      deleteIcon.src = baseUrl + "assets/deleteIcon.png";
-
-      deleteBtn.appendChild(deleteIcon);
-      user.appendChild(deleteBtn);
-    }
-
-    post.appendChild(user);
-  };
-
-  const createImage = () => {
-    const image = document.createElement("img");
-    image.src = `${baseUrl}assets/uploads/posts/${data.file}`;
-    image.alt = data.file;
-
-    post.appendChild(image);
-  };
-
-  const createActions = () => {
-    const actions = document.createElement("div");
-    actions.classList.add("actions");
-
-    const buttons = document.createElement("div");
-    buttons.classList.add("buttons");
-
-    if (data.liked) {
-      const unlikeBtn = document.createElement("button");
-      unlikeBtn.classList.add("unlikeBtn");
-      unlikeBtn.setAttribute("data-post-id", data.id);
-
-      const unlikeImg = document.createElement("img");
-      unlikeImg.src = baseUrl + "assets/unlikeBtn.svg";
-
-      unlikeBtn.appendChild(unlikeImg);
-      buttons.appendChild(unlikeBtn);
-    } else {
-      const likeBtn = document.createElement("button");
-      likeBtn.classList.add("likeBtn");
-      likeBtn.setAttribute("data-post-id", data.id);
-
-      const likeImg = document.createElement("img");
-      likeImg.src = baseUrl + "assets/likeBtn.svg";
-
-      likeBtn.appendChild(likeImg);
-      buttons.appendChild(likeBtn);
-    }
-
-    const commentLink = document.createElement("button");
-    commentLink.classList.add("comment");
-    commentLink.onclick = () => displayComments(data.id);
-
-    const commentImg = document.createElement("img");
-    commentImg.src = baseUrl + "assets/commentBtn.svg";
-
-    commentLink.appendChild(commentImg);
-    buttons.appendChild(commentLink);
-
-    actions.appendChild(buttons);
-
-    const likeCount = document.createElement("p");
-    likeCount.classList.add("likeCount");
-    likeCount.textContent = `${data.like_count} likes`;
-
-    actions.appendChild(likeCount);
-
-    const commentCount = document.createElement("a");
-    commentCount.href = `/c/${data.id}`;
-    commentCount.classList.add("commentCount");
-    if (data.comment_count) {
-      commentCount.textContent = `View all ${data.comment_count} comments`;
-    } else {
-      commentCount.textContent = "Add a comment..";
-    }
-
-    actions.appendChild(commentCount);
-
-    post.appendChild(actions);
-  };
-
-  createUser();
-  createImage();
-  createActions();
+  const post = createPost();
+  createPostHeader(post, data);
+  createPostImage(post, data);
+  createPostActions(post, data);
 
   feed.appendChild(post);
 }
@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const loadingImg = document.createElement("img");
         loadingImg.id = "loadingIcon";
-        loadingImg.classList.add("loading");
+        loadingImg.className = "loading";
         loadingImg.src = baseUrl + "assets/loading.gif";
         home.appendChild(loadingImg);
         loading = document.getElementById("loadingIcon");

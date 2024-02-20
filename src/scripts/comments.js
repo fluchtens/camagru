@@ -1,4 +1,4 @@
-function createModal() {
+function createCommentsModal() {
   document.body.style.overflow = "hidden";
   const modal = document.createElement("div");
   modal.id = "commentsModal";
@@ -6,13 +6,13 @@ function createModal() {
   return modal;
 }
 
-function createPost() {
+function createCommentsPost() {
   const post = document.createElement("div");
   post.className = "comments-post";
   return post;
 }
 
-function createHeader(modal, post) {
+function createCommentsHeader(modal, post) {
   const header = document.createElement("div");
   header.className = "header";
 
@@ -35,7 +35,7 @@ function createHeader(modal, post) {
   post.appendChild(header);
 }
 
-function createHr(post) {
+function createCommentsHr(post) {
   const hr = document.createElement("hr");
   post.appendChild(hr);
 }
@@ -149,12 +149,12 @@ async function createForm(post, postId, comments) {
 
 async function displayComments(postId) {
   const home = document.getElementById("home");
-  const modal = createModal();
-  const post = createPost();
-  createHeader(modal, post);
-  createHr(post);
+  const modal = createCommentsModal();
+  const post = createCommentsPost();
+  createCommentsHeader(modal, post);
+  createCommentsHr(post);
   const comments = await createComments(post, postId);
-  createHr(post);
+  createCommentsHr(post);
   await createForm(post, postId, comments);
   modal.appendChild(post);
   home.appendChild(modal);

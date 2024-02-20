@@ -135,14 +135,14 @@
   opacity: 0.5;
 }
 
-.home .post .actions .likeCount {
+.home .post .actions .like-count {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
 }
 
-.home .post .actions .commentCount {
+.home .post .actions .comment-count {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
