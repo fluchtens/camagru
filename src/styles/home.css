@@ -194,23 +194,6 @@
   cursor: pointer;
 }
 
-.home .modal .comments-post .err-msg {
-  display: none;
-  margin: 1rem;
-  padding: 1rem;
-  background: #ffebe8;
-  border: 1px solid #ffc1bf;
-}
-
-.home .modal .comments-post .err-msg p {
-  margin: 0;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 400;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .home .modal .comments-post .comments {
   width: 100%;
   height: 100%;
@@ -276,6 +259,23 @@
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 400;
+}
+
+.home .modal .comments-post .err-msg {
+  display: none;
+  margin: 1rem 1rem 0 1rem;
+  padding: 1rem;
+  background: #ffebe8;
+  border: 1px solid #ffc1bf;
+}
+
+.home .modal .comments-post .err-msg p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .home .modal .comments-post form {

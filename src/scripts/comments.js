@@ -105,6 +105,18 @@ async function createComments(post, postId) {
   return comments;
 }
 
+function createCommentsErrMsg(post) {
+  const errMsg = document.createElement("div");
+  errMsg.id = "commentsErrMsg";
+  errMsg.classList = "err-msg";
+
+  const errMsgText = document.createElement("p");
+  errMsgText.id = "commentsErrMsgText";
+
+  errMsg.appendChild(errMsgText);
+  post.appendChild(errMsg);
+}
+
 async function createForm(post, postId, comments) {
   const form = document.createElement("form");
   form.addEventListener("submit", async (e) => {
@@ -112,15 +124,23 @@ async function createForm(post, postId, comments) {
 
     const formData = new FormData(e.target);
     const comment = formData.get("comment");
+    const errMsg = document.getElementById("commentsErrMsg");
+    const errMsgText = document.getElementById("commentsErrMsgText");
+
     const req = await addComment(postId, comment);
     if (req.success) {
       const newComments = await getComments(postId);
       if (newComments) {
+        errMsg.style.display = "none";
+        errMsgText.textContent = "";
         comments.innerHTML = "";
         newComments.forEach((com) => {
           createComment(comments, com);
         });
       }
+    } else {
+      errMsg.style.display = "block";
+      errMsgText.textContent = req.message;
     }
     form.reset();
   });
@@ -153,18 +173,9 @@ async function displayComments(postId) {
   const post = createCommentsPost();
   createCommentsHeader(modal, post);
   createCommentsHr(post);
-
-  const errMsg = document.createElement("div");
-  errMsg.classList = "err-msg";
-
-  const errMsgText = document.createElement("p");
-  errMsgText.textContent = "caca";
-
-  errMsg.appendChild(errMsgText);
-  post.appendChild(errMsg);
-
   const comments = await createComments(post, postId);
   createCommentsHr(post);
+  createCommentsErrMsg(post);
   await createForm(post, postId, comments);
   modal.appendChild(post);
   home.appendChild(modal);

@@ -131,7 +131,6 @@ async function getComments(postId) {
   }
 }
 
-// fix err msg
 async function addComment(postId, comment) {
   try {
     const url = baseUrl + "controllers/post/addComment.controller.php";
@@ -140,6 +139,13 @@ async function addComment(postId, comment) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ post_id: postId, comment: comment }),
     });
+
+    if (response.status === 413) {
+      return {
+        success: false,
+        message: response.statusText,
+      };
+    }
 
     const data = await response.json();
     if (!response.ok) {
