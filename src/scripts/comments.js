@@ -153,6 +153,16 @@ async function displayComments(postId) {
   const post = createCommentsPost();
   createCommentsHeader(modal, post);
   createCommentsHr(post);
+
+  const errMsg = document.createElement("div");
+  errMsg.classList = "err-msg";
+
+  const errMsgText = document.createElement("p");
+  errMsgText.textContent = "caca";
+
+  errMsg.appendChild(errMsgText);
+  post.appendChild(errMsg);
+
   const comments = await createComments(post, postId);
   createCommentsHr(post);
   await createForm(post, postId, comments);
