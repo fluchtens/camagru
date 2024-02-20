@@ -69,7 +69,7 @@ function createPostActions(post, data) {
 
   if (data.liked) {
     const unlikeBtn = document.createElement("button");
-    unlikeBtn.className = "unlikeBtn";
+    unlikeBtn.className = "unlike-btn";
     unlikeBtn.setAttribute("data-post-id", data.id);
 
     const unlikeImg = document.createElement("img");
@@ -79,7 +79,7 @@ function createPostActions(post, data) {
     buttons.appendChild(unlikeBtn);
   } else {
     const likeBtn = document.createElement("button");
-    likeBtn.className = "likeBtn";
+    likeBtn.className = "like-btn";
     likeBtn.setAttribute("data-post-id", data.id);
 
     const likeImg = document.createElement("img");
