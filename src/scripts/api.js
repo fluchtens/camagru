@@ -76,6 +76,24 @@ async function updatePassword(formData) {
 /*                                    Post                                    */
 /* -------------------------------------------------------------------------- */
 
+async function getPost(id) {
+  try {
+    const url = `${baseUrl}controllers/post/getPost.controller.php?id=${id}`;
+    const response = await fetch(url, {
+      method: "GET",
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      return { success: false, message: data.message };
+    }
+
+    return { success: true, post: data.post };
+  } catch (error) {
+    return { success: false, message: error.message };
+  }
+}
+
 async function getPosts(page) {
   try {
     const url = `${baseUrl}controllers/post/getPosts.controller.php?page=${page}`;

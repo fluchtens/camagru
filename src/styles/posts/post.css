@@ -28,6 +28,7 @@
   height: 2rem;
   border-radius: 50%;
   object-fit: cover;
+  cursor: pointer;
   pointer-events: none;
 }
 
@@ -42,6 +43,7 @@
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .post .user .infos .texts span {
@@ -50,6 +52,7 @@
   line-height: 1.25rem;
   font-weight: 400;
   color: #737373;
+  cursor: pointer;
 }
 
 .post .user .delete-btn {
@@ -91,11 +94,11 @@
   cursor: pointer;
 }
 
-.post .actions .likeBtn:hover {
+.post .actions .like-btn:hover {
   opacity: 0.5;
 }
 
-.post .actions .unlikeBtn:hover {
+.post .actions .unlike-btn:hover {
   opacity: 1;
 }
 
@@ -109,19 +112,186 @@
   opacity: 0.5;
 }
 
-.post .actions .likeCount {
+.post .actions .like-count {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
 }
 
-.post .actions .commentCount {
+.post .actions .comment-count {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 400;
   color: #737373;
+}
+
+.post .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.post .modal .comments-post {
+  width: 50%;
+  height: 75%;
+  flex-direction: column;
+  display: flex;
+  border-radius: 0.5rem;
+  background: #ffffff;
+}
+
+.post .modal .comments-post .header {
+  padding-left: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post .modal .comments-post .header h1 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.post .modal .comments-post .header button {
+  all: unset;
+  width: 1rem;
+  height: 1rem;
+  padding: 0.75rem;
+  display: flex;
+  cursor: pointer;
+}
+
+.post .modal .comments-post .comments {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.post .modal .comments-post .comments h2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.post .modal .comments-post .comments h3 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+.post .modal .comments-post .comments .comment {
+  padding: 0.75rem 0.75rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.post .modal .comments-post .comments .comment img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.post .modal .comments-post .comments .comment .texts {
+  flex-direction: column;
+  display: flex;
+}
+
+.post .modal .comments-post .comments .comment .texts .title {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.post .modal .comments-post .comments .comment .username {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+}
+
+.post .modal .comments-post .comments .comment .time-diff {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  color: #737373;
+}
+
+.post .modal .comments-post .comments .comment .message {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  word-break: break-word;
+}
+
+.post .modal .comments-post .err-msg {
+  display: none;
+  margin: 1rem 1rem 0 1rem;
+  padding: 1rem;
+  background: #ffebe8;
+  border: 1px solid #ffc1bf;
+}
+
+.post .modal .comments-post .err-msg p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.post .modal .comments-post form {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.post .modal .comments-post form img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.post .modal .comments-post form input {
+  width: 100%;
+  padding: 0.6rem;
+  border: solid 1px #dbdbdb;
+  border-radius: 9999px;
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .post .modal {
+    align-items: end;
+  }
+
+  .post .modal .comments-post {
+    width: 100%;
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+
+  .post .modal .comments-post .comments .comment {
+    padding: 0.5rem 0.5rem;
+  }
 }
 
 @media (max-width: 485px) {
@@ -134,7 +304,7 @@
   }
 
   .post .actions {
-    padding: 0 1rem;
+    padding: 0 1rem 0 1rem;
   }
 }
 
@@ -149,5 +319,13 @@
 
   .post .actions {
     padding: 0 0.25rem;
+  }
+
+  .post .modal .comments-post .comments .comment img {
+    display: none;
+  }
+
+  .post .modal .comments-post .comments .comment .time-diff {
+    display: none;
   }
 }

@@ -169,6 +169,8 @@ async function createForm(post, postId, comments) {
 
 async function displayComments(postId) {
   const home = document.getElementById("home");
+  const uniquePost = document.getElementById("post");
+
   const modal = createCommentsModal();
   const post = createCommentsPost();
   createCommentsHeader(modal, post);
@@ -178,5 +180,10 @@ async function displayComments(postId) {
   createCommentsErrMsg(post);
   await createForm(post, postId, comments);
   modal.appendChild(post);
-  home.appendChild(modal);
+  if (home) {
+    home.appendChild(modal);
+  }
+  if (uniquePost) {
+    uniquePost.appendChild(modal);
+  }
 }
