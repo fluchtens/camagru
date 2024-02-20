@@ -58,12 +58,6 @@ function router($db, $uri, $uriArray, $baseUrl) {
                 $css = $post ? "posts/post.css" : "404.css";
                 break;
             }
-            elseif (count($uriArray) === 3 && $uriArray[1] === "c") {
-                $post = getPostById($db, $uriArray[2]);
-                $content = $post ? "posts/comments.php" : "404.php";
-                $css = $post ? "posts/comments.css" : "404.css";
-                break;
-            }
             elseif (count($uriArray) === 3 && $uriArray[1] === "accounts" && str_starts_with($uriArray[2], "verification?token=")) {
                 $content = "accounts/verification.php";
                 $css = "accounts/verification.css";
