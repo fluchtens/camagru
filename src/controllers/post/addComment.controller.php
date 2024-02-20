@@ -49,7 +49,9 @@ function submitData() {
         $data = json_decode($jsonData, true);
         $postId = isset($data['post_id']) ? trim(htmlspecialchars($data['post_id'])) : null;
         if (isset($data['comment'])) {
-            $comment = preg_replace('/\s+/', ' ', trim(htmlspecialchars($data['comment'])));
+            $comment = htmlspecialchars($data['comment']);
+            $comment = preg_replace('/\s+/', ' ', $comment);
+            $comment = html_entity_decode($comment);
         } else {
             $comment = null;
         }

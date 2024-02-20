@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS user (
   full_name VARCHAR(255) NOT NULL,
   avatar VARCHAR(255) DEFAULT NULL,
   bio TEXT DEFAULT NULL,
-  email_notifs BOOLEAN DEFAULT 1,
-  active BOOLEAN DEFAULT 0,
+  email_notifs BOOLEAN DEFAULT 1 NOT NULL,
+  active BOOLEAN DEFAULT 0 NOT NULL,
   activation_token varchar(255) NOT NULL,
   reset_token VARCHAR(255) DEFAULT NULL,
   reset_token_expiration DATETIME DEFAULT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS post (
   user_id INT NOT NULL,
   caption TEXT NOT NULL,
   file VARCHAR(255) NOT NULL,
-  published BOOLEAN DEFAULT 0,
+  published BOOLEAN DEFAULT 0 NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   FOREIGN KEY (user_id) REFERENCES user(id)
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS post_comment (
 
 CREATE TABLE IF NOT EXISTS filter (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  file VARCHAR(255)
+  file VARCHAR(255) NOT NULL
 );
 
 INSERT INTO filter (file) VALUES ('transparent.png');
