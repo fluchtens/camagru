@@ -89,15 +89,22 @@ function createPostActions(post, data) {
     buttons.appendChild(likeBtn);
   }
 
-  const commentLink = document.createElement("button");
-  commentLink.className = "comment";
-  commentLink.onclick = () => displayComments(data.id);
+  const commentBtn = document.createElement("button");
+  commentBtn.className = "comment";
+  commentBtn.onclick = async () => {
+    const authUser = await getUser();
+    if (!authUser) {
+      window.location.href = "/accounts/login";
+    } else {
+      displayComments(data.id);
+    }
+  };
 
   const commentImg = document.createElement("img");
   commentImg.src = baseUrl + "assets/commentBtn.svg";
 
-  commentLink.appendChild(commentImg);
-  buttons.appendChild(commentLink);
+  commentBtn.appendChild(commentImg);
+  buttons.appendChild(commentBtn);
 
   actions.appendChild(buttons);
 
