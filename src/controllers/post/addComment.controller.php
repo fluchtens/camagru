@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $response = submitData();
     http_response_code($response['code']);
     header('Content-Type: application/json');
-    echo json_encode($response['message']);
+    echo json_encode($response);
     exit();
 }
 ?>

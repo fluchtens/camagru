@@ -69,4 +69,5 @@ $user = getUserById($db, $userId);
     </div>
     <script>const baseUrl = "<?= $baseUrl ?>";</script>
     <script src="<?= $baseUrl . "scripts/accounts/edit.js" ?>"></script>
+    <script src="<?= $baseUrl . "scripts/api.js" ?>"></script>
 </div>

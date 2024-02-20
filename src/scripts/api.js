@@ -1,4 +1,78 @@
 /* -------------------------------------------------------------------------- */
+/*                                  Account                                   */
+/* -------------------------------------------------------------------------- */
+
+async function getUser() {
+  try {
+    const url = baseUrl + "controllers/account/getUser.controller.php";
+    const response = await fetch(url, {
+      method: "GET",
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    return null;
+  }
+}
+
+async function editProfile(formData) {
+  try {
+    const url = baseUrl + "controllers/account/editProfile.controller.php";
+    const response = await fetch(url, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.status === 413) {
+      return {
+        success: false,
+        message: response.statusText,
+      };
+    }
+
+    const data = await response.json();
+    if (!response.ok) {
+      return { success: false, message: data.message };
+    }
+
+    return { success: true, message: data.message };
+  } catch (error) {
+    return { success: false, message: error.message };
+  }
+}
+
+async function updatePassword(formData) {
+  try {
+    const url = baseUrl + "controllers/account/editPassword.controller.php";
+    const response = await fetch(url, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.status === 413) {
+      return {
+        success: false,
+        message: response.statusText,
+      };
+    }
+
+    const data = await response.json();
+    if (!response.ok) {
+      return { success: false, message: data.message };
+    }
+
+    return { success: true, message: data.message };
+  } catch (error) {
+    return { success: false, message: error.message };
+  }
+}
+
+/* -------------------------------------------------------------------------- */
 /*                                    Post                                    */
 /* -------------------------------------------------------------------------- */
 
@@ -57,6 +131,7 @@ async function getComments(postId) {
   }
 }
 
+// fix err msg
 async function addComment(postId, comment) {
   try {
     const url = baseUrl + "controllers/post/addComment.controller.php";

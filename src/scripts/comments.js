@@ -126,7 +126,14 @@ async function createForm(post, postId, comments) {
   });
 
   const senderAvatar = document.createElement("img");
-  senderAvatar.src = baseUrl + "assets/camagru.png";
+  const sender = await getUser();
+  if (sender && sender.avatar) {
+    senderAvatar.src = baseUrl + "assets/uploads/avatars/" + sender.avatar;
+    senderAvatar.alt = sender.avatar;
+  } else {
+    senderAvatar.src = baseUrl + "assets/noavatar.png";
+    senderAvatar.alt = "noavatar.png";
+  }
 
   const input = document.createElement("input");
   input.type = "text";

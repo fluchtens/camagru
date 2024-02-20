@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     http_response_code($response['code']);
     header('Content-Type: application/json');
     if ($response['code'] !== 200) {
-        echo json_encode($response['message']);
+        echo json_encode($response);
     } else {
         echo json_encode($response['comments']);
     }
