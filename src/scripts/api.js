@@ -112,6 +112,24 @@ async function getPosts(page) {
   }
 }
 
+async function getWaitingPosts() {
+  try {
+    const url = `${baseUrl}controllers/post/getWaitingPosts.controller.php`;
+    const response = await fetch(url, {
+      method: "GET",
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    return null;
+  }
+}
+
 async function deletePost(postId) {
   try {
     const url = baseUrl + "controllers/post/deletePost.controller.php";
@@ -125,6 +143,58 @@ async function deletePost(postId) {
       window.history.back();
     }
   } catch (error) {}
+}
+
+async function publishPhotos() {
+  try {
+    const url = baseUrl + "controllers/post/publishPhotos.controller.php";
+    const response = await fetch(url, {
+      method: "POST",
+    });
+
+    if (response.status === 413) {
+      return {
+        success: false,
+        message: response.statusText,
+      };
+    }
+
+    const data = await response.json();
+    if (!response.ok) {
+      return { success: false, message: data.message };
+    }
+
+    return { success: true, message: data.message };
+  } catch (error) {
+    return { success: false, message: error.message };
+  }
+}
+
+async function savePhoto(image, filter) {
+  try {
+    const url = baseUrl + "controllers/post/takePhoto.controller.php";
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ image: image, filter: filter }),
+    });
+
+    if (response.status === 413) {
+      return {
+        success: false,
+        message: response.statusText,
+      };
+    }
+
+    const data = await response.json();
+    if (!response.ok) {
+      return { success: false, message: data.message };
+    }
+
+    return { success: true, message: data.message };
+  } catch (error) {
+    return { success: false, message: error.message };
+  }
 }
 
 /* -------------------------------------------------------------------------- */

@@ -1,56 +1,71 @@
-async function publishPhotos() {
-  try {
-    const url = baseUrl + "controllers/post/publishPhotos.controller.php";
-    const response = await fetch(url, {
-      method: "POST",
-    });
+function captureDisplay(display) {
+  const captureVideo = document.getElementById("captureVideo");
+  const captureFilter = document.getElementById("captureFilter");
 
-    if (response.status === 413) {
-      return {
-        success: false,
-        message: response.statusText,
-      };
-    }
-
-    const data = await response.json();
-    if (!response.ok) {
-      return { success: false, message: data.message };
-    }
-
-    return { success: true, message: data.message };
-  } catch (error) {
-    return { success: false, message: error.message };
+  if (display) {
+    captureVideo.style.display = "block";
+    captureFilter.style.display = "block";
+  } else {
+    captureVideo.style.display = "none";
+    captureFilter.style.display = "none";
   }
 }
 
-async function savePhoto(image, filter) {
-  try {
-    const url = baseUrl + "controllers/post/takePhoto.controller.php";
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ image: image, filter: filter }),
-    });
+function previewDisplay(display) {
+  const canvasPreview = document.getElementById("photoPreview");
+  const importPreview = document.getElementById("importPreview");
+  const previewFilter = document.getElementById("previewFilter");
 
-    if (response.status === 413) {
-      return {
-        success: false,
-        message: response.statusText,
-      };
-    }
-
-    const data = await response.json();
-    if (!response.ok) {
-      return { success: false, message: data.message };
-    }
-
-    return { success: true, message: data.message };
-  } catch (error) {
-    return { success: false, message: error.message };
+  if (display) {
+  } else {
+    canvasPreview.style.display = "none";
+    importPreview.style.display = "none";
+    importPreview.src = "";
+    previewFilter.style.display = "none";
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function filtersDisplay(display) {
+  const filters = document.getElementById("filters");
+
+  if (display) {
+    filters.style.display = "flex";
+  } else {
+  }
+}
+
+function captureBtnDisplay(display) {
+  const takePhotoBtn = document.getElementById("takePhotoBtn");
+  const importBtn = document.getElementById("importBtn");
+  const publishBtn = document.getElementById("publishPhotoBtn");
+
+  if (display) {
+    takePhotoBtn.style.display = "inline-block";
+    importBtn.style.display = "inline-block";
+    publishBtn.style.display = "inline-block";
+  } else {
+  }
+}
+
+async function updateWaitingPosts() {
+  const waiting = document.getElementById("waiting");
+  waiting.innerHTML = "";
+
+  const posts = await getWaitingPosts();
+  if (!posts) {
+    waiting.style.display = "none";
+  } else {
+    waiting.style.display = "flex";
+    posts.forEach((post) => {
+      const img = document.createElement("img");
+      img.src = baseUrl + "assets/uploads/posts/" + post.file;
+      img.alt = post.file;
+      waiting.appendChild(img);
+    });
+  }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
   const msg = document.getElementById("msg");
   const msgText = document.getElementById("msgText");
   const captureVideo = document.getElementById("captureVideo");
@@ -215,7 +230,15 @@ document.addEventListener("DOMContentLoaded", () => {
       msg.style.display = "block";
       msgText.textContent = req.message;
     } else {
-      window.location.href = "/create";
+      startWebcam();
+      captureDisplay(true);
+      previewDisplay(false);
+      uploadedImageData = null;
+      filtersDisplay(true);
+      await updateWaitingPosts();
+      captureBtnDisplay(true);
+      saveBtn.style.display = "none";
+      cancelBtn.style.display = "none";
     }
   };
 
@@ -230,6 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   startWebcam();
+  await updateWaitingPosts();
   importInput.addEventListener("change", (e) => importFile(e));
   filterBtns.forEach((btn) => {
     btn.addEventListener("click", () => filterBtnClick(btn));

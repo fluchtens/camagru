@@ -30,13 +30,7 @@ $waitingPosts = getUserWaitingPosts($db, $userId);
                 </button>
             <?php endforeach; ?>
         </div>
-        <?php if ($waitingPosts): ?>
-            <div id="waiting" class="waiting">
-                <?php foreach($waitingPosts as $waitingPost): ?>
-                    <img src="<?= $baseUrl . "assets/uploads/posts/" . $waitingPost['file'] ?>" alt="<?= $waitingPost['file'] ?>">
-                <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
+        <div id="waiting" class="waiting"></div>
         <div class="buttons">
             <button id="takePhotoBtn" class="take-photo-btn" disabled>Take Photo</button>
             <div class="file-input">
@@ -54,4 +48,5 @@ $waitingPosts = getUserWaitingPosts($db, $userId);
     </div>
     <script>const baseUrl = "<?= $baseUrl ?>";</script>
     <script src="<?= $baseUrl . "scripts/posts/create.js" ?>"></script>
+    <script src="<?= $baseUrl . "scripts/api.js" ?>"></script>
 </div>

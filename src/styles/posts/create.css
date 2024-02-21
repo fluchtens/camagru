@@ -138,6 +138,7 @@
 }
 
 .post .waiting {
+  display: none;
   max-width: 468px;
   width: 100%;
   padding: 0.25rem;
