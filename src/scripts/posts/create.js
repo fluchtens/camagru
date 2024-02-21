@@ -17,6 +17,8 @@ function previewDisplay(display) {
   const previewFilter = document.getElementById("previewFilter");
 
   if (display) {
+    canvasPreview.style.display = "block";
+    previewFilter.style.display = "block";
   } else {
     canvasPreview.style.display = "none";
     importPreview.style.display = "none";
@@ -25,12 +27,32 @@ function previewDisplay(display) {
   }
 }
 
+function importPreviewDisplay(uploadedImageData) {
+  const importPreview = document.getElementById("importPreview");
+  const previewFilter = document.getElementById("previewFilter");
+
+  importPreview.style.display = "block";
+  importPreview.src = uploadedImageData;
+  previewFilter.style.display = "block";
+}
+
 function filtersDisplay(display) {
   const filters = document.getElementById("filters");
 
   if (display) {
     filters.style.display = "flex";
   } else {
+    filters.style.display = "none";
+  }
+}
+
+function waitingDisplay(display) {
+  const waiting = document.getElementById("waiting");
+
+  if (display) {
+    waiting.style.display = "flex";
+  } else {
+    waiting.style.display = "none";
   }
 }
 
@@ -44,6 +66,22 @@ function captureBtnDisplay(display) {
     importBtn.style.display = "inline-block";
     publishBtn.style.display = "inline-block";
   } else {
+    takePhotoBtn.style.display = "none";
+    importBtn.style.display = "none";
+    publishBtn.style.display = "none";
+  }
+}
+
+function previewBtnDisplay(display) {
+  const cancelBtn = document.getElementById("cancelBtn");
+  const saveBtn = document.getElementById("saveBtn");
+
+  if (display) {
+    saveBtn.style.display = "inline-block";
+    cancelBtn.style.display = "inline-block";
+  } else {
+    cancelBtn.style.display = "none";
+    saveBtn.style.display = "none";
   }
 }
 
@@ -116,14 +154,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       reader.onload = () => {
         uploadedImageData = reader.result;
-
-        captureVideo.style.display = "none";
-        captureFilter.style.display = "none";
+        captureDisplay(false);
         stopWebcam();
-
-        importPreview.style.display = "block";
-        importPreview.src = uploadedImageData;
-        previewFilter.style.display = "block";
+        importPreviewDisplay(uploadedImageData);
 
         const selectedFilterBtn = document.querySelector(".filterBtn.selected");
         if (!selectedFilterBtn) {
@@ -133,16 +166,9 @@ document.addEventListener("DOMContentLoaded", async () => {
           }
         }
 
-        if (waiting) {
-          waiting.style.display = "none";
-        }
-
-        takePhotoBtn.style.display = "none";
-        importBtn.style.display = "none";
-        publishBtn.style.display = "none";
-
-        saveBtn.style.display = "inline-block";
-        cancelBtn.style.display = "inline-block";
+        waitingDisplay(false);
+        captureBtnDisplay(false);
+        previewBtnDisplay(true);
       };
 
       reader.readAsDataURL(uploadedImage);
@@ -175,51 +201,24 @@ document.addEventListener("DOMContentLoaded", async () => {
       .getContext("2d")
       .drawImage(captureVideo, 0, 0, canvasPreview.width, canvasPreview.height);
 
-    captureVideo.style.display = "none";
-    captureFilter.style.display = "none";
-
-    canvasPreview.style.display = "block";
-    previewFilter.style.display = "block";
-
-    filters.style.display = "none";
-
-    if (waiting) {
-      waiting.style.display = "none";
-    }
-
-    takePhotoBtn.style.display = "none";
-    importBtn.style.display = "none";
-    publishBtn.style.display = "none";
-
-    saveBtn.style.display = "inline-block";
-    cancelBtn.style.display = "inline-block";
+    captureDisplay(false);
+    previewDisplay(true);
+    filtersDisplay(false);
+    waitingDisplay(false);
+    captureBtnDisplay(false);
+    previewBtnDisplay(true);
   };
 
-  const cancelBtnClick = () => {
+  const cancelBtnClick = async () => {
     msg.style.display = "none";
-
     startWebcam();
-    captureVideo.style.display = "block";
-    captureFilter.style.display = "block";
-
-    canvasPreview.style.display = "none";
-    importPreview.style.display = "none";
-    importPreview.src = "";
+    captureDisplay(true);
+    previewDisplay(false);
     uploadedImageData = null;
-    previewFilter.style.display = "none";
-
-    filters.style.display = "flex";
-
-    if (waiting) {
-      waiting.style.display = "flex";
-    }
-
-    takePhotoBtn.style.display = "inline-block";
-    importBtn.style.display = "inline-block";
-    publishBtn.style.display = "inline-block";
-
-    saveBtn.style.display = "none";
-    cancelBtn.style.display = "none";
+    filtersDisplay(true);
+    await updateWaitingPosts();
+    captureBtnDisplay(true);
+    previewBtnDisplay(false);
   };
 
   const saveBtnClick = async () => {
@@ -237,8 +236,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       filtersDisplay(true);
       await updateWaitingPosts();
       captureBtnDisplay(true);
-      saveBtn.style.display = "none";
-      cancelBtn.style.display = "none";
+      previewBtnDisplay(false);
     }
   };
 
