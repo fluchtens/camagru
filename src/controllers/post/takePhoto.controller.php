@@ -12,8 +12,8 @@ function checkImage($image, $type) {
     elseif (strlen($image) > 1 * 1024 * 1024) {
         return ['code' => 400, 'message' => "Your image is too large (+1 mo)."];
     }
-    elseif ($type !== "png" && $type !== "jpeg") {
-        return ['code' => 400, 'message' => "Only PNG, JPG & JPEG files are allowed."];
+    elseif ($type !== "jpeg") {
+        return ['code' => 400, 'message' => "Only JPG & JPEG files are allowed."];
     }
     return ['code' => 200];
 }
@@ -26,16 +26,8 @@ function createUploadDir() {
     return ($uploadDir);
 }
 
-function applyFilter($imagePath, $imageType, $filterPath) {
-    switch ($imageType) {
-        case 'png':
-            $baseImage = imagecreatefrompng($imagePath);
-            break;
-        case 'jpeg':
-            $baseImage = imagecreatefromjpeg($imagePath);
-            break;
-    }
-
+function applyFilter($imagePath, $filterPath) {
+    $baseImage = imagecreatefromjpeg($imagePath);
     $baseWidth = imagesx($baseImage);
     $baseHeight = imagesy($baseImage);
     
@@ -57,15 +49,7 @@ function applyFilter($imagePath, $imageType, $filterPath) {
 
     imagesavealpha($baseImage, true);
     imagecopy($baseImage, $resizedFilter, $positionX, $positionY, 0, 0, $newFilterWidth, $newFilterHeight);
-
-    switch ($imageType) {
-        case 'png':
-            imagepng($baseImage, $imagePath);
-            break;
-        case 'jpeg':
-            imagejpeg($baseImage, $imagePath);
-            break;
-    }
+    imagejpeg($baseImage, $imagePath);
 
     imagedestroy($baseImage);
     imagedestroy($filterImage);
@@ -101,7 +85,6 @@ function submitData() {
         }
 
         $imageData = preg_replace('/^data:image\/\w+;base64,/', '', $imageBase64);
-        // $imageData = str_replace('data:image/png;base64,', '', $imageBase64);
         $decodedImageData = base64_decode($imageData);
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mime = explode('/', finfo_buffer($finfo, $decodedImageData))[1];
@@ -117,7 +100,7 @@ function submitData() {
         $filePath = $uploadDir . $fileName;
 
         file_put_contents($filePath, $decodedImageData);
-        applyFilter($filePath, $mime, $filter['file']);
+        applyFilter($filePath, $filter['file']);
         createPost($db, $userId, $caption, $fileName);
 
         return ['code' => 200, 'message' => "The photo has been successfully saved."];

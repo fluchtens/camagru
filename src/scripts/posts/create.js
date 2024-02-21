@@ -223,7 +223,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   const saveBtnClick = async () => {
-    const image = uploadedImageData || canvasPreview.toDataURL("image/png");
+    const image = uploadedImageData || canvasPreview.toDataURL("image/jpeg");
     const req = await savePhoto(image, selectedFilter);
     if (!req.success) {
       messageDisplay(true, req.message);
