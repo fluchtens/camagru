@@ -1,3 +1,15 @@
+function messageDisplay(display, message) {
+  const msg = document.getElementById("msg");
+  const msgText = document.getElementById("msgText");
+
+  if (display) {
+    msg.style.display = "block";
+    msgText.textContent = message;
+  } else {
+    msg.style.display = "none";
+  }
+}
+
 function captureDisplay(display) {
   const captureVideo = document.getElementById("captureVideo");
   const captureFilter = document.getElementById("captureFilter");
@@ -87,11 +99,13 @@ function previewBtnDisplay(display) {
 
 async function updateWaitingPosts() {
   const waiting = document.getElementById("waiting");
+  const publishBtn = document.getElementById("publishPhotoBtn");
   waiting.innerHTML = "";
 
   const posts = await getWaitingPosts();
   if (!posts) {
     waiting.style.display = "none";
+    publishBtn.disabled = true;
   } else {
     waiting.style.display = "flex";
     posts.forEach((post) => {
@@ -100,23 +114,23 @@ async function updateWaitingPosts() {
       img.alt = post.file;
       waiting.appendChild(img);
     });
+    publishBtn.disabled = false;
   }
 }
 
+function resetFilter() {
+  const firstBtn = document.querySelector(".filterBtn[data-id='1']");
+  firstBtn.click();
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
-  const msg = document.getElementById("msg");
-  const msgText = document.getElementById("msgText");
   const captureVideo = document.getElementById("captureVideo");
   const captureFilter = document.getElementById("captureFilter");
   const canvasPreview = document.getElementById("photoPreview");
-  const importPreview = document.getElementById("importPreview");
   const previewFilter = document.getElementById("previewFilter");
-  const filters = document.getElementById("filters");
   const filterBtns = document.querySelectorAll(".filterBtn");
-  const waiting = document.getElementById("waiting");
   const takePhotoBtn = document.getElementById("takePhotoBtn");
   const importInput = document.getElementById("importInput");
-  const importBtn = document.getElementById("importBtn");
   const publishBtn = document.getElementById("publishPhotoBtn");
   const cancelBtn = document.getElementById("cancelBtn");
   const saveBtn = document.getElementById("saveBtn");
@@ -133,7 +147,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       captureVideo.srcObject = stream;
     } catch (error) {
-      console.error("Error accessing webcam:", error);
+      messageDisplay(true, "Error accessing webcam: " + error);
     }
   };
 
@@ -148,49 +162,35 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const importFile = (e) => {
     const uploadedImage = e.target.files[0];
-
     if (uploadedImage) {
       const reader = new FileReader();
-
       reader.onload = () => {
         uploadedImageData = reader.result;
         captureDisplay(false);
         stopWebcam();
         importPreviewDisplay(uploadedImageData);
-
-        const selectedFilterBtn = document.querySelector(".filterBtn.selected");
-        if (!selectedFilterBtn) {
-          const firstBtn = document.querySelector(".filterBtn[data-id='1']");
-          if (firstBtn) {
-            firstBtn.click();
-          }
-        }
-
+        resetFilter();
         waitingDisplay(false);
         captureBtnDisplay(false);
         previewBtnDisplay(true);
       };
-
       reader.readAsDataURL(uploadedImage);
     }
-
     e.currentTarget.value = null;
   };
 
   const filterBtnClick = (btn) => {
-    const filterSrc =
-      baseUrl + "assets/filters/" + btn.getAttribute("data-file");
-
+    const filter = baseUrl + "assets/filters/" + btn.getAttribute("data-file");
     captureFilter.style.display = "block";
-    captureFilter.src = filterSrc;
-    previewFilter.src = filterSrc;
+    captureFilter.src = filter;
+    previewFilter.src = filter;
     takePhotoBtn.disabled = false;
     filterBtns.forEach((btn) => {
       btn.classList.remove("selected");
-      btn.style.backgroundColor = "transparent";
+      btn.style.background = "transparent";
     });
     btn.classList.add("selected");
-    btn.style.backgroundColor = "#dbdbdb";
+    btn.style.background = "#dbdbdb";
     selectedFilter = btn.getAttribute("data-id");
   };
 
@@ -210,11 +210,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   const cancelBtnClick = async () => {
-    msg.style.display = "none";
+    messageDisplay(false, null);
     startWebcam();
     captureDisplay(true);
     previewDisplay(false);
     uploadedImageData = null;
+    resetFilter();
     filtersDisplay(true);
     await updateWaitingPosts();
     captureBtnDisplay(true);
@@ -223,16 +224,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const saveBtnClick = async () => {
     const image = uploadedImageData || canvasPreview.toDataURL("image/png");
-
     const req = await savePhoto(image, selectedFilter);
     if (!req.success) {
-      msg.style.display = "block";
-      msgText.textContent = req.message;
+      messageDisplay(true, req.message);
     } else {
       startWebcam();
       captureDisplay(true);
       previewDisplay(false);
       uploadedImageData = null;
+      resetFilter();
       filtersDisplay(true);
       await updateWaitingPosts();
       captureBtnDisplay(true);
@@ -243,8 +243,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const publishBtnClick = async () => {
     const req = await publishPhotos();
     if (!req.success) {
-      msg.style.display = "block";
-      msgText.textContent = req.message;
+      messageDisplay(true, req.message);
     } else {
       window.location.href = "/";
     }

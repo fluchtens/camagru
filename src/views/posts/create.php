@@ -5,7 +5,6 @@ if (!isAuth()) {
 }
 
 $filters = getAllFilters($db);
-$waitingPosts = getUserWaitingPosts($db, $userId);
 ?>
 
 <div class="post">
@@ -37,11 +36,7 @@ $waitingPosts = getUserWaitingPosts($db, $userId);
                 <input id="importInput" type="file" accept=".jpg, .jpeg, .png, .gif">
                 <label id="importBtn" for="importInput">Import Photo</label>
             </div>
-            <?php if (isset($waitingPost)): ?>
-                <button id="publishPhotoBtn" class="publish-photo-btn">Publish Photos</button>
-            <?php else: ?>
-                <button id="publishPhotoBtn" class="publish-photo-btn" disabled>Publish Photos</button>
-            <?php endif; ?>
+            <button id="publishPhotoBtn" class="publish-photo-btn">Publish Photos</button>
             <button id="cancelBtn" class="cancel-btn">Cancel</button>
             <button id="saveBtn" class="save-btn">Save</button>
         </div>
