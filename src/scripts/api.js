@@ -124,6 +124,58 @@ async function updatePassword(formData) {
   }
 }
 
+async function sendResetPasswordRequest(formData) {
+  try {
+    const url = baseUrl + "controllers/account/forgotPassword.controller.php";
+    const response = await fetch(url, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.status === 413) {
+      return {
+        success: false,
+        message: response.statusText,
+      };
+    }
+
+    const data = await response.json();
+    if (!response.ok) {
+      return { success: false, message: data.message };
+    }
+
+    return { success: true, message: data.message };
+  } catch (error) {
+    return { success: false, message: error.message };
+  }
+}
+
+async function resetPassword(formData) {
+  try {
+    const url = baseUrl + "controllers/account/resetPassword.controller.php";
+    const response = await fetch(url, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.status === 413) {
+      return {
+        success: false,
+        message: response.statusText,
+      };
+    }
+
+    const data = await response.json();
+    if (!response.ok) {
+      return { success: false, message: data.message };
+    }
+
+    return { success: true, message: data.message };
+  } catch (error) {
+    return { success: false, message: error.message };
+  }
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                    Post                                    */
 /* -------------------------------------------------------------------------- */

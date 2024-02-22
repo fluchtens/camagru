@@ -1,23 +1,3 @@
-async function sendResetPasswordRequest(formData) {
-  try {
-    const url = baseUrl + "controllers/account/forgotPassword.controller.php";
-    const response = await fetch(url, {
-      method: "POST",
-      body: formData,
-    });
-
-    const data = await response.json();
-    if (!response.ok) {
-      return { success: false, message: data.message };
-    }
-
-    return { success: true, message: data.message };
-  } catch (error) {
-    console.error("An error occurred:", error);
-    return { success: false, message: error.message };
-  }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("forgotPasswordForm");
   const emailInput = document.getElementById("emailInput");
@@ -37,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
-
     const req = await sendResetPasswordRequest(formData);
     msg.style.display = "block";
     msgText.textContent = req.message;

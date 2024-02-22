@@ -3,9 +3,6 @@ if (isAuth()) {
     header("Location: /");
     exit();
 }
-
-$resetToken = $_GET['token'] ?? null;
-// echo $resetToken;
 ?>
 
 <div class="reset">
@@ -26,4 +23,5 @@ $resetToken = $_GET['token'] ?? null;
     </form>
     <script>const baseUrl = "<?= $baseUrl ?>";</script>
     <script src="<?= $baseUrl . "scripts/accounts/password/resetPassword.js" ?>"></script>
+    <script src="<?= $baseUrl . "scripts/api.js" ?>"></script>
 </div>
