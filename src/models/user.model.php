@@ -152,7 +152,7 @@ function updateResetToken($db, $userId, $resetToken, $expirationTime) {
 function updatePassword($db, $userId, $password) {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $query = "UPDATE user
-            SET password = :hashed_password
+            SET password = :hashed_password, reset_token = NULL
             WHERE id = :userId
     ";
     $stmt = $db->prepare($query);
