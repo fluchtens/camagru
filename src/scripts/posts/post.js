@@ -35,7 +35,12 @@ function createPostHeader(post, data) {
   if (data.deletable) {
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "delete-btn";
-    deleteBtn.onclick = () => deletePost(data.id);
+    deleteBtn.onclick = async () => {
+      const req = await deletePost(data.id);
+      if (req) {
+        window.history.back();
+      }
+    };
 
     const deleteIcon = document.createElement("img");
     deleteIcon.src = baseUrl + "assets/deleteIcon.png";

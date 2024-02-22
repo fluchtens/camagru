@@ -139,10 +139,18 @@ async function deletePost(postId) {
       body: JSON.stringify({ post_id: postId }),
     });
 
-    if (response.ok) {
-      window.history.back();
+    if (response.status === 413) {
+      return false;
     }
-  } catch (error) {}
+
+    if (!response.ok) {
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    return false;
+  }
 }
 
 async function publishPhotos() {
@@ -209,6 +217,14 @@ async function likePost(postId) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ post_id: postId }),
     });
+
+    if (response.status === 413) {
+      return {
+        success: false,
+        code: response.status,
+        message: response.statusText,
+      };
+    }
 
     const data = await response.json();
     if (!response.ok) {
