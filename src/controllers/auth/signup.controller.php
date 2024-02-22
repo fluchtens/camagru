@@ -20,16 +20,18 @@ function sendVerificationEmail($email, $activationToken) {
 
 function submitData() {
     try {
-        $email = isset($_POST['username']) ? trim(htmlspecialchars($_POST['email'])) : null;
+        $email = isset($_POST['email']) ? trim(htmlspecialchars($_POST['email'])) : null;
+
         if (isset($_POST['fullname'])) {
-            $fullname = htmlspecialchars($_POST['fullname']);
+            $fullname = trim(htmlspecialchars($_POST['fullname']));
             $fullname = preg_replace('/\s+/', ' ', $fullname);
             $fullname = html_entity_decode($fullname);
         } else {
             $fullname = null;
         }
+
         $username = isset($_POST['username']) ? trim(htmlspecialchars($_POST['username'])) : null;
-        $password = isset($_POST['username']) ? trim(htmlspecialchars($_POST['password'])) : null;
+        $password = isset($_POST['password']) ? trim(htmlspecialchars($_POST['password'])) : null;
 
         if (!$email || !$fullname || !$username || !$password) {
             return ['code' => 400, 'message' => "There are one or more required fields missing from the form."];

@@ -6,8 +6,8 @@ if (isAuth()) {
 ?>
 
 <div class="auth">
-    <div id="registerErrMsg" class="err-msg">
-        <p id="registerErrMsgText"></p>
+    <div id="signupMsg" class="msg">
+        <p id="signupMsgText"></p>
     </div>
     <div class="auth-form">
         <a class="main-link" href="/">
@@ -28,4 +28,5 @@ if (isAuth()) {
     </div>
     <script>const baseUrl = "<?= $baseUrl ?>";</script>
     <script src="<?= $baseUrl . "scripts/accounts/auth.js" ?>"></script>
+    <script src="<?= $baseUrl . "scripts/api.js" ?>"></script>
 </div>

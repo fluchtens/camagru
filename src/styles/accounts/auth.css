@@ -16,22 +16,19 @@ main {
   text-align: center;
 }
 
-.auth .err-msg {
+.auth .msg {
   display: none;
   width: 100%;
   padding: 1rem;
   box-sizing: border-box;
-  background: #ffebe8;
-  border: 1px solid #ffc1bf;
 }
 
-.auth .err-msg p {
+.auth .msg p {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 400;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  word-break: break-word;
 }
 
 .auth .auth-form {
