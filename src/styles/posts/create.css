@@ -149,8 +149,52 @@
   background: #efefef;
 }
 
+.post .waiting div {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+}
+
+.post .waiting div::after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  content: "";
+  border-radius: 0.5rem;
+  transition: background 0.3s;
+  pointer-events: none;
+}
+
+.post .waiting div:hover::after {
+  background: rgba(0, 0, 0, 0.5);
+}
+
 .post .waiting img {
   width: 5rem;
+  height: auto;
+  border-radius: 0.5rem;
+  pointer-events: none;
+}
+
+.post .waiting button {
+  all: unset;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.post .waiting button img {
+  width: 1.5rem;
+  height: auto;
 }
 
 .post .take .buttons {

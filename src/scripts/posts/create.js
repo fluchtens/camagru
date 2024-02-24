@@ -109,10 +109,35 @@ async function updateWaitingPosts() {
   } else {
     waiting.style.display = "flex";
     posts.forEach((post) => {
+      const imageContainer = document.createElement("div");
+
       const img = document.createElement("img");
       img.src = baseUrl + "assets/uploads/posts/" + post.file;
       img.alt = post.file;
-      waiting.appendChild(img);
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.className = "delete-btn";
+      deleteBtn.style.display = "none";
+      deleteBtn.addEventListener("click", async () => {
+        console.log("delete", post.id);
+      });
+
+      const deleteImg = document.createElement("img");
+      deleteImg.src = baseUrl + "assets/delete-white.png";
+      deleteImg.alt = "deleteIcon.png";
+
+      imageContainer.appendChild(img);
+      deleteBtn.appendChild(deleteImg);
+      imageContainer.appendChild(deleteBtn);
+      waiting.appendChild(imageContainer);
+
+      imageContainer.addEventListener("mouseenter", () => {
+        deleteBtn.style.display = "block";
+      });
+
+      imageContainer.addEventListener("mouseleave", () => {
+        deleteBtn.style.display = "none";
+      });
     });
     publishBtn.disabled = false;
   }
