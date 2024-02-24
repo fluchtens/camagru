@@ -9,18 +9,16 @@ function sendPasswordResetEmail($email, $resetToken) {
     $mailSubject = "Password Reset Request";
     $mailBody = "
         <div style='max-width: 640px; margin: 0 auto; text-align: center;'>
-            <img src='cid:logo' alt='logo' style='width: 300px'>
             <p>We received a request to reset the password for your Camagru account.</p>
             <p>If you did not make this request, you can ignore this email.</p>
             <p>Click the link below to reset your password:</p>
-            <a href='http://localhost/accounts/password/reset?token=$resetToken'>Reset Password</a>
+            <a href='http://localhost/accounts/password/reset?token=$resetToken'><strong>Reset Password</strong></a>
             <p>Please note that this link will expire in 15 min.</p>
             <p>Make sure to reset your password within this time frame.</p>
         </div>
     ";
     sendEmail($email, $mailSubject, $mailBody);
 }
-
 
 function submitData() {
     try {

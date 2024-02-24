@@ -6,13 +6,14 @@ require "../../models/user.model.php";
 require "../../core/utils.php";
 require "../../core/sendEmail.php";
 
-function sendVerificationEmail($email, $activationToken) {
+function sendVerificationEmail($email, $fullname, $activationToken) {
     $mailSubject = "Confirmation of account registration";
     $mailBody = "
         <div style='max-width: 640px; margin: 0 auto; text-align: center;'>
-            <img src='cid:logo' alt='logo' style='width: 300px'>
-            <p>Thank you for creating a new account to access Camagru. To benefit from all Camagru services, you must verify the e-mail address on your account.</p>
-            <a href='http://localhost/accounts/verification?token=$activationToken'>Verify now</a>
+            <p>Hi <strong>$fullname</strong>,</p>
+            <p>Thank you for creating a new account to access Camagru.</p>
+            <p>To benefit from all Camagru services, you must verify the e-mail address on your account.</p>
+            <a href='http://localhost/accounts/verification?token=$activationToken'><strong>Verify now</strong></a>
         </div>
     ";
     sendEmail($email, $mailSubject, $mailBody);
@@ -68,7 +69,7 @@ function submitData() {
 
         $activationToken = bin2hex(random_bytes(16));
         createUser($db, $username, $email, $fullname, $password, $activationToken);
-        sendVerificationEmail($email, $activationToken);
+        sendVerificationEmail($email, $fullname, $activationToken);
         return ['code' => 200, 'message' => "User succesfully created. To benefit from all Camagru services, please verify your account by clicking on the confirmation link we sent to your email address."];
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];

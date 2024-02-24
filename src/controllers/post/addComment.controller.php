@@ -27,13 +27,13 @@ function checkComment($comment) {
     return ['code' => 200];
 }
 
-function sendNotifEmail($username, $comment, $authorEmail) {
+function sendNotifEmail($username, $comment, $authorFullName, $authorEmail) {
     $mailSubject = "New comment on your publication";
     $mailBody = "
         <div style='max-width: 640px; margin: 0 auto; text-align: center'>
-            <img src='cid:logo' alt='logo' style='width: 300px' />
-            <p>You have received a new comment from $username on your publication:</p>
-            <p>$comment</p>
+            <p>Hi <strong>$authorFullName</strong>,</p>
+            <p>You have received a new comment from <strong>$username</strong> on your publication:</p>
+            <p><strong>&ldquo;$comment&rdquo;</strong></p>
         </div>
     ";
     sendEmail($authorEmail, $mailSubject, $mailBody);
@@ -73,11 +73,12 @@ function submitData() {
         $username = $user['username'];
         $post = getPostById($db, $postId);
         $author = getUserById($db, $post['user_id']);
+        $authorFullName = $author['full_name'];
         $authorEmail = $author['email'];
 
         commentPost($db, $userId, $postId, $comment);
         if ($author['email_notifs']) {
-            sendNotifEmail($username, $comment, $authorEmail);
+            sendNotifEmail($username, $comment, $authorFullName, $authorEmail);
         }
         return ['code' => 200, 'message' => "Comment sent succesfully."];
     } catch (Exception $e) {

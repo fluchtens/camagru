@@ -35,6 +35,9 @@ services:
     image: camagru-app
     build:
       dockerfile: Dockerfile
+      args:
+        - SMTP_USERNAME=${SMTP_USERNAME}
+        - SMTP_PASSWORD=${SMTP_PASSWORD}
     depends_on:
       - db
     environment:
