@@ -119,7 +119,12 @@ async function updateWaitingPosts() {
       deleteBtn.className = "delete-btn";
       deleteBtn.style.display = "none";
       deleteBtn.addEventListener("click", async () => {
-        console.log("delete", post.id);
+        const req = await deleteWaitingPost(post.id);
+        if (!req.success) {
+          messageDisplay(true, req.message);
+        } else {
+          await updateWaitingPosts();
+        }
       });
 
       const deleteImg = document.createElement("img");

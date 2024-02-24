@@ -15,6 +15,18 @@ function getPostById($db, $postId) {
     return ($post ? $post : null);
 }
 
+function getWaitingPostById($db, $postId) {
+    $query = "SELECT *
+            FROM post
+            WHERE id = :postId AND published = 0
+    ";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':postId', $postId, PDO::PARAM_INT);
+    $stmt->execute();
+    $post = $stmt->fetch(PDO::FETCH_ASSOC);
+    return ($post ? $post : null);
+}
+
 function getUserPostById($db, $userId, $postId) {
     $query = "SELECT
                 post.*,
