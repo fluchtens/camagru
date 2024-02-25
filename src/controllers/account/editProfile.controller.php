@@ -65,6 +65,12 @@ function submitData() {
             $fullname = $user['full_name'];
         }
 
+        if (isset($_POST['email'])) {
+            $email = trim(htmlspecialchars($_POST['email']));
+        } else {
+            $email = $user['email'];
+        }
+
         if (isset($_POST['username'])) {
             $username = trim(htmlspecialchars($_POST['username']));
         } else {
@@ -95,6 +101,15 @@ function submitData() {
         if ($user['full_name'] !== $fullname) {
             if (strlen($fullname) < 1 || strlen($fullname) > 30) {
                 return ['code' => 400, 'message' => "Full name must be between 3 and 16 characters long."];
+            }
+        }
+
+        if ($user['email'] !== $email) {
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                return ['code' => 400, 'message' => "Email is invalid."];
+            }
+            if (getUserByEmail($db, $email)) {
+                return ['code' => 409, 'message' => "This email is already taken."];
             }
         }
 
@@ -130,6 +145,9 @@ function submitData() {
 
         if ($user['full_name'] !== $fullname) {
             updateFullName($db, $userId, $fullname);
+        }
+        if ($user['email'] !== $email) {
+            updateEmail($db, $userId, $email);
         }
         if ($user['username'] !== $username) {
             updateUsername($db, $userId, $username);

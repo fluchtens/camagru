@@ -78,6 +78,17 @@ function updateUsername($db, $userId, $newUsername) {
     $stmt->execute();
 }
 
+function updateEmail($db, $userId, $newEmail) {
+    $query = "UPDATE user
+            SET email = :newEmail
+            WHERE id = :userId
+    ";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':newEmail', $newEmail, PDO::PARAM_STR);
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+}
+
 function updateFullName($db, $userId, $fullName) {
     $query = "UPDATE user
             SET full_name = :fullName

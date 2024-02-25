@@ -24,12 +24,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const updatedUser = await getUser();
     if (updatedUser) {
       const fullNameInput = document.querySelector("input[name='fullname']");
+      const emailInput = document.querySelector("input[name='email']");
       const usernameInput = document.querySelector("input[name='username']");
       const bioInput = document.querySelector("input[name='bio']");
       const enableNotifs = document.querySelector('input[value="enable"]');
       const disableNotifs = document.querySelector('input[value="disable"]');
 
       fullNameInput.value = updatedUser.full_name;
+      emailInput.value = updatedUser.email;
       usernameInput.value = updatedUser.username;
       bioInput.value = updatedUser.bio;
       if (updatedUser.email_notifs === 1) {

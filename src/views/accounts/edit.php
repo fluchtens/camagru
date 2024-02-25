@@ -19,6 +19,10 @@ $user = getUserById($db, $userId);
                 <input type="text" id="fullname" name="fullname" value="<?= $user['full_name']; ?>" placeholder="Full Name" autocomplete="off">
             </div>
             <div class="data">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="<?= $user['email']; ?>" placeholder="Email" autocomplete="off">
+            </div>
+            <div class="data">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" value="<?= $user['username']; ?>" placeholder="Username" autocomplete="off">
             </div>
