@@ -1,4 +1,5 @@
 <?php
+ini_set('memory_limit', '-1');
 session_start();
 
 require "../../core/database.php";
@@ -116,7 +117,12 @@ function submitData() {
         $filePath = $uploadDir . $fileName;
 
         file_put_contents($filePath, $decodedImageData);
-        applyFilter($filePath, $mime, $filter['file']);
+        try {
+            applyFilter($filePath, $mime, $filter['file']);
+        } catch (Exception $e) {
+            return ['code' => 400, 'message' => "Failed to apply filter"];
+        }
+
         createPost($db, $userId, $caption, $fileName);
 
         return ['code' => 200, 'message' => "The photo has been successfully saved."];
