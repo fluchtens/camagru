@@ -49,7 +49,8 @@ function createPostHeader(post, data) {
     };
 
     const deleteIcon = document.createElement("img");
-    deleteIcon.src = baseUrl + "assets/deleteIcon.png";
+    deleteIcon.src = baseUrl + "assets/btns/delete-black.png";
+    deleteIcon.alt = "delete-black.png";
 
     deleteBtn.appendChild(deleteIcon);
     user.appendChild(deleteBtn);
@@ -78,7 +79,7 @@ function createPostActions(post, data) {
     unlikeBtn.setAttribute("data-post-id", data.id);
 
     const unlikeImg = document.createElement("img");
-    unlikeImg.src = baseUrl + "assets/unlikeBtn.svg";
+    unlikeImg.src = baseUrl + "assets/btns/unlike.svg";
     unlikeBtn.appendChild(unlikeImg);
 
     buttons.appendChild(unlikeBtn);
@@ -88,7 +89,7 @@ function createPostActions(post, data) {
     likeBtn.setAttribute("data-post-id", data.id);
 
     const likeImg = document.createElement("img");
-    likeImg.src = baseUrl + "assets/likeBtn.svg";
+    likeImg.src = baseUrl + "assets/btns/like.svg";
     likeBtn.appendChild(likeImg);
 
     buttons.appendChild(likeBtn);
@@ -106,7 +107,7 @@ function createPostActions(post, data) {
   };
 
   const commentImg = document.createElement("img");
-  commentImg.src = baseUrl + "assets/commentBtn.svg";
+  commentImg.src = baseUrl + "assets/btns/comment.svg";
 
   commentBtn.appendChild(commentImg);
   buttons.appendChild(commentBtn);
@@ -166,7 +167,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const loadingImg = document.createElement("img");
         loadingImg.id = "loadingIcon";
         loadingImg.className = "loading";
-        loadingImg.src = baseUrl + "assets/loading.gif";
+        loadingImg.src = baseUrl + "assets/icons/loading.gif";
+        loadingImg.alt = "loading.gif";
         home.appendChild(loadingImg);
         loading = document.getElementById("loadingIcon");
       }

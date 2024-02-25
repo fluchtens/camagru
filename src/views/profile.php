@@ -41,11 +41,11 @@ $posts = getUserProfilePosts($db, $user['id']);
                             <img src="<?= $baseUrl . "assets/uploads/posts/" . $post['file']; ?>" alt="<?= $post['file']; ?>">
                             <div class="stats">
                                 <div class="stat">
-                                    <img class="icon" src="<?= $baseUrl . "assets/like.png"; ?>" alt="comment.png">
+                                    <img class="icon" src="<?= $baseUrl . "assets/icons/like.png"; ?>" alt="like.png">
                                     <span class="like-count"><?= $post['like_count']; ?></span>
                                 </div>
                                 <div class="stat">
-                                    <img class="icon" src="<?= $baseUrl . "assets/comment.png"; ?>" alt="comment.png">
+                                    <img class="icon" src="<?= $baseUrl . "assets/icons/comment.png"; ?>" alt="comment.png">
                                     <span class="comment-count"><?= $post['comment_count']; ?></span>
                                 </div>
                             </div>

@@ -128,8 +128,8 @@ async function updateWaitingPosts() {
       });
 
       const deleteImg = document.createElement("img");
-      deleteImg.src = baseUrl + "assets/delete-white.png";
-      deleteImg.alt = "deleteIcon.png";
+      deleteImg.src = baseUrl + "assets/btns/delete-white.png";
+      deleteImg.alt = "delete-white.png";
 
       imageContainer.appendChild(img);
       deleteBtn.appendChild(deleteImg);

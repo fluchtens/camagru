@@ -22,12 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const currentLikes = parseInt(likeCount.textContent);
 
         if (likeBtn) {
-          img.src = baseUrl + "assets/unlikeBtn.svg";
+          img.src = baseUrl + "assets/btns/unlike.svg";
           likeBtn.classList.remove("like-btn");
           likeBtn.classList.add("unlike-btn");
           likeCount.textContent = currentLikes + 1 + " likes";
         } else {
-          img.src = baseUrl + "assets/likeBtn.svg";
+          img.src = baseUrl + "assets/btns/like.svg";
           unlikeBtn.classList.remove("unlike-btn");
           unlikeBtn.classList.add("like-btn");
           likeCount.textContent = currentLikes - 1 + " likes";

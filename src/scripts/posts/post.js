@@ -43,7 +43,8 @@ function createPostHeader(post, data) {
     };
 
     const deleteIcon = document.createElement("img");
-    deleteIcon.src = baseUrl + "assets/deleteIcon.png";
+    deleteIcon.src = baseUrl + "assets/btns/delete-black.png";
+    deleteIcon.alt = "delete-black.png";
 
     deleteBtn.appendChild(deleteIcon);
     user.appendChild(deleteBtn);
@@ -72,7 +73,7 @@ function createPostActions(post, data) {
     unlikeBtn.setAttribute("data-post-id", data.id);
 
     const unlikeImg = document.createElement("img");
-    unlikeImg.src = baseUrl + "assets/unlikeBtn.svg";
+    unlikeImg.src = baseUrl + "assets/btns/unlike.svg";
     unlikeBtn.appendChild(unlikeImg);
 
     buttons.appendChild(unlikeBtn);
@@ -82,7 +83,7 @@ function createPostActions(post, data) {
     likeBtn.setAttribute("data-post-id", data.id);
 
     const likeImg = document.createElement("img");
-    likeImg.src = baseUrl + "assets/likeBtn.svg";
+    likeImg.src = baseUrl + "assets/btns/like.svg";
     likeBtn.appendChild(likeImg);
 
     buttons.appendChild(likeBtn);
@@ -100,7 +101,7 @@ function createPostActions(post, data) {
   };
 
   const commentImg = document.createElement("img");
-  commentImg.src = baseUrl + "assets/commentBtn.svg";
+  commentImg.src = baseUrl + "assets/btns/comment.svg";
 
   commentBtn.appendChild(commentImg);
   buttons.appendChild(commentBtn);
@@ -162,12 +163,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         const currentLikes = parseInt(likeCount.textContent);
 
         if (likeBtn) {
-          img.src = baseUrl + "assets/unlikeBtn.svg";
+          img.src = baseUrl + "assets/btns/unlike.svg";
           likeBtn.classList.remove("like-btn");
           likeBtn.classList.add("unlike-btn");
           likeCount.textContent = currentLikes + 1 + " likes";
         } else {
-          img.src = baseUrl + "assets/likeBtn.svg";
+          img.src = baseUrl + "assets/btns/like.svg";
           unlikeBtn.classList.remove("unlike-btn");
           unlikeBtn.classList.add("like-btn");
           likeCount.textContent = currentLikes - 1 + " likes";

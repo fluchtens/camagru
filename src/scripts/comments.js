@@ -26,7 +26,7 @@ function createCommentsHeader(modal, post) {
   });
 
   const closeImg = document.createElement("img");
-  closeImg.src = baseUrl + "assets/cross.png";
+  closeImg.src = baseUrl + "assets/btns/cross.png";
   closeImg.alt = "cross.png";
 
   header.appendChild(title);
