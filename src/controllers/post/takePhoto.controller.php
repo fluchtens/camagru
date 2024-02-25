@@ -12,8 +12,8 @@ function checkImage($image, $type) {
     elseif (strlen($image) > 1 * 1024 * 1024) {
         return ['code' => 400, 'message' => "Your image is too large (+1 mo)."];
     }
-    elseif ($type !== "jpeg") {
-        return ['code' => 400, 'message' => "Only JPG & JPEG files are allowed."];
+    elseif ($type !== "jpeg" && $type !== "png") {
+        return ['code' => 400, 'message' => "Only JPG, JPEG & PNG files are allowed."];
     }
     return ['code' => 200];
 }
@@ -26,8 +26,16 @@ function createUploadDir() {
     return ($uploadDir);
 }
 
-function applyFilter($imagePath, $filterPath) {
-    $baseImage = imagecreatefromjpeg($imagePath);
+function applyFilter($imagePath, $imageType, $filterPath) {
+    switch ($imageType) {
+        case "jpeg":
+            $baseImage = imagecreatefromjpeg($imagePath);
+            break;
+        case "png":
+            $baseImage = imagecreatefrompng($imagePath);
+            break;
+    }
+
     $baseWidth = imagesx($baseImage);
     $baseHeight = imagesy($baseImage);
     
@@ -49,7 +57,15 @@ function applyFilter($imagePath, $filterPath) {
 
     imagesavealpha($baseImage, true);
     imagecopy($baseImage, $resizedFilter, $positionX, $positionY, 0, 0, $newFilterWidth, $newFilterHeight);
-    imagejpeg($baseImage, $imagePath);
+
+    switch ($imageType) {
+        case "jpeg":
+            imagejpeg($baseImage, $imagePath);
+            break;
+        case "png":
+            imagepng($baseImage, $imagePath);
+            break;
+    }
 
     imagedestroy($baseImage);
     imagedestroy($filterImage);
@@ -100,7 +116,7 @@ function submitData() {
         $filePath = $uploadDir . $fileName;
 
         file_put_contents($filePath, $decodedImageData);
-        applyFilter($filePath, $filter['file']);
+        applyFilter($filePath, $mime, $filter['file']);
         createPost($db, $userId, $caption, $fileName);
 
         return ['code' => 200, 'message' => "The photo has been successfully saved."];

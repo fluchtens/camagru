@@ -33,7 +33,7 @@ $filters = getAllFilters($db);
         <div class="buttons">
             <button id="takePhotoBtn" class="take-photo-btn" disabled>Take Photo</button>
             <div class="file-input">
-                <input id="importInput" type="file" accept=".jpg, .jpeg">
+                <input id="importInput" type="file" accept=".jpg, .jpeg, .png">
                 <label id="importBtn" for="importInput">Import Photo</label>
             </div>
             <button id="publishPhotoBtn" class="publish-photo-btn">Publish Photos</button>
