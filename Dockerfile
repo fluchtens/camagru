@@ -31,3 +31,6 @@ RUN echo "root=${SMTP_USERNAME}" >> /etc/ssmtp/ssmtp.conf && \
 
 # Disable access logs by redirecting to /dev/null
 RUN echo "access.log = /dev/null" >> /usr/local/etc/php-fpm.d/www.conf
+
+# Expose port
+EXPOSE 80
