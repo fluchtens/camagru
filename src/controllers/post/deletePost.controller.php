@@ -6,6 +6,13 @@ require "../../models/post.model.php";
 require "../../models/like.model.php";
 require "../../models/comment.model.php";
 
+function deleteFile($file) {
+    $filePath = "../../assets/uploads/posts/" . $file;
+    if (file_exists($filePath)) {
+        unlink($filePath);
+    }
+}
+
 function submitData() {
     try {
         if (!isset($_SESSION['id'])) {
@@ -35,6 +42,7 @@ function submitData() {
         deletePostLikes($db, $postId);
         deletePostComments($db, $postId);
         deletePostById($db, $postId);
+        deleteFile($post['file']);
         return ['code' => 200, 'message' => "You have successfully deleted the post." ];
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];
