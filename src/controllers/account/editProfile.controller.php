@@ -40,6 +40,13 @@ function uploadAvatar($userId, $avatar) {
     return ['code' => 200, 'message' => null, 'file' => $fileName];
 }
 
+function deleteAvatarFile($file) {
+    $filePath = "../../assets/uploads/avatars/" . $file;
+    if (file_exists($filePath)) {
+        unlink($filePath);
+    }
+}
+
 function submitData() {
     try {
         if (!isset($_SESSION['id'])) {
@@ -113,6 +120,9 @@ function submitData() {
                 $avatarUpload = uploadAvatar($userId, $avatar);
                 if ($avatarUpload['code'] !== 200) {
                     return ['code' => $avatarUpload['code'], 'message' => $avatarUpload['message']];
+                }
+                if ($user['avatar']) {
+                    deleteAvatarFile($user['avatar']);
                 }
                 updateAvatar($db, $userId, $avatarUpload['file']);
             }
