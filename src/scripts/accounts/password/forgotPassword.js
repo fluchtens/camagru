@@ -7,9 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   emailInput.addEventListener("input", () => {
     if (emailInput.validity.valid) {
-      submitBtn.removeAttribute("disabled");
+      submitBtn.disabled = false;
     } else {
-      submitBtn.setAttribute("disabled", true);
+      submitBtn.disabled = true;
     }
   });
 
@@ -17,7 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
+    submitBtn.disabled = true;
     const req = await sendResetPasswordRequest(formData);
+    submitBtn.disabled = false;
     msg.style.display = "block";
     msgText.textContent = req.message;
     if (!req.success) {

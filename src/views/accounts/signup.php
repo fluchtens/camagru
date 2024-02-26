@@ -20,7 +20,7 @@ if (isAuth()) {
                 <input type="text" name="username" placeholder="Username" autocomplete="off" required>
                 <input type="password" name="password" placeholder="Password" autocomplete="off" required>
             </div>
-            <button type="submit">Sign up</button>
+            <button id="signupBtn" type="submit">Sign up</button>
         </form>
     </div>
     <div class="auth-redir-msg">

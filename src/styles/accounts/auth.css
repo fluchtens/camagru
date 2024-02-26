@@ -93,6 +93,11 @@ main {
   background: #1976f2;
 }
 
+.auth .auth-form form button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
 .auth .auth-form .or {
   max-width: 16rem;
   width: 100%;

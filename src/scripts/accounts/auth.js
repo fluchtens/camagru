@@ -2,10 +2,13 @@ async function signupFormManager(e) {
   e.preventDefault();
 
   const formData = new FormData(e.target);
+  const signupBtn = document.getElementById("signupBtn");
   const msg = document.getElementById("signupMsg");
   const msgText = document.getElementById("signupMsgText");
 
+  signupBtn.disabled = true;
   const req = await signup(formData);
+  signupBtn.disabled = false;
   msg.style.display = "block";
   msgText.textContent = req.message;
   if (!req.success) {
