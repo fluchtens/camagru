@@ -7,13 +7,14 @@ require "../../core/utils.php";
 require "../../core/sendEmail.php";
 
 function sendVerificationEmail($email, $fullname, $activationToken) {
+    $activationUrl = getenv('BASE_URL') . "accounts/verification?token=" . $activationToken;
     $mailSubject = "Confirmation of account registration";
     $mailBody = "
         <div style='max-width: 640px; margin: 0 auto; text-align: center;'>
             <p>Hi <strong>$fullname</strong>,</p>
             <p>Thank you for creating a new account to access Camagru.</p>
             <p>To benefit from all Camagru services, you must verify the e-mail address on your account.</p>
-            <a href='http://localhost/accounts/verification?token=$activationToken'><strong>Verify now</strong></a>
+            <a href='$activationUrl'><strong>Verify now</strong></a>
         </div>
     ";
     sendEmail($email, $mailSubject, $mailBody);
