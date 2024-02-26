@@ -10,13 +10,6 @@ require "./models/filter.model.php";
 ob_start();
 session_start();
 
-function getBaseUrl() {
-    $requestScheme = $_SERVER['REQUEST_SCHEME'];
-    $httpHost = $_SERVER['HTTP_HOST'];
-    $baseUrl = $requestScheme . "://" . $httpHost . "/";
-    return ($baseUrl);
-}
-
 function shouldIncludeHeader($uri) {
     $exclude = ["/accounts/signup", "/accounts/login", "/accounts/password/forgot"];
     return !in_array($uri, $exclude);
@@ -87,7 +80,7 @@ $db = connectToDatabase();
 $userId = $_SESSION['id'] ?? null;
 $uri = $_SERVER["REQUEST_URI"];
 $uriArray = explode('/', rtrim($uri, '/'));
-$baseUrl = getBaseUrl();
+$baseUrl = getenv('BASE_URL');
 $router = router($db, $uri, $uriArray, $baseUrl);
 $content = $router['content'];
 $css = $router['css'];
