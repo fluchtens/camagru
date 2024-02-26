@@ -10,7 +10,7 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
-      - db:/var/lib/mysql
+      - database:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - camagru_network
@@ -50,6 +50,7 @@ services:
       SMTP_USERNAME: ${SMTP_USERNAME}
       SMTP_PASSWORD: ${SMTP_PASSWORD}
     volumes:
+      - uploads:/src/uploads
       - ./src:/var/www/html
     networks:
       - camagru_network
@@ -74,4 +75,5 @@ networks:
     name: camagru_network
 
 volumes:
-  db:
+  database:
+  uploads:
