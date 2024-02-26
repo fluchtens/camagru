@@ -42,6 +42,7 @@ services:
     depends_on:
       - db
     environment:
+      BASE_URL: ${BASE_URL}
       MYSQL_SERVERNAME: ${MYSQL_SERVERNAME}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
