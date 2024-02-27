@@ -7,8 +7,14 @@ require "./models/post.model.php";
 require "./models/comment.model.php";
 require "./models/filter.model.php";
 
+session_set_cookie_params([
+    'samesite' => 'Strict',
+    'httponly' => true,
+]);
+
 ob_start();
 session_start();
+
 
 function shouldIncludeHeader($uri) {
     $exclude = ["/accounts/signup", "/accounts/login", "/accounts/password/forgot"];
