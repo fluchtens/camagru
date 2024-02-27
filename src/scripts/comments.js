@@ -127,6 +127,7 @@ async function createForm(post, postId, comments) {
     const errMsg = document.getElementById("commentsErrMsg");
     const errMsgText = document.getElementById("commentsErrMsgText");
 
+    form.reset();
     const req = await addComment(postId, comment);
     if (req.success) {
       const newComments = await getComments(postId);
@@ -142,7 +143,6 @@ async function createForm(post, postId, comments) {
       errMsg.style.display = "block";
       errMsgText.textContent = req.message;
     }
-    form.reset();
   });
 
   const senderAvatar = document.createElement("img");
