@@ -51,7 +51,6 @@ function submitData() {
         if (isset($data['comment'])) {
             $comment = htmlspecialchars($data['comment']);
             $comment = preg_replace('/\s+/', ' ', $comment);
-            $comment = html_entity_decode($comment);
         } else {
             $comment = null;
         }

@@ -23,6 +23,16 @@ function submitData() {
         }
 
         $comments = getPostComments($db, $postId);
+
+        $decodedFields = ['comment'];
+        foreach ($comments as &$comment) {
+            foreach ($decodedFields as $field) {
+                if (isset($comment[$field])) {
+                    $comment[$field] = html_entity_decode($comment[$field]);
+                }
+            }
+        }
+
         return ['code' => 200, 'comments' => $comments];
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];

@@ -20,6 +20,13 @@ function submitData() {
             unset($user[$field]);
         }
 
+        $decodedFields = ['full_name', 'bio'];
+        foreach ($decodedFields as $field) {
+            if (isset($user[$field])) {
+                $user[$field] = html_entity_decode($user[$field]);
+            }
+        }
+
         return ['code' => 200, 'user' => $user];
     } catch (Exception $e) {
         return ['code' => 500, 'message' => "An error occurred: " . $e->getMessage()];

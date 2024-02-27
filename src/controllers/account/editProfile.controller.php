@@ -60,7 +60,6 @@ function submitData() {
         if (isset($_POST['fullname'])) {
             $fullname = trim(htmlspecialchars($_POST['fullname']));
             $fullname = preg_replace('/\s+/', ' ', $fullname);
-            $fullname = html_entity_decode($fullname);
         } else {
             $fullname = $user['full_name'];
         }
@@ -80,7 +79,6 @@ function submitData() {
         if (isset($_POST['bio'])) {
             $bio = trim(htmlspecialchars($_POST['bio']));
             $bio = preg_replace('/\s+/', ' ', $bio);
-            $bio = html_entity_decode($bio);
         } else {
             $bio = null;
         }
