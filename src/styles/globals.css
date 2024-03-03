@@ -5,6 +5,7 @@
 body {
   min-height: 100vh;
   margin: 0;
+  padding: 0;
   flex-direction: column;
   display: flex;
   font-family: "system-ui", sans-serif;
@@ -12,7 +13,8 @@ body {
 }
 
 main {
-  min-height: 100vh;
+  flex: 1;
+  margin: 0;
   padding: 0;
 }
 
