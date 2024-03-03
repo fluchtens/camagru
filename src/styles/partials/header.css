@@ -1,5 +1,5 @@
 header {
-  padding: 0.75rem 1rem 0.75rem 1rem;
+  padding: 0.75rem 1rem;
   background: #ffffff;
   border-bottom: 1px solid #dbdbdb;
 }
@@ -102,6 +102,10 @@ header .guest .register:hover {
 }
 
 @media (max-width: 768px) {
+  header {
+    padding: 0.75rem 0.75rem;
+  }
+
   header .auth {
     z-index: 9999;
     width: 100%;
@@ -129,5 +133,15 @@ header .guest .register:hover {
 
   header .mobileMenuBtn:hover {
     background: #f4f4f4;
+  }
+}
+
+@media (max-width: 250px) {
+  header {
+    padding: 0.75rem 0.5rem;
+  }
+
+  header .main-link {
+    display: none;
   }
 }
