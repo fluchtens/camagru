@@ -31,3 +31,13 @@ RUN echo "root=${SMTP_USERNAME}" >> /etc/ssmtp/ssmtp.conf && \
 
 # Disable access logs by redirecting to /dev/null
 RUN echo "access.log = /dev/null" >> /usr/local/etc/php-fpm.d/www.conf
+
+# Copy source code to image
+COPY ./src /var/www/html
+
+# Create uploads directory
+RUN mkdir -p /var/www/html/assets/uploads
+
+# Set up permissions
+RUN chown -R www-data:www-data /var/www
+
