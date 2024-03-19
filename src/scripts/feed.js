@@ -126,7 +126,14 @@ function createPostActions(post, data) {
   } else {
     commentCount.textContent = "Add a comment..";
   }
-  commentCount.onclick = () => displayComments(data.id);
+  commentCount.onclick = async () => {
+    const authUser = await getUser();
+    if (!authUser) {
+      window.location.href = "/accounts/login";
+    } else {
+      displayComments(data.id);
+    }
+  };
 
   actions.appendChild(commentCount);
   post.appendChild(actions);
@@ -187,10 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   window.addEventListener("scroll", () => {
-    if (
-      window.innerHeight + window.scrollY >=
-      document.body.offsetHeight - 100
-    ) {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
       if (!loadingInProgress && !lastPage) {
         if (!firstLoad) {
           loading.style.display = "block";

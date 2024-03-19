@@ -120,7 +120,14 @@ function createPostActions(post, data) {
   } else {
     commentCount.textContent = "Add a comment..";
   }
-  commentCount.onclick = () => displayComments(data.id);
+  commentCount.onclick = async () => {
+    const authUser = await getUser();
+    if (!authUser) {
+      window.location.href = "/accounts/login";
+    } else {
+      displayComments(data.id);
+    }
+  };
 
   actions.appendChild(commentCount);
   post.appendChild(actions);
