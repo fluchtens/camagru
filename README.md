@@ -27,11 +27,11 @@ SMTP_PASSWORD=
 - Run ```make``` to start the application in production mode with docker.
 
 ### Screenshots:
-![1](https://fluchtens.com/projects/camagru/camagru_1.png)
-![2](https://fluchtens.com/projects/camagru/camagru_2.png)
-![3](https://fluchtens.com/projects/camagru/camagru_3.png)
-![4](https://fluchtens.com/projects/camagru/camagru_4.png)
-![5](https://fluchtens.com/projects/camagru/camagru_5.png)
-![6](https://fluchtens.com/projects/camagru/camagru_6.png)
-![7](https://fluchtens.com/projects/camagru/camagru_7.png)
-![8](https://fluchtens.com/projects/camagru/camagru_8.png)
+![1](https://fluchtens.com/projects/camagru/camagru_1.webp)
+![2](https://fluchtens.com/projects/camagru/camagru_2.webp)
+![3](https://fluchtens.com/projects/camagru/camagru_3.webp)
+![4](https://fluchtens.com/projects/camagru/camagru_4.webp)
+![5](https://fluchtens.com/projects/camagru/camagru_5.webp)
+![6](https://fluchtens.com/projects/camagru/camagru_6.webp)
+![7](https://fluchtens.com/projects/camagru/camagru_7.webp)
+![8](https://fluchtens.com/projects/camagru/camagru_8.webp)
