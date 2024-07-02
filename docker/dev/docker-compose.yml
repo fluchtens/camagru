@@ -1,0 +1,70 @@
+version: "3"
+
+services:
+  db:
+    container_name: camagru-db
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - camagru_database:/var/lib/mysql
+      - ../../init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - camagru_network
+    restart: always
+
+  phpmyadmin:
+    container_name: camagru-phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - db
+    environment:
+      PMA_ARBITRARY: ${PMA_ARBITRARY}
+      PMA_HOST: ${PMA_HOST}
+    ports:
+      - 5050:80
+    networks:
+      - camagru_network
+    restart: always
+
+  app:
+    container_name: camagru-app
+    image: camagru-app
+    build:
+      context: ../../
+      dockerfile: Dockerfile
+      args:
+        - SMTP_USERNAME=${SMTP_USERNAME}
+        - SMTP_PASSWORD=${SMTP_PASSWORD}
+    depends_on:
+      - db
+    ports:
+      - 80:80
+    environment:
+      BASE_URL: ${BASE_URL}
+      MYSQL_SERVERNAME: ${MYSQL_SERVERNAME}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      SMTP_USERNAME: ${SMTP_USERNAME}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+    volumes:
+      - ../../src:/var/www/html
+      - camagru_uploads:/var/www/html/assets/uploads
+    networks:
+      - camagru_network
+    restart: always
+
+networks:
+  camagru_network:
+    name: camagru_network
+
+volumes:
+  camagru_database:
+    name: camagru_database
+  camagru_uploads:
+    name: camagru_uploads

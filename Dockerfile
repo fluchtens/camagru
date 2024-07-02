@@ -7,7 +7,8 @@ RUN apt-get update && \
         zlib1g-dev \
         libpng-dev \
         libjpeg-dev \
-        ssmtp
+        ssmtp \
+        nginx
 
 # Configure and install the GD extension for PHP with JPEG support
 RUN docker-php-ext-configure gd --with-jpeg
@@ -41,3 +42,11 @@ RUN mkdir -p /var/www/html/assets/uploads
 # Set up permissions
 RUN chown -R www-data:www-data /var/www
 
+# Copy nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose port 80
+EXPOSE 80
+
+# Run nginx and php fpm
+CMD service nginx start && php-fpm

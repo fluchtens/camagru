@@ -1,4 +1,6 @@
-MODE=prod
+MODE=dev
+COMPOSE_FILE = docker/${MODE}/docker-compose.yml
+DOCKER_COMPOSE = docker-compose -f ${COMPOSE_FILE}
 
 ifeq ($(MODE),prod)
 	RUN_FLAGS = -d
@@ -8,22 +10,26 @@ endif
 
 all: build
 
-build:
-	docker-compose up --build ${RUN_FLAGS}
+build: clean
+	${DOCKER_COMPOSE} up --build ${RUN_FLAGS}
 
 up: down
-	docker-compose up ${RUN_FLAGS}
+	${DOCKER_COMPOSE} up ${RUN_FLAGS}
 
 down:
-	docker-compose down
+	${DOCKER_COMPOSE} down
+
+prune:
+	docker system prune -f
 
 clean:
-	docker-compose down --rmi all
+	${DOCKER_COMPOSE} down --rmi all
+	@make prune
 
 fclean:
-	docker-compose down --rmi all --volumes
-	rm -rf src/assets/uploads
+	${DOCKER_COMPOSE} down --rmi all --volumes
+	@make prune
 
-.PHONY: all build up down clean fclean
+.PHONY: all build up down prune clean fclean
 
 .SILENT:
