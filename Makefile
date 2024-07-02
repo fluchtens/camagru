@@ -1,10 +1,18 @@
+MODE=prod
+
+ifeq ($(MODE),prod)
+	RUN_FLAGS = -d
+else
+	RUN_FLAGS =
+endif
+
 all: build
 
 build:
-	docker-compose up --build
+	docker-compose up --build ${RUN_FLAGS}
 
 up: down
-	docker-compose up
+	docker-compose up ${RUN_FLAGS}
 
 down:
 	docker-compose down
