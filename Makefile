@@ -1,6 +1,7 @@
 MODE=prod
 COMPOSE_FILE = docker/${MODE}/docker-compose.yml
 DOCKER_COMPOSE = docker-compose -f ${COMPOSE_FILE}
+PROJECT=camagru
 
 ifeq ($(MODE),prod)
 	RUN_FLAGS = -d
@@ -11,23 +12,23 @@ endif
 all: build
 
 build: clean
-	${DOCKER_COMPOSE} up --build ${RUN_FLAGS}
+	${DOCKER_COMPOSE} -p ${PROJECT} up --build ${RUN_FLAGS}
 
 up: down
-	${DOCKER_COMPOSE} up ${RUN_FLAGS}
+	${DOCKER_COMPOSE} -p ${PROJECT} up ${RUN_FLAGS}
 
 down:
-	${DOCKER_COMPOSE} down
+	${DOCKER_COMPOSE} -p ${PROJECT} down
 
 prune:
 	docker system prune -f
 
 clean:
-	${DOCKER_COMPOSE} down --rmi all
+	${DOCKER_COMPOSE} -p ${PROJECT} down --rmi all
 	@make prune
 
 fclean:
-	${DOCKER_COMPOSE} down --rmi all --volumes
+	${DOCKER_COMPOSE} -p ${PROJECT} down --rmi all --volumes
 	@make prune
 
 .PHONY: all build up down prune clean fclean
